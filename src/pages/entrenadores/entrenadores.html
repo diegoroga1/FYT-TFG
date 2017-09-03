@@ -1,0 +1,72 @@
+<!--
+  Generated template for the Entrenadores page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+  <ion-navbar class="color-toolbar">
+    <ion-buttons start >
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{title_page}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="toHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="body-gray">
+  <ion-searchbar placeholder="Buscar en FYT" [(ngModel)]="busqueda" (ionInput)="buscarEntrenador()"></ion-searchbar>
+  <!--<ul>
+    <h3>Busqueda por nombre</h3>
+    <li *ngFor="let e of nombre_entrenadores">
+      {{e.nombre}}
+      {{e.especialidad}}
+      {{e.ubicacion}}
+    </li>
+  </ul>-->
+  <ion-grid>
+    <ion-row>
+      <ion-col  col-12 *ngFor="let entrenador of json_entrenadores">
+
+        <ion-card class="card_entrenador grid-item">
+          <div class="card_image ">
+            <img src="../../assets/images/{{entrenador.fotoPerfil}}" alt="entrenador" />
+          </div>
+          <ion-card-content class="card-content-entrenador">
+            <div class="card_nombre ">{{entrenador.nombre}}</div>
+
+            <div class="bottom-content">
+              <div class="card_especialidad">{{entrenador.especialidad}}</div>
+              <div class="card_descripcion" *ngFor="let ubicacion of entrenador.ubicacion">
+                {{ubicacion.lugar}}
+              </div>
+            </div>
+
+            <div class="card_footer  clearfix">
+              <div class="div-price">
+                <div class="stat-value">desde 9€</div>
+              </div>
+              <div class="one-third">
+                <div class="stat-value">Enviar mensaje</div>
+              </div>
+              <div class="one-third no-border">
+                <div class="stat-value">+ info</div>
+
+              </div>
+            </div>
+          </ion-card-content>
+
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>
