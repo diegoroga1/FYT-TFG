@@ -1,3 +1,101 @@
 card-trainer {
+  @import url(https://fonts.googleapis.com/css?family=Lato:400,700,900);
+  $border-radius-size: 14px;
+  $barbarian: #EC9B3B;
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+  .card_entrenador {
+    background: white;
+    display: inline-block;
+    margin: auto;
+    padding: 0;
+    width: 100%;
 
+    //border-radius: $border-radius-size + 5;
+    position: relative;
+    box-shadow: -1px 15px 30px -12px black;
+    z-index: 9999;
+  }
+  .card_image {
+    position: relative;
+    width: auto;
+    max-height: 135px;
+    overflow: hidden;
+    //border-top-left-radius: $border-radius-size;
+    //border-top-right-radius: $border-radius-size;
+    //background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/barbarian-bg.jpg');
+
+  }
+  .card-content-entrenador{
+    padding: 0;
+    height: auto;
+  }
+
+  .card_nombre {
+    text-transform: uppercase;
+    font-size: 100%;
+    font-weight: 700;
+    margin-bottom: 3px;
+    color: #230A19;
+  }
+
+  .card_especialidad {
+    font-size: 110%;
+    color: black;
+    font-weight: 900;
+    margin-bottom: 5px;
+  }
+  .card_descripcion {
+
+  }
+  .card_footer {
+    width: 100%;
+    color: white;
+    background: #230A19;
+    font-weight: 700;
+    //border-bottom-left-radius: $border-radius-size;
+    //border-bottom-right-radius: $border-radius-size;
+    bottom: 0;
+    .div-price{
+      width: 100%;
+      background:#848484;
+      color:black;
+      display:inline-block;
+      .stat-value{
+        float: right;
+      }
+
+    }
+    .one-third {
+      width: 50%;
+      float: left;
+      text-align: center;
+      //padding: 20px 15px;
+      border-right: 1px solid #0B0006;
+    }
+
+    sup {
+      position: absolute;
+      bottom: 4px;
+      font-size: 45%;
+      margin-left: 2px;
+    }
+
+    .stat {
+      position: relative;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      text-transform: uppercase;
+      font-weight: 400;
+      font-size: 12px;
+    }
+
+    .no-border {
+      border-right: none;
+    }
+  }
 }

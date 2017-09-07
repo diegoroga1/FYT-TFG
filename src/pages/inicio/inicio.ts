@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Tabs } from '../tabs/tabs';
-
+import {FirebaseListObservable,AngularFireDatabase} from "angularfire2/database";
+import {CogerDatos} from '../../providers/coger-datos';
+import {CardPubli} from '../../components/card-publi/card-publi'
 /**
  * Generated class for the Inicio page.
  *
@@ -14,8 +16,17 @@ import { Tabs } from '../tabs/tabs';
   templateUrl: 'inicio.html',
 })
 export class Inicio {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  especialidades:any;
+  publicaciones=[];
+  entrenadores:any;
+  constructor(public cogerDatos:CogerDatos,public navCtrl: NavController, public navParams: NavParams,public af:AngularFireDatabase) {
+    this.af.list('/especialidades').subscribe(data=>{
+      console.log(data);
+      this.especialidades=data;
+  });
+    console.log(this.especialidades)
+    this.publicaciones=this.cogerDatos.getPublicacionesTrainer()
+    console.log(this.publicaciones)
   }
 
   ionViewDidLoad() {

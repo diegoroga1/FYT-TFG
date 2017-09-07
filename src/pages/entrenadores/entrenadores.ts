@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import {DataTrainer} from '../../providers/data-trainer';
+import {CogerDatos} from '../../providers/coger-datos';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http,Response } from '@angular/http'
 import { Tabs } from '../tabs/tabs';
-
+import {FirebaseListObservable,AngularFireDatabase} from "angularfire2/database";
+import {CardTrainer} from '../../components/card-trainer/card-trainer';
 import * as _ from 'lodash';
 @IonicPage()
 @Component({
@@ -14,26 +16,21 @@ import * as _ from 'lodash';
 export class Entrenadores {
   title_page:any;
   json_entrenadores:any;
-  data:any;
-
+  datosUsuario=[];
+  datosEntrenador=[];
   busqueda:string='';
   nombre_entrenadores:any=[];
-  lugar_entrenamiento:any;
-  especialidad_entrenadores:any=[];
-  result_entrenadores:any=[];
 
   constructor(public navCtrl: NavController,
               public http:Http,
-              public dataTrainer:DataTrainer,
+              public cogerDatos:CogerDatos,
               public navParams: NavParams) {
     this.title_page="Entrenadores";
+    this.datosUsuario=this.cogerDatos.getDataUser();
+    this.datosEntrenador=this.cogerDatos.getDataTrainer();
+  }
+  ionViewDidEnter(){
 
-
-    console.log(this.dataTrainer.getData());
-    this.dataTrainer.getData().subscribe(data=>{
-      this.json_entrenadores=data.users;
-      console.log(this.json_entrenadores);
-    });
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad Entrenadores');

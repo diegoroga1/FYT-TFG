@@ -12,9 +12,23 @@ import {Inicio} from '../pages/inicio/inicio'
 import {Perfil} from '../pages/perfil/perfil'
 import {Chat} from '../pages/chat/chat'
 import { Tabs } from '../pages/tabs/tabs';
+import {AngularFireModule} from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 
 import { DataTrainer } from '../providers/data-trainer';
-
+import { CogerDatos} from '../providers/coger-datos';
+import {CardTrainer} from '../components/card-trainer/card-trainer';
+import {CardPubli} from '../components/card-publi/card-publi';
+export const firebase={
+  apiKey: "AIzaSyAmdijlzMaRzeXEmIcWTAImU8SgtCI1mTA",
+  authDomain: "fytrainer-69aef.firebaseapp.com",
+  databaseURL: "https://fytrainer-69aef.firebaseio.com",
+  projectId: "fytrainer-69aef",
+  storageBucket: "fytrainer-69aef.appspot.com",
+  messagingSenderId: "179397221458"
+}
 @NgModule({
   declarations: [
     MyApp,
@@ -23,12 +37,17 @@ import { DataTrainer } from '../providers/data-trainer';
     Inicio,
     Perfil,
     Chat,
-    Tabs
+    Tabs,
+    CardTrainer,
+    CardPubli
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,12 +57,15 @@ import { DataTrainer } from '../providers/data-trainer';
     Inicio,
     Perfil,
     Chat,
-    Tabs
+    Tabs,
+    CardTrainer,
+    CardPubli
   ],
   providers: [
     StatusBar,
     SplashScreen,
     DataTrainer,
+    CogerDatos,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

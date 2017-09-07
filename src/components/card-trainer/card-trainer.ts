@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 
 /**
  * Generated class for the CardTrainer component.
@@ -13,6 +13,9 @@ import { Component } from '@angular/core';
 export class CardTrainer {
 
   text: string;
+  @Input('nombre') nombre:string;
+  @Input('localidad') localidad:string;
+  @Input('especialidad') especialidad:string;
 
   constructor() {
     console.log('Hello CardTrainer Component');

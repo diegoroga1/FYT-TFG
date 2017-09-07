@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 
 /**
  * Generated class for the CardPubli component.
@@ -11,8 +11,12 @@ import { Component } from '@angular/core';
   templateUrl: 'card-publi.html'
 })
 export class CardPubli {
-
+  @Input('titulo') titulo:any;
+  @Input('descripcion') descripcion:any;
+  @Input('especialidad') especialidad:any;
+  @Input('entrenador') entrenador:any;
   text: string;
+
 
   constructor() {
     console.log('Hello CardPubli Component');

@@ -1,4 +1,32 @@
 <!-- Generated template for the CardTrainer component -->
 <div>
-  {{text}}
+  <ion-card class="card_entrenador grid-item">
+    <div class="card_image ">
+      <img src="../../assets/perfil.jpg" alt="entrenador" />
+    </div>
+    <ion-card-content class="card-content-entrenador">
+      <div class="card_nombre ">{{nombre}}</div>
+
+      <div class="bottom-content">
+        <div class="card_especialidad">{{especialidad}}</div>
+        <div class="card_descripcion">
+          {{localidad}}
+        </div>
+      </div>
+
+      <div class="card_footer  clearfix">
+        <div class="div-price">
+          <div class="stat-value">desde 9€</div>
+        </div>
+        <div class="one-third">
+          <div class="stat-value">Enviar mensaje</div>
+        </div>
+        <div class="one-third no-border">
+          <div class="stat-value">+ info</div>
+
+        </div>
+      </div>
+    </ion-card-content>
+
+  </ion-card>
 </div>
