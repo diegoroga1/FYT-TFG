@@ -6,6 +6,8 @@ import { Http,Response } from '@angular/http'
 import { Tabs } from '../tabs/tabs';
 import {FirebaseListObservable,AngularFireDatabase} from "angularfire2/database";
 import {CardTrainer} from '../../components/card-trainer/card-trainer';
+import {VistaEntrenador} from '../../pages/vista-entrenador/vista-entrenador'
+
 import * as _ from 'lodash';
 @IonicPage()
 @Component({
@@ -16,8 +18,8 @@ import * as _ from 'lodash';
 export class Entrenadores {
   title_page:any;
   json_entrenadores:any;
-  datosUsuario=[];
-  datosEntrenador=[];
+  datosUsuario:FirebaseListObservable<any>;
+  datosEntrenador:FirebaseListObservable<any>;
   busqueda:string='';
   nombre_entrenadores:any=[];
 
@@ -45,5 +47,8 @@ export class Entrenadores {
       })
     }
     this.nombre_entrenadores=filtradoNombres;
+  }
+  irAVistaEntrenador(entrenador){
+    this.navCtrl.push(VistaEntrenador,entrenador)
   }
 }

@@ -1,5 +1,5 @@
-import { Component,ViewChild  } from '@angular/core';
-import { Platform,ToastController,AlertController} from 'ionic-angular';
+import { Component,ViewChild,  } from '@angular/core';
+import { Platform,ToastController,AlertController,NavController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Entrenadores } from '../pages/entrenadores/entrenadores';
@@ -11,6 +11,8 @@ import { Chat } from '../pages/chat/chat';
   templateUrl: 'app.html'
 })
 export class MyApp {
+  @ViewChild('content') navCtrl: NavController;
+
   rootPage:any = Tabs;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

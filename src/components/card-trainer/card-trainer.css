@@ -1,3 +1,67 @@
-
+card-trainer {
+  @import url(https://fonts.googleapis.com/css?family=Lato:400,700,900); }
+  card-trainer *, card-trainer *:before, card-trainer *:after {
+    box-sizing: border-box; }
+  card-trainer .card_entrenador {
+    background: white;
+    display: inline-block;
+    margin: auto;
+    padding: 0;
+    width: 100%;
+    position: relative;
+    box-shadow: -1px 15px 30px -12px black;
+    z-index: 9999; }
+  card-trainer .card_image {
+    position: relative;
+    width: auto;
+    max-height: 135px;
+    overflow: hidden; }
+  card-trainer .card-content-entrenador {
+    padding: 0;
+    height: auto; }
+  card-trainer .card_nombre {
+    text-transform: uppercase;
+    font-size: 100%;
+    font-weight: 700;
+    margin-bottom: 3px;
+    color: #230A19; }
+  card-trainer .card_especialidad {
+    font-size: 110%;
+    color: black;
+    font-weight: 900;
+    margin-bottom: 5px; }
+  card-trainer .card_footer {
+    width: 100%;
+    color: white;
+    background: #230A19;
+    font-weight: 700;
+    bottom: 0; }
+    card-trainer .card_footer .div-price {
+      width: 100%;
+      background: #848484;
+      color: black;
+      display: inline-block; }
+      card-trainer .card_footer .div-price .stat-value {
+        float: right; }
+    card-trainer .card_footer .one-third {
+      width: 50%;
+      float: left;
+      text-align: center;
+      border-right: 1px solid #0B0006; }
+    card-trainer .card_footer sup {
+      position: absolute;
+      bottom: 4px;
+      font-size: 45%;
+      margin-left: 2px; }
+    card-trainer .card_footer .stat {
+      position: relative;
+      font-size: 24px;
+      margin-bottom: 10px; }
+    card-trainer .card_footer .stat-value {
+      text-transform: uppercase;
+      font-weight: 400;
+      font-size: 12px; }
+    card-trainer .card_footer .no-border {
+      border-right: none; }
 
 /*# sourceMappingURL=card-trainer.css.map */

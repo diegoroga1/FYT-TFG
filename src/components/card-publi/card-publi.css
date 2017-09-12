@@ -1,3 +1,20 @@
-
+card-publi .card-header {
+  padding: 0; }
+card-publi .card-content {
+  padding: 0;
+  margin-top: 2%; }
+card-publi .descripcion-publi {
+  margin-top: 3%; }
+card-publi .contenido-card-publi h2 {
+  margin-left: 2%; }
+card-publi ul {
+  margin-left: 3%;
+  padding: 0px; }
+  card-publi ul.rating li {
+    padding: 2px 3px !important;
+    background: none;
+    color: #ffb400; }
+    card-publi ul.rating li ion-icon {
+      font-size: 25px; }
 
 /*# sourceMappingURL=card-publi.css.map */

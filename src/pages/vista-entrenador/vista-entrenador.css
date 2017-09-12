@@ -1,0 +1,32 @@
+page-vista-entrenador .circle {
+  height: 40px;
+  width: 40px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px gray;
+  display: inline-block;
+  float: left; }
+page-vista-entrenador .info-entrenador {
+  margin-top: 5%; }
+page-vista-entrenador #seccion-seguidores-val {
+  float: right;
+  position: absolute;
+  right: 0;
+  width: 40%;
+  text-align: center;
+  border-color: rgba(0, 0, 0, 0.4);
+  border-style: dotted;
+  border-width: 1px;
+  padding: 2%;
+  margin-top: -3%; }
+page-vista-entrenador ul {
+  padding: 0px;
+  margin: 0; }
+  page-vista-entrenador ul.rating li {
+    padding: 2px 3px !important;
+    background: none;
+    color: #ffb400; }
+    page-vista-entrenador ul.rating li ion-icon {
+      font-size: 18px; }
+
+/*# sourceMappingURL=vista-entrenador.css.map */

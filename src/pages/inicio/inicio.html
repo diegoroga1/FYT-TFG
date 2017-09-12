@@ -18,10 +18,15 @@
   <ion-grid>
     <ion-row *ngFor="let especialidad of especialidades">
       <ion-title >{{especialidad.$key}}</ion-title>
-      <ion-slides style="border-bottom: 1px solid rgba(0,0,0,0.1)" >
-        <ion-slide *ngFor="let publicacion of publicaciones" pager="true">
-          <card-publi *ngIf="publicacion.especialidad==especialidad.$key" [entrenador]=publicacion.entrenador [titulo]=publicacion.titulo [especialidad]=publicacion.especialidad [descripcion]=publicacion.descripcion></card-publi>
-        </ion-slide>
+      <ion-slides pager="true" effect="cube"	 style="border-bottom: 1px solid rgba(0,0,0,0.1)" >
+        <div *ngFor="let publicacion of publicaciones|async">
+          <ion-slide *ngIf="publicacion.especialidad===especialidad.$key" >
+            <div>
+              <card-publi    [entrenador]=publicacion.entrenador [titulo]=publicacion.titulo [especialidad]=publicacion.especialidad [descripcion]=publicacion.descripcion></card-publi>
+            </div>
+          </ion-slide>
+        </div>
+
       </ion-slides >
 
     </ion-row>

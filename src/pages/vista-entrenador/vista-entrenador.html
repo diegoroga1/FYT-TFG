@@ -1,0 +1,108 @@
+<!--
+  Generated template for the VistaEntrenador page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <div >
+      <div class="circle"></div>
+      <ion-title style="margin-left: 5%" *ngIf="datosEntrenador">{{datosEntrenador.nombre}}</ion-title>
+    </div>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div class="slide-fotos">
+    <ion-slides pager="true" effect="flip">
+      <ion-slide>
+        <img src="../../assets/perfil.jpg">
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <ion-segment [(ngModel)]="entrenadorSegment" color="primary" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="info">
+      Información
+    </ion-segment-button>
+    <ion-segment-button value="blog">
+      Blog
+    </ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="entrenadorSegment">
+    <ion-list *ngSwitchCase="'info'">
+      <div id="seccion-seguidores-val">
+        <ion-badge>21 <span>Seguidores</span></ion-badge>
+        <span>Valoracion: <ion-badge>8</ion-badge></span>
+        <rating [(ngModel)]="rate"
+                readOnly="false"  max="5"
+                emptyStarIconName="star-outline"
+                halfStarIconName="star-half"
+                starIconName="star"
+                nullable="false"
+                (ngModelChange)="onModelChange($event)"></rating>
+      </div>
+      <div *ngIf="datosEntrenador" class="info-entrenador">
+        <h2 style="width: 60%;">{{datosEntrenador.nombre}}</h2>
+        <div id="seccion-localidad">
+          <p><ion-icon style="margin-right: 2%" name="navigate"></ion-icon>{{datosEntrenador.localidad}}</p>
+        </div>
+        <div id="seccion-descripcion">
+          <h2>Descripcion</h2>
+          <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen</p>
+        </div>
+
+        <div id="seccion-especialides">
+          <h2 style="text-align: center;">Especialidades</h2>
+          <ion-list *ngFor="let especialidad of especialidadesEntrenador">
+            <ion-badge>{{especialidad}}</ion-badge>
+          </ion-list>
+        </div>
+        <div id="seccion-lugar-entrenamiento">
+          <h2 style="text-align: center">Lugares de entrenamiento</h2>
+          <map-component #map id="map"></map-component>
+          <div #map2 id="map2"></div>
+          <p>A domicilio: {{datosEntrenador.lugarEntrenamiento.domicilio}}</p>
+          <p>Lugares: {{datosEntrenador.lugarEntrenamiento.lugar}}</p>
+        </div>
+
+        <div id="seccion-contacto">
+          <h2 style="text-align: center;">Información de contacto</h2>
+          <ion-list>
+            <p>Telefono: <strong>{{datosEntrenador.telefono}}</strong></p>
+            <p>Correo electrónico: <strong>{{datosEntrenador.email}}</strong></p>
+            <p>Redes sociales: <strong>{{datosEntrenador.redSocial}}</strong></p>
+          </ion-list>
+        </div>
+        <div id="seccion-exp-form">
+          <h2>Experiencia y formación</h2>
+          <ion-list>
+            <p>Formación: <strong>{{datosEntrenador.formacion}}</strong></p>
+            <p>Experiencia: <strong>{{datosEntrenador.experiencia}}</strong></p>
+          </ion-list>
+        </div>
+        <div id="seccion-disponibilidad">
+          <h2 style="text-align: center">Disponibilidad</h2>
+          <ion-list>
+            <p>Mañana : {{datosEntrenador.disponibilidad.manana}}</p>
+            <p>Tarde : {{datosEntrenador.disponibilidad.tarde}}</p>
+          </ion-list>
+        </div>
+        <div id="seccion-precios">
+          <h2 style="text-align: center">Precios</h2>
+          <p>Precio mensual: {{datosEntrenador.precios.mensual}}</p>
+          <p>Precio semanal: {{datosEntrenador.precios.semanal}}</p>
+          <p>Precio por día: {{datosEntrenador.precios.porDia}}</p>
+        </div>
+
+      </div>
+    </ion-list>
+    <ion-list *ngSwitchCase="'blog'">
+      <div *ngFor="let publi of publicacionesEntrenador">
+        <card-publi [descripcion]="publi.descripcion"></card-publi>
+
+      </div>
+
+    </ion-list>
+  </div>
+</ion-content>

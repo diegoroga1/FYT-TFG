@@ -17,18 +17,18 @@ import {CardPubli} from '../../components/card-publi/card-publi'
 })
 export class Inicio {
   especialidades:any;
-  publicaciones=[];
+  publicaciones:FirebaseListObservable<any>;
+  publicacionesArray=[];
   entrenadores:any;
   constructor(public cogerDatos:CogerDatos,public navCtrl: NavController, public navParams: NavParams,public af:AngularFireDatabase) {
     this.af.list('/especialidades').subscribe(data=>{
       console.log(data);
       this.especialidades=data;
-  });
-    console.log(this.especialidades)
-    this.publicaciones=this.cogerDatos.getPublicacionesTrainer()
-    console.log(this.publicaciones)
-  }
+      console.log(this.especialidades);
+      this.publicaciones=this.cogerDatos.getPublicacionesTrainer();
 
+  });
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad Inicio');
   }

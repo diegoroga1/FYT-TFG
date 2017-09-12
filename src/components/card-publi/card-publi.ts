@@ -1,5 +1,5 @@
 import { Component,Input } from '@angular/core';
-
+import {Ionic2RatingModule} from 'ionic2-rating';
 /**
  * Generated class for the CardPubli component.
  *

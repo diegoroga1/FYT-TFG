@@ -1,5 +1,5 @@
 import { Component,Input } from '@angular/core';
-
+import {NavController} from 'ionic-angular';
 /**
  * Generated class for the CardTrainer component.
  *
@@ -17,9 +17,10 @@ export class CardTrainer {
   @Input('localidad') localidad:string;
   @Input('especialidad') especialidad:string;
 
-  constructor() {
+  constructor(public navCtl:NavController) {
     console.log('Hello CardTrainer Component');
     this.text = 'Hello World';
   }
+
 
 }

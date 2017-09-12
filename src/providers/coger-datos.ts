@@ -13,39 +13,25 @@ import * as firebase from 'firebase';
 @Injectable()
 export class CogerDatos {
   data:any;
-  datos=[];
-  entrenadores=[];
-  publicaciones=[];
+  datos:FirebaseListObservable<any>;
+  entrenadores:FirebaseListObservable<any>;
+  publicaciones:FirebaseListObservable<any>;
   constructor(public af:AngularFireDatabase,@Inject(FirebaseApp) firebaseApp: firebase.app.App) {
     console.log('Hello CogerDatos Provider');
-    this.af.list('/usuarios').forEach(data=>{
-      this.datos.push(data);
-    })
-    this.af.list('/entrenadores').forEach(data=>{
-      data.forEach(items=>{
-        this.entrenadores.push(items);
 
-        })
-      this.entrenadores.forEach(data=>{
-        console.log(data);
-        data.publicaciones.forEach(items=>{
-          this.publicaciones.push(items);
-          console.log(items);
-        })
-      })
-    })
   }
 
   getDataUser(){
+    this.datos=this.af.list('/usuarios')
     return this.datos;
-
   }
   getDataTrainer(){
+    this.entrenadores=this.af.list('/entrenadores')
     console.log(this.entrenadores);
     return this.entrenadores
   }
   getPublicacionesTrainer(){
-
+    this.publicaciones=this.af.list('/publicaciones')
     return this.publicaciones
   }
   /*getPhotoTrainer(){
