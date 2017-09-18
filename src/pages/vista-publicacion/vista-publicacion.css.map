@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AACE,qCAAc;EACb,WAAW,EAAE,mBAAmB;AAEjC,kCAAW;EACT,SAAS,EAAE,GAAG;EACd,KAAK,EAAC,KAAK",
+"sources": ["vista-publicacion.scss"],
 "names": [],
 "file": "vista-publicacion.css"
 }

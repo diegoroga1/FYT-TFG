@@ -8,7 +8,6 @@
 
   <ion-navbar>
     <div >
-      <div class="circle"></div>
       <ion-title style="margin-left: 5%" *ngIf="datosEntrenador">{{datosEntrenador.nombre}}</ion-title>
     </div>
   </ion-navbar>
@@ -93,6 +92,16 @@
           <p>Precio mensual: {{datosEntrenador.precios.mensual}}</p>
           <p>Precio semanal: {{datosEntrenador.precios.semanal}}</p>
           <p>Precio por día: {{datosEntrenador.precios.porDia}}</p>
+        </div>
+        <div id="seccion-comentarios">
+          <h2 style="text-align: center;">Opiniones y comentarios</h2>
+          <ion-card>
+            <ion-card-header>
+              <ion-avatar></ion-avatar>
+              <ion-card-title>Bueno</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>Buen entrenador</ion-card-content>
+          </ion-card>
         </div>
 
       </div>

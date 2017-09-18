@@ -22,7 +22,7 @@
         <div *ngFor="let publicacion of publicaciones|async">
           <ion-slide *ngIf="publicacion.especialidad===especialidad.$key" >
             <div>
-              <card-publi    [entrenador]=publicacion.entrenador [titulo]=publicacion.titulo [especialidad]=publicacion.especialidad [descripcion]=publicacion.descripcion></card-publi>
+              <card-publi (click)="irAVistaPublicacion(publicacion)"   [entrenador]=publicacion.entrenador [titulo]=publicacion.titulo [especialidad]=publicacion.especialidad [descripcion]=publicacion.descripcion></card-publi>
             </div>
           </ion-slide>
         </div>

@@ -4,6 +4,7 @@ import { Tabs } from '../tabs/tabs';
 import {FirebaseListObservable,AngularFireDatabase} from "angularfire2/database";
 import {CogerDatos} from '../../providers/coger-datos';
 import {CardPubli} from '../../components/card-publi/card-publi'
+import {VistaPublicacion} from '../../pages/vista-publicacion/vista-publicacion'
 /**
  * Generated class for the Inicio page.
  *
@@ -32,5 +33,9 @@ export class Inicio {
   ionViewDidLoad() {
     console.log('ionViewDidLoad Inicio');
   }
+  irAVistaPublicacion(publicacion){
+    this.navCtrl.push(VistaPublicacion,publicacion);
+  }
+
 
 }

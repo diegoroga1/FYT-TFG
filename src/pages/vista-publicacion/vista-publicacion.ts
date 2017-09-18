@@ -13,12 +13,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'vista-publicacion.html',
 })
 export class VistaPublicacion {
-
+  datosPublicacion:any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad VistaPublicacion');
+    this.getPubli()
+  }
+  getPubli(){
+    this.datosPublicacion=this.navParams.data;
+    console.log(this.datosPublicacion)
+    console.log(this.datosPublicacion.titulo);
+
+
   }
 
 }

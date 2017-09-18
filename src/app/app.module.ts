@@ -13,6 +13,10 @@ import {Perfil} from '../pages/perfil/perfil'
 import {Chat} from '../pages/chat/chat'
 import { Tabs } from '../pages/tabs/tabs';
 import {VistaEntrenador} from '../pages/vista-entrenador/vista-entrenador'
+import {VistaPublicacion} from '../pages/vista-publicacion/vista-publicacion'
+import {CrearPublicacion} from '../pages/crear-publicacion/crear-publicacion'
+import {CrearAnuncio} from '../pages/crear-anuncio/crear-anuncio'
+
 import {AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -46,7 +50,10 @@ export const firebase={
     CardTrainer,
     CardPubli,
     VistaEntrenador,
-    MapComponent
+    VistaPublicacion,
+    MapComponent,
+    CrearPublicacion,
+    CrearAnuncio
   ],
   imports: [
     BrowserModule,
@@ -69,7 +76,10 @@ export const firebase={
     CardTrainer,
     CardPubli,
     VistaEntrenador,
-    MapComponent
+    VistaPublicacion,
+    MapComponent,
+    CrearPublicacion,
+    CrearAnuncio
   ],
   providers: [
     StatusBar,

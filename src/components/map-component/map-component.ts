@@ -83,7 +83,9 @@ console.log(this.mapElement)
     let mapOptions = {
       center: latLng,
       zoom: 10,
-      mapTypeId: google.maps.MapTypeId.Satellite
+      mapTypeId: google.maps.MapTypeId.Satellite,
+      fullscreenControl: true
+
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     this.addMiUbicacion()
