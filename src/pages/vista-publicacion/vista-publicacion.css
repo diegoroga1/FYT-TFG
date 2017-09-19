@@ -1,6 +1,6 @@
 page-vista-publicacion .toolbar-title {
   white-space: pre-line !important; }
-page-vista-publicacion .icon-share {
+page-vista-publicacion #icon-share {
   font-size: 2em;
   float: right; }
 

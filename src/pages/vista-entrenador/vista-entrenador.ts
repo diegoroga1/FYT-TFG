@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {FirebaseListObservable,AngularFireDatabase} from "angularfire2/database";
 import {CardPubli} from '../../components/card-publi/card-publi'
 import {MapComponent} from '../../components/map-component/map-component'
-
+import {VistaMapa} from '../vista-mapa/vista-mapa'
 /**
  * Generated class for the VistaEntrenador page.
  *
@@ -16,6 +16,7 @@ import {MapComponent} from '../../components/map-component/map-component'
   templateUrl: 'vista-entrenador.html',
 })
 export class VistaEntrenador {
+  buttonClicked:boolean=false;
   datosEntrenador:any;
   datos=[];
   entrenadorSegment;
@@ -45,6 +46,10 @@ export class VistaEntrenador {
     console.log(this.datosEntrenador);
     console.log(e)
   }
+  showMap(){
+    this.navCtrl.push(VistaMapa);
+  }
+
 
 
 }

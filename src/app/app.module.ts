@@ -16,6 +16,7 @@ import {VistaEntrenador} from '../pages/vista-entrenador/vista-entrenador'
 import {VistaPublicacion} from '../pages/vista-publicacion/vista-publicacion'
 import {CrearPublicacion} from '../pages/crear-publicacion/crear-publicacion'
 import {CrearAnuncio} from '../pages/crear-anuncio/crear-anuncio'
+import {VistaMapa} from '../pages/vista-mapa/vista-mapa'
 
 import {AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -53,7 +54,8 @@ export const firebase={
     VistaPublicacion,
     MapComponent,
     CrearPublicacion,
-    CrearAnuncio
+    CrearAnuncio,
+    VistaMapa
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ export const firebase={
     VistaPublicacion,
     MapComponent,
     CrearPublicacion,
-    CrearAnuncio
+    CrearAnuncio,
+    VistaMapa
   ],
   providers: [
     StatusBar,

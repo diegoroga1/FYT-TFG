@@ -59,8 +59,11 @@
         </div>
         <div id="seccion-lugar-entrenamiento">
           <h2 style="text-align: center">Lugares de entrenamiento</h2>
-          <map-component #map id="map"></map-component>
-          <div #map2 id="map2"></div>
+          <ion-buttons>
+            <button (click)="showMap()" icon-only ion-button="" color="dark">
+              Ver mapa
+            </button>
+          </ion-buttons>
           <p>A domicilio: {{datosEntrenador.lugarEntrenamiento.domicilio}}</p>
           <p>Lugares: {{datosEntrenador.lugarEntrenamiento.lugar}}</p>
         </div>

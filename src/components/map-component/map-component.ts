@@ -55,12 +55,16 @@ export class MapComponent {
   constructor(private geolocation: Geolocation,
                  private googleMaps: GoogleMaps) {
     console.log('Hello MapComponent Component');
-console.log(this.mapElement)
+    console.log(this.mapElement)
     this.text = 'Hello World';
     this.getCurrentPosition();
 
   }
   ionViewDidLoad(){
+    this.getCurrentPosition();
+  }
+  ionViewWillEnter(){
+    this.getCurrentPosition();
 
   }
   getCurrentPosition(){

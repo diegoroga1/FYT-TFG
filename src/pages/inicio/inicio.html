@@ -11,22 +11,19 @@
   </ion-navbar>
 
 </ion-header>
-
-
 <ion-content class="body-gray" >
   <ion-searchbar placeholder="Buscar en FYT" [(ngModel)]="busqueda" (ionInput)="buscarEntrenador()"></ion-searchbar>
   <ion-grid>
-    <ion-row *ngFor="let especialidad of especialidades">
-      <ion-title >{{especialidad.$key}}</ion-title>
+    <ion-row *ngFor="let especialidad of especialidadConPubli">
+      <ion-title >{{especialidad}}</ion-title>
       <ion-slides pager="true" effect="cube"	 style="border-bottom: 1px solid rgba(0,0,0,0.1)" >
         <div *ngFor="let publicacion of publicaciones|async">
-          <ion-slide *ngIf="publicacion.especialidad===especialidad.$key" >
+          <ion-slide *ngIf="publicacion.especialidad===especialidad" >
             <div>
               <card-publi (click)="irAVistaPublicacion(publicacion)"   [entrenador]=publicacion.entrenador [titulo]=publicacion.titulo [especialidad]=publicacion.especialidad [descripcion]=publicacion.descripcion></card-publi>
             </div>
           </ion-slide>
         </div>
-
       </ion-slides >
 
     </ion-row>

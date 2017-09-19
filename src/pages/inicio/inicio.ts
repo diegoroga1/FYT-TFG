@@ -19,7 +19,7 @@ import {VistaPublicacion} from '../../pages/vista-publicacion/vista-publicacion'
 export class Inicio {
   especialidades:any;
   publicaciones:FirebaseListObservable<any>;
-  publicacionesArray=[];
+  especialidadConPubli=[];
   entrenadores:any;
   constructor(public cogerDatos:CogerDatos,public navCtrl: NavController, public navParams: NavParams,public af:AngularFireDatabase) {
     this.af.list('/especialidades').subscribe(data=>{
@@ -27,11 +27,26 @@ export class Inicio {
       this.especialidades=data;
       console.log(this.especialidades);
       this.publicaciones=this.cogerDatos.getPublicacionesTrainer();
+      this.publicaciones.forEach(data=>{
+        this.especialidades.forEach(item=>{
+          console.log(item.$key);
+          data.forEach(data2=>{
+            if(item.$key === data2.especialidad){
+              console.log("incluye");
+              if(this.especialidadConPubli.indexOf(item.$key)){
+                this.especialidadConPubli.push(item.$key);
 
+              }
+
+            }
+          })
+        })
+      })
   });
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad Inicio');
+    console.log(this.publicaciones);
   }
   irAVistaPublicacion(publicacion){
     this.navCtrl.push(VistaPublicacion,publicacion);
