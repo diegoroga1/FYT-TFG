@@ -19,40 +19,17 @@ declare var google;
 })
 export class MapComponent {
   @ViewChild('map') mapElement: ElementRef;
+input:any;
   text: string;
   map: GoogleMap;
   myPosition: any = {};
-  markers: any[] = [
-    {
-      position:{
-        latitude: -17.3666745,
-        longitude: -66.2387878,
-      },
-      title:'Point 1'
-    },
-    {
-      position:{
-        latitude: -17.3706884,
-        longitude: -66.2397749,
-      },
-      title:'Point 2'
-    },
-    {
-      position:{
-        latitude: -17.391398,
-        longitude: -66.2407904,
-      },
-      title:'Point 3'
-    },
-    {
-      position:{
-        latitude: -17.3878887,
-        longitude: -66.223664,
-      },
-      title:'Point 4'
-    },
-  ];
-  constructor(private geolocation: Geolocation,
+  address:any;
+  markers2:any;
+  markers:any;
+  pos:any;
+  geocoder:any;
+  autocomplete:any;
+  constructor(public geolocation: Geolocation,
                  private googleMaps: GoogleMaps) {
     console.log('Hello MapComponent Component');
     console.log(this.mapElement)
@@ -88,10 +65,14 @@ export class MapComponent {
       center: latLng,
       zoom: 10,
       mapTypeId: google.maps.MapTypeId.Satellite,
-      fullscreenControl: true
-
+      fullscreenControl: true,
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    this.input=document.getElementById('input');
+    console.log(this.input);
+
+    this.autocomplete = new google.maps.places.Autocomplete(this.input);
+    this.autocomplete.bindTo('bounds', this.map);
     this.addMiUbicacion()
   }
 
@@ -105,4 +86,33 @@ export class MapComponent {
     let content = "<h4>Information!</h4>";
   }
 
+  getCoords() {
+    // Creamos el objeto geodecoder
+   this.geocoder = new google.maps.Geocoder();
+    if (this.address != '') {
+      this.address=this.autocomplete.getPlace().name
+      // Llamamos a la función geodecode pasandole la dirección que hemos introducido en la caja de texto.
+      this.geocoder.geocode({'address': this.address}, (results,status)=> {
+        if (status == 'OK') {
+// Mostramos las coordenadas obtenidas en el p con id coordenadas
+          document.getElementById("coordenadas").innerHTML = 'Coordenadas:   ' + results[0].geometry.location.lat() + ', ' + results[0].geometry.location.lng();
+// Posicionamos el marcador en las coordenadas obtenidas
+          this.pos=new google.maps.LatLng( results[0].geometry.location.lat(),  results[0].geometry.location.lng())
+          this.markers2=new google.maps.Marker({
+            map:this.map,
+            animation:google.maps.Animation.DROP,
+            position: new google.maps.LatLng( results[0].geometry.location.lat(),  results[0].geometry.location.lng()),
+          });
+// Centramos el mapa en las coordenadas obtenidas
+        }
+      });
+    }
+  }
+  addMarker(pos){
+    new google.maps.Marker({
+      map:this.map,
+      animation:google.maps.Animation.DROP,
+      position: pos,
+    });
+  }
 }
