@@ -37,9 +37,12 @@ export class VistaEntrenador {
     this.datosEntrenador.especialidades.forEach(data=>{
       this.especialidadesEntrenador.push(data);
     })
-    this.datosEntrenador.publicaciones.forEach(data => {
-      this.publicacionesEntrenador.push(data)
-    });
+    if(this.datosEntrenador.publicaciones){
+      this.datosEntrenador.publicaciones.forEach(data => {
+        this.publicacionesEntrenador.push(data)
+      });
+    }
+
     console.log(this.publicacionesEntrenador)
   }
   segmentChanged(e){

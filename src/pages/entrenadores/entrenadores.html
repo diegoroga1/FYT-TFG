@@ -13,11 +13,6 @@
       </button>
     </ion-buttons>
     <ion-title>{{title_page}}</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="toHome()">
-        <ion-icon name="home"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content class="body-gray">
@@ -33,7 +28,8 @@
   <ion-grid>
     <ion-row>
       <ion-col  col-12 *ngFor="let entrenador of cogerDatos.entrenadores |async">
-        <card-trainer (click)="irAVistaEntrenador(entrenador)" [nombre]=entrenador.nombre [especialidad]=entrenador.especialidad [localidad]=entrenador.localidad></card-trainer>
+
+        <card-trainer (click)="irAVistaEntrenador(entrenador)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [especialidad]=entrenador.especialidad [localidad]=entrenador.localidad></card-trainer>
       </ion-col>
     </ion-row>
   </ion-grid>

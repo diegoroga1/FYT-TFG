@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,Inject} from '@angular/core';
 import {DataTrainer} from '../../providers/data-trainer';
 import {CogerDatos} from '../../providers/coger-datos';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -7,7 +7,8 @@ import { Tabs } from '../tabs/tabs';
 import {FirebaseListObservable,AngularFireDatabase} from "angularfire2/database";
 import {CardTrainer} from '../../components/card-trainer/card-trainer';
 import {VistaEntrenador} from '../../pages/vista-entrenador/vista-entrenador'
-
+import {FirebaseApp} from 'angularfire2';
+import * as firebase from 'firebase';
 import * as _ from 'lodash';
 @IonicPage()
 @Component({
@@ -22,17 +23,19 @@ export class Entrenadores {
   datosEntrenador:FirebaseListObservable<any>;
   busqueda:string='';
   nombre_entrenadores:any=[];
-
+  entrenadorArray=[];
+  fotoPerfil:any;
+  keyTrainer:any;
   constructor(public navCtrl: NavController,
               public http:Http,
               public cogerDatos:CogerDatos,
-              public navParams: NavParams) {
+              public navParams: NavParams,) {
     this.title_page="Entrenadores";
     this.datosUsuario=this.cogerDatos.getDataUser();
     this.datosEntrenador=this.cogerDatos.getDataTrainer();
+
   }
   ionViewDidEnter(){
-
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad Entrenadores');

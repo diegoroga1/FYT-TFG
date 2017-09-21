@@ -1,5 +1,7 @@
-import { Component,Input } from '@angular/core';
+import { Component,Input ,Inject} from '@angular/core';
 import {NavController} from 'ionic-angular';
+import {FirebaseApp} from 'angularfire2';
+import * as firebase from 'firebase';
 /**
  * Generated class for the CardTrainer component.
  *
@@ -11,16 +13,23 @@ import {NavController} from 'ionic-angular';
   templateUrl: 'card-trainer.html'
 })
 export class CardTrainer {
-
   text: string;
   @Input('nombre') nombre:string;
   @Input('localidad') localidad:string;
   @Input('especialidad') especialidad:string;
+  @Input('fotoPerfil') fotoPerfil:any;
+  @Input('key') key:any;
 
-  constructor(public navCtl:NavController) {
+  constructor(public navCtl:NavController,@Inject(FirebaseApp) public firebaseApp: firebase.app.App) {
     console.log('Hello CardTrainer Component');
     this.text = 'Hello World';
+
+  }
+  ngOnInit() {
+    console.log(this.key);
+    this.firebaseApp.storage().ref().child('fotos-perfil/' + this.key + '/perfil.jpg').getDownloadURL().then(url => this.fotoPerfil = url);
   }
 
 
-}
+
+  }

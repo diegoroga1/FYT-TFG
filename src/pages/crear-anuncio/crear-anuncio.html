@@ -12,7 +12,35 @@
 
 </ion-header>
 
-
 <ion-content padding>
-
+  <form [formGroup]="formulario" (ngSubmit)="crearAnuncio()" novalidate>
+      <ion-item>
+        <ion-label stacked>Título:</ion-label>
+        <ion-input formControlName="titulo" type="text" placeholder="Añade un título"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="formulario.get('titulo').errors && formulario.get('titulo').dirty">
+        <p color="danger" ion-text *ngIf="formulario.get('titulo').hasError('required')">¡No dejes tu anuncio sin título!</p>
+        <p color="danger" ion-text *ngIf="formulario.get('titulo').hasError('minlength')">Título muy corto</p>
+        <p color="danger" ion-text *ngIf="formulario.get('titulo').hasError('maxlength')">Título demasiado largo</p>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Descripción:</ion-label>
+        <ion-textarea formControlName="descripcion" type="text" placeholder="Descripción"></ion-textarea>
+      </ion-item>
+      <ion-item *ngIf="formulario.get('descripcion').errors && formulario.get('descripcion').dirty">
+        <p color="danger" ion-text *ngIf="formulario.get('descripcion').hasError('required')">Añade un campo a tu anuncio</p>
+        <p color="danger" ion-text *ngIf="formulario.get('descripcion').hasError('minlength')">Descripción muy corta</p>
+        <p color="danger" ion-text *ngIf="formulario.get('descripcion').hasError('maxlength')">Descripción muy larga</p>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Elige una especialidad:</ion-label>
+        <ion-select formControlName="especialidad"  placeholder="Especialidad">
+          <ion-option>GAP</ion-option>
+        </ion-select>
+      </ion-item>
+    <div padding>
+      <button ion-button block type="submit" [disabled]="formulario.invalid">Crear anuncio</button>
+    </div>
+  </form>
 </ion-content>
+

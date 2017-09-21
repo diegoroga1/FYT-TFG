@@ -17,7 +17,7 @@
   <ion-grid>
     <ion-row *ngFor="let especialidad of especialidadConPubli">
       <ion-title >{{especialidad}}</ion-title>
-      <ion-slides pager="true" effect="cube"	 style="border-bottom: 1px solid rgba(0,0,0,0.1)" >
+      <ion-slides zoom="true" pager="true" effect="cube"	 style="border-bottom: 1px solid rgba(0,0,0,0.1)" >
         <div *ngFor="let publicacion of publicaciones|async">
           <ion-slide *ngIf="publicacion.especialidad===especialidad" >
             <div>

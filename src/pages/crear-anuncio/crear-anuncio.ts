@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 /**
  * Generated class for the CrearAnuncio page.
  *
@@ -13,8 +13,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'crear-anuncio.html',
 })
 export class CrearAnuncio {
+  formulario: FormGroup;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
+    this.formulario=this.fb.group({
+      'titulo':['',[Validators.required,Validators.minLength(5), Validators.maxLength(25)]],
+      'descripcion':['',[Validators.required,Validators.minLength(15), Validators.maxLength(120)]],
+      'especialidad':['']
+    })
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  }
+  crearAnuncio(){
+      alert(JSON.stringify(this.formulario.value));
+
   }
 
   ionViewDidLoad() {
