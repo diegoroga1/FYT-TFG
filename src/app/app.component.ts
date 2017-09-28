@@ -13,7 +13,8 @@ import { Chat } from '../pages/chat/chat';
 export class MyApp {
   @ViewChild('content') navCtrl: NavController;
 
-  rootPage:any = Tabs;
+  rootPage:any = Entrenadores;
+
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

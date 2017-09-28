@@ -23,9 +23,6 @@ export class Entrenadores {
   datosEntrenador:FirebaseListObservable<any>;
   busqueda:string='';
   nombre_entrenadores:any=[];
-  entrenadorArray=[];
-  fotoPerfil:any;
-  keyTrainer:any;
   constructor(public navCtrl: NavController,
               public http:Http,
               public cogerDatos:CogerDatos,
@@ -51,7 +48,8 @@ export class Entrenadores {
     }
     this.nombre_entrenadores=filtradoNombres;
   }
-  irAVistaEntrenador(entrenador){
-    this.navCtrl.push(VistaEntrenador,entrenador)
+  irAVistaEntrenador(entrenador,fotoPerfil){
+    console.log(fotoPerfil);
+    this.navCtrl.push(VistaEntrenador,{entrenador,fotoPerfil})
   }
 }

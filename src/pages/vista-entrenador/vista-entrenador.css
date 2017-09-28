@@ -1,3 +1,10 @@
+page-vista-entrenador .toolbar-background {
+  background-color: #FF5019; }
+page-vista-entrenador .toolbar-title {
+  color: white;
+  letter-spacing: 5px;
+  font-weight: bold;
+  font-size: 16pt; }
 page-vista-entrenador .circle {
   height: 40px;
   width: 40px;
@@ -8,25 +15,141 @@ page-vista-entrenador .circle {
   float: left; }
 page-vista-entrenador .info-entrenador {
   margin-top: 5%; }
+  page-vista-entrenador .info-entrenador h2 {
+    margin-bottom: 2pt;
+    background-color: white; }
 page-vista-entrenador #seccion-seguidores-val {
   float: right;
-  position: absolute;
   right: 0;
   width: 40%;
   text-align: center;
-  border-color: rgba(0, 0, 0, 0.4);
-  border-style: dotted;
-  border-width: 1px;
   padding: 2%;
   margin-top: -3%; }
 page-vista-entrenador ul {
   padding: 0px;
-  margin: 0; }
+  margin: 0;
+  float: left; }
   page-vista-entrenador ul.rating li {
-    padding: 2px 3px !important;
+    padding: 0 !important;
     background: none;
     color: #ffb400; }
     page-vista-entrenador ul.rating li ion-icon {
       font-size: 18px; }
+page-vista-entrenador .scroll-content {
+  padding: 0 !important; }
+page-vista-entrenador .segment-button {
+  color: #FF3D00 !important;
+  border-color: #FF3D00 !important;
+  background: white !important; }
+page-vista-entrenador .segment-activated {
+  background-color: #FF3D00 !important;
+  color: white !important; }
+page-vista-entrenador #seccion-localidad p {
+  margin: 0;
+  text-indent: 0;
+  padding: 0; }
+page-vista-entrenador #seccion-valoracion {
+  margin-top: 10%;
+  margin-bottom: 5%; }
+page-vista-entrenador #valoracion {
+  margin: 0;
+  width: 200%;
+  display: inline; }
+page-vista-entrenador .back-button-text {
+  display: none; }
+page-vista-entrenador .back-button-icon {
+  color: white; }
+page-vista-entrenador .swiper-pagination-bullet-active {
+  background: #FF3D00; }
+page-vista-entrenador .line-separator {
+  border-top: 2px solid #9df400;
+  border-bottom: 2px solid #9df400; }
+page-vista-entrenador #seccion-descripcion, page-vista-entrenador #seccion-especialidades, page-vista-entrenador #seccion-contacto, page-vista-entrenador #seccion-exp-form, page-vista-entrenador #seccion-disponibilidad, page-vista-entrenador #seccion-precios, page-vista-entrenador #seccion-lugar-entrenamiento, page-vista-entrenador #seccion-comentarios {
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 10%; }
+  page-vista-entrenador #seccion-descripcion h2, page-vista-entrenador #seccion-especialidades h2, page-vista-entrenador #seccion-contacto h2, page-vista-entrenador #seccion-exp-form h2, page-vista-entrenador #seccion-disponibilidad h2, page-vista-entrenador #seccion-precios h2, page-vista-entrenador #seccion-lugar-entrenamiento h2, page-vista-entrenador #seccion-comentarios h2 {
+    text-align: center;
+    margin-top: 0;
+    color: #649300;
+    font-weight: bold;
+    letter-spacing: 2pt; }
+page-vista-entrenador #seccion-descripcion p {
+  padding: 2.5%; }
+page-vista-entrenador .list {
+  margin: 0; }
+page-vista-entrenador p {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  text-indent: 5%;
+  text-align: justify;
+  text-justify: inter-word;
+  padding: 1.5%;
+  line-height: 140%;
+  margin: 0;
+  font-weight: 500; }
+page-vista-entrenador #seccion-especialidades {
+  text-align: center; }
+  page-vista-entrenador #seccion-especialidades .list {
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 5%;
+    margin-top: 5%; }
+    page-vista-entrenador #seccion-especialidades .list .badge {
+      border: 1px solid #FF3D00;
+      background: transparent;
+      color: black;
+      margin-right: 6px;
+      font-size: 13pt; }
+      page-vista-entrenador #seccion-especialidades .list .badge img {
+        margin-right: 5%;
+        vertical-align: middle; }
+page-vista-entrenador #card-public {
+  margin-bottom: 10%; }
+  page-vista-entrenador #card-public .card {
+    margin: 0;
+    width: 100%; }
+page-vista-entrenador #seccion-seguidores-val .badge {
+  background-color: transparent;
+  color: black;
+  border: 1px solid #FF3D00;
+  font-size: 13pt; }
+page-vista-entrenador #seccion-disponibilidad p {
+  border: 1px solid #FF3D00;
+  padding: 1%;
+  text-indent: 0.5%;
+  text-align: center; }
+page-vista-entrenador #seccion-precios {
+  text-align: center; }
+  page-vista-entrenador #seccion-precios p {
+    display: inline-block;
+    border: 1px solid #FF3D00;
+    padding: 1.3%;
+    margin: 1.5%;
+    text-indent: 0; }
+page-vista-entrenador #ver-mapa {
+  text-align: center; }
+  page-vista-entrenador #ver-mapa button {
+    border: 1px solid #FF3D00;
+    padding: 5%;
+    background-color: transparent;
+    color: black;
+    font-size: 13pt;
+    font-weight: bold;
+    line-height: 1;
+    margin-top: 5%; }
+page-vista-entrenador #card-public .card {
+  background: rgba(255, 255, 255, 0.6);
+  margin-bottom: 8%; }
+page-vista-entrenador .icon[name="share"] {
+  color: black; }
+page-vista-entrenador .foto-perfil {
+  height: 60pt;
+  width: 60pt;
+  position: absolute;
+  right: 0;
+  margin-right: 8%;
+  overflow: hidden; }
+  page-vista-entrenador .foto-perfil img {
+    max-width: 130%; }
 
 /*# sourceMappingURL=vista-entrenador.css.map */

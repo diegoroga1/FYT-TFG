@@ -12,15 +12,18 @@
     </div>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
+<ion-content  style="background-image:url('../../assets/fondo/fondo6.jpg');background-repeat: no-repeat;background-size: cover;">
   <div class="slide-fotos">
     <ion-slides pager="true" effect="flip">
       <ion-slide>
-        <img src="../../assets/perfil.jpg">
+        <img [src]="domsanitizer.bypassSecurityTrustUrl('../../assets/perfil.jpg')"/>
+      </ion-slide>
+      <ion-slide>
+        <img [src]="domsanitizer.bypassSecurityTrustUrl('../../assets/perfil.jpg')"/>
       </ion-slide>
     </ion-slides>
   </div>
-  <ion-segment [(ngModel)]="entrenadorSegment" color="primary" (ionChange)="segmentChanged($event)">
+  <ion-segment [(ngModel)]="entrenadorSegment"  (ionChange)="segmentChanged($event)">
     <ion-segment-button value="info">
       Información
     </ion-segment-button>
@@ -30,45 +33,59 @@
   </ion-segment>
   <div [ngSwitch]="entrenadorSegment">
     <ion-list *ngSwitchCase="'info'">
-      <div id="seccion-seguidores-val">
-        <ion-badge>21 <span>Seguidores</span></ion-badge>
-        <span>Valoracion: <ion-badge>8</ion-badge></span>
-        <rating [(ngModel)]="rate"
-                readOnly="false"  max="5"
-                emptyStarIconName="star-outline"
-                halfStarIconName="star-half"
-                starIconName="star"
-                nullable="false"
-                (ngModelChange)="onModelChange($event)"></rating>
+      <div class="circle foto-perfil">
+        <img src="{{fotoPerfil}}"/>
       </div>
       <div *ngIf="datosEntrenador" class="info-entrenador">
-        <h2 style="width: 60%;">{{datosEntrenador.nombre}}</h2>
-        <div id="seccion-localidad">
-          <p><ion-icon style="margin-right: 2%" name="navigate"></ion-icon>{{datosEntrenador.localidad}}</p>
+        <div style="margin-left: 2%">
+          <h2 style="width: 60%;background-color: transparent;">{{datosEntrenador.nombre}}</h2>
+          <div id="seccion-localidad">
+            <p><ion-icon style="margin-right: 2%" name="navigate"></ion-icon>{{datosEntrenador.localidad}}</p>
+          </div>
+          <div id="seccion-valoracion">
+            <rating [(ngModel)]="rate"
+                    readOnly="false"  max="5"
+                    emptyStarIconName="star-outline"
+                    halfStarIconName="star-half"
+                    starIconName="star"
+                    nullable="false"
+                    (ngModelChange)="onModelChange($event)"></rating>
+            <p id="valoracion">(9)</p>
+            <div id="seccion-seguidores-val">
+              <ion-badge>21 <span>Seguidores</span></ion-badge>
+
+            </div>
+
+          </div>
+
         </div>
-        <div id="seccion-descripcion">
+
+
+        <div id="seccion-descripcion" class="line-separator">
           <h2>Descripcion</h2>
           <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen</p>
         </div>
 
-        <div id="seccion-especialides">
+        <div id="seccion-especialidades" class="line-separator">
           <h2 style="text-align: center;">Especialidades</h2>
-          <ion-list *ngFor="let especialidad of especialidadesEntrenador">
-            <ion-badge>{{especialidad}}</ion-badge>
+          <ion-list >
+            <ion-badge ><img src="../../assets/icon/abdominal.png"/>GAP</ion-badge>
+            <ion-badge ><img src="../../assets/icon/fisico.png"/>Entrenamiento personal</ion-badge>
           </ion-list>
         </div>
-        <div id="seccion-lugar-entrenamiento">
+
+        <div id="seccion-lugar-entrenamiento" class="line-separator">
           <h2 style="text-align: center">Lugares de entrenamiento</h2>
-          <ion-buttons>
-            <button (click)="showMap()" icon-only ion-button="" color="dark">
+          <ion-buttons id="ver-mapa">
+            <button (click)="showMap()" icon-only ion-button="" >
               Ver mapa
             </button>
           </ion-buttons>
-          <p>A domicilio: {{datosEntrenador.lugarEntrenamiento.domicilio}}</p>
-          <p>Lugares: {{datosEntrenador.lugarEntrenamiento.lugar}}</p>
+          <p>A domicilio: <strong>{{datosEntrenador.lugarEntrenamiento.domicilio}}</strong></p>
+          <p>Lugares:<strong>{{datosEntrenador.lugarEntrenamiento.lugar}}</strong> </p>
         </div>
 
-        <div id="seccion-contacto">
+        <div id="seccion-contacto" class="line-separator">
           <h2 style="text-align: center;">Información de contacto</h2>
           <ion-list>
             <p>Telefono: <strong>{{datosEntrenador.telefono}}</strong></p>
@@ -76,27 +93,36 @@
             <p>Redes sociales: <strong>{{datosEntrenador.redSocial}}</strong></p>
           </ion-list>
         </div>
-        <div id="seccion-exp-form">
+
+        <div id="seccion-exp-form" class="line-separator">
           <h2>Experiencia y formación</h2>
           <ion-list>
             <p>Formación: <strong>{{datosEntrenador.formacion}}</strong></p>
             <p>Experiencia: <strong>{{datosEntrenador.experiencia}}</strong></p>
           </ion-list>
         </div>
-        <div id="seccion-disponibilidad">
+        <div id="seccion-disponibilidad" class="line-separator">
           <h2 style="text-align: center">Disponibilidad</h2>
           <ion-list>
-            <p>Mañana : {{datosEntrenador.disponibilidad.manana}}</p>
-            <p>Tarde : {{datosEntrenador.disponibilidad.tarde}}</p>
+            <p>Lunes : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
+            <p>Martes : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
+            <p>Miercoles : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
+            <p>Jueves : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
+            <p>Viernes : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
+            <p>Sabado : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
+            <p>Domingo : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
           </ion-list>
         </div>
-        <div id="seccion-precios">
+
+
+
+        <div id="seccion-precios" class="line-separator">
           <h2 style="text-align: center">Precios</h2>
-          <p>Precio mensual: {{datosEntrenador.precios.mensual}}</p>
-          <p>Precio semanal: {{datosEntrenador.precios.semanal}}</p>
-          <p>Precio por día: {{datosEntrenador.precios.porDia}}</p>
+          <p>Primera sesión de prueba gratis</p>
+          <p>Precio bono semanal (1h 30min): {{datosEntrenador.precios.semanal}}€</p>
+          <p>Precio por día (1h 30min): {{datosEntrenador.precios.porDia}}€</p>
         </div>
-        <div id="seccion-comentarios">
+        <div id="seccion-comentarios" class="line-separator">
           <h2 style="text-align: center;">Opiniones y comentarios</h2>
           <ion-card>
             <ion-card-header>
@@ -109,12 +135,12 @@
 
       </div>
     </ion-list>
-    <ion-list *ngSwitchCase="'blog'">
-      <div *ngFor="let publi of publicacionesEntrenador">
-        <card-publi [descripcion]="publi.descripcion"></card-publi>
-
+    <ion-list id="seccion-blog" *ngSwitchCase="'blog'">
+      <div  *ngFor="let publi of publicacionesEntrenador">
+        <card-publi id="card-public" [descripcion]="publi.descripcion"></card-publi>
       </div>
-
     </ion-list>
   </div>
 </ion-content>
+
+
