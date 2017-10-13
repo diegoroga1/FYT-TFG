@@ -1,3 +1,35 @@
-
+page-chat #marca-agua {
+  position: absolute;
+  left: 0;
+  top: 20%;
+  z-index: 1;
+  opacity: 0.09;
+  width: 200%; }
+page-chat #seccion-no-login {
+  margin-top: 10%; }
+  page-chat #seccion-no-login span {
+    font-size: 14pt; }
+page-chat #seccion-registro-login {
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+  margin-top: 80%; }
+  page-chat #seccion-registro-login p {
+    display: inline-block;
+    font-size: 16pt;
+    margin: 7px;
+    color: #9df400; }
+page-chat .center {
+  text-align: center; }
+page-chat .content {
+  background-color: rgba(157, 244, 0, 0.28); }
+page-chat .toolbar-background {
+  background-color: #FF3D00; }
+page-chat .toolbar-title {
+  color: white;
+  letter-spacing: 5px;
+  font-weight: bold;
+  font-size: 16pt;
+  text-align: center; }
 
 /*# sourceMappingURL=chat.css.map */

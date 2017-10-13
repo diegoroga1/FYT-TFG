@@ -7,19 +7,23 @@
 <ion-header>
 
   <ion-navbar>
-    <div >
-      <ion-title style="margin-left: 5%" *ngIf="datosEntrenador">{{datosEntrenador.nombre}}</ion-title>
-    </div>
+
   </ion-navbar>
 </ion-header>
-<ion-content  style="background-image:url('../../assets/fondo/fondo6.jpg');background-repeat: no-repeat;background-size: cover;">
+<ion-content >
   <div class="slide-fotos">
     <ion-slides pager="true" effect="flip">
       <ion-slide>
-        <img [src]="domsanitizer.bypassSecurityTrustUrl('../../assets/perfil.jpg')"/>
+        <img [src]="domsanitizer.bypassSecurityTrustUrl('../../assets/imagenes/foto1.jpg')"/>
       </ion-slide>
       <ion-slide>
-        <img [src]="domsanitizer.bypassSecurityTrustUrl('../../assets/perfil.jpg')"/>
+        <img [src]="domsanitizer.bypassSecurityTrustUrl('../../assets/imagenes/foto2.jpg')"/>
+      </ion-slide>
+      <ion-slide>
+        <img [src]="domsanitizer.bypassSecurityTrustUrl('../../assets/imagenes/foto3.jpg')"/>
+      </ion-slide>
+      <ion-slide>
+        <img [src]="domsanitizer.bypassSecurityTrustUrl('../../assets/imagenes/foto4.jpg')"/>
       </ion-slide>
     </ion-slides>
   </div>
@@ -32,15 +36,33 @@
     </ion-segment-button>
   </ion-segment>
   <div [ngSwitch]="entrenadorSegment">
-    <ion-list *ngSwitchCase="'info'">
+    <ion-list id="seccion-info" *ngSwitchCase="'info'">
+
       <div class="circle foto-perfil">
-        <img src="{{fotoPerfil}}"/>
+        <div >
+          <img  src="{{fotoPerfil}}"/>
+
+        </div>
       </div>
+
       <div *ngIf="datosEntrenador" class="info-entrenador">
         <div style="margin-left: 2%">
           <h2 style="width: 60%;background-color: transparent;">{{datosEntrenador.nombre}}</h2>
+
           <div id="seccion-localidad">
             <p><ion-icon style="margin-right: 2%" name="navigate"></ion-icon>{{datosEntrenador.localidad}}</p>
+          </div>
+          <div id="seccion-contacto" >
+            <p col col-8><img src="../../assets/icon/email.png"/>{{datosEntrenador.email}}</p>
+            <p><img src="../../assets/icon/telefono.png"/>{{datosEntrenador.telefono}}</p>
+          </div>
+          <div id="info-redes">
+            <img src="../../assets/icon/youtube.png" />
+            <img src="../../assets/icon/linkedin.png" />
+            <img src="../../assets/icon/whatsapp.png" />
+            <img src="../../assets/icon/instagram.png" />
+            <img src="../../assets/icon/facebook.png" />
+            <img src="../../assets/icon/gorjeo.png" />
           </div>
           <div id="seccion-valoracion">
             <rating [(ngModel)]="rate"
@@ -52,47 +74,34 @@
                     (ngModelChange)="onModelChange($event)"></rating>
             <p id="valoracion">(9)</p>
             <div id="seccion-seguidores-val">
-              <ion-badge>21 <span>Seguidores</span></ion-badge>
-
+              <ion-badge>Seguir <span>(21)</span></ion-badge>
             </div>
-
           </div>
 
-        </div>
-
-
-        <div id="seccion-descripcion" class="line-separator">
-          <h2>Descripcion</h2>
-          <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen</p>
-        </div>
-
-        <div id="seccion-especialidades" class="line-separator">
-          <h2 style="text-align: center;">Especialidades</h2>
-          <ion-list >
-            <ion-badge ><img src="../../assets/icon/abdominal.png"/>GAP</ion-badge>
-            <ion-badge ><img src="../../assets/icon/fisico.png"/>Entrenamiento personal</ion-badge>
-          </ion-list>
-        </div>
+            <div id="seccion-especialidades" >
+              <ion-list >
+                <ion-badge ><img src="../../assets/icon/abdominal.png"/>GAP</ion-badge>
+                <ion-badge ><img src="../../assets/icon/fisico.png"/>Entrenamiento personal</ion-badge>
+              </ion-list>
+            </div>
+          </div>
 
         <div id="seccion-lugar-entrenamiento" class="line-separator">
-          <h2 style="text-align: center">Lugares de entrenamiento</h2>
-          <ion-buttons id="ver-mapa">
-            <button (click)="showMap()" icon-only ion-button="" >
-              Ver mapa
+          <h2 style="text-align: center">¿Dónde podemos entrenar?</h2>
+          <map-component></map-component>
+
+          <ion-buttons id="button-mapa">
+            <button style="width: 100%;" ion-button>
+              Ver detalles
             </button>
           </ion-buttons>
-          <p>A domicilio: <strong>{{datosEntrenador.lugarEntrenamiento.domicilio}}</strong></p>
-          <p>Lugares:<strong>{{datosEntrenador.lugarEntrenamiento.lugar}}</strong> </p>
+          <!--<p>A domicilio: <strong>{{datosEntrenador.lugarEntrenamiento.domicilio}}</strong></p>
+          <p>Lugares:<strong>{{datosEntrenador.lugarEntrenamiento.lugar}}</strong> </p>-->
         </div>
 
-        <div id="seccion-contacto" class="line-separator">
-          <h2 style="text-align: center;">Información de contacto</h2>
-          <ion-list>
-            <p>Telefono: <strong>{{datosEntrenador.telefono}}</strong></p>
-            <p>Correo electrónico: <strong>{{datosEntrenador.email}}</strong></p>
-            <p>Redes sociales: <strong>{{datosEntrenador.redSocial}}</strong></p>
-          </ion-list>
-        </div>
+
+
+
 
         <div id="seccion-exp-form" class="line-separator">
           <h2>Experiencia y formación</h2>
@@ -103,31 +112,159 @@
         </div>
         <div id="seccion-disponibilidad" class="line-separator">
           <h2 style="text-align: center">Disponibilidad</h2>
-          <ion-list>
-            <p>Lunes : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
+          <ion-list #listFab>
+            <ion-fab><button activated #L id="L" (click)="mostrarDisponibilidad(L)" ion-fab >L</button></ion-fab>
+            <ion-fab><button #M id="M" (click)="mostrarDisponibilidad(M)" ion-fab>M</button></ion-fab>
+            <ion-fab><button #X id="X" (click)="mostrarDisponibilidad(X)" ion-fab >X</button></ion-fab>
+            <ion-fab><button #J id="J" (click)="mostrarDisponibilidad(J)" ion-fab >J</button></ion-fab>
+            <ion-fab><button #V id="V" (click)="mostrarDisponibilidad(V)" ion-fab >V</button></ion-fab>
+            <ion-fab><button #S id="S" (click)="mostrarDisponibilidad(S)" ion-fab >S</button></ion-fab>
+            <ion-fab><button #D id="D" (click)="mostrarDisponibilidad(D)" ion-fab >D</button></ion-fab>
+
+
+
+
+            <!--<p>Lunes : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
             <p>Martes : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
             <p>Miercoles : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
             <p>Jueves : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
             <p>Viernes : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
             <p>Sabado : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
-            <p>Domingo : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
+            <p>Domingo : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>-->
           </ion-list>
+          <div #horario id="horario" class="muestra-horario">
+            <p *ngIf="lp">Lunes: 10:00 - 13:30 | 16:30 - 20:00</p>
+            <p *ngIf="mp">Martes: 10:00 - 13:30 | 16:30 - 20:00</p>
+            <p *ngIf="xp">Miercoles: 10:00 - 13:30 | 16:30 - 20:00</p>
+            <p *ngIf="jp">Jueves: 10:00 - 13:30 | 16:30 - 20:00</p>
+            <p *ngIf="vp">Viernes: 10:00 - 13:30 | 16:30 - 20:00</p>
+            <p *ngIf="sp">Sabado: 10:00 - 13:30 | 16:30 - 20:00</p>
+            <p *ngIf="dp">Domingo: 10:00 - 13:30 | 16:30 - 20:00</p>
+          </div>
         </div>
 
 
 
         <div id="seccion-precios" class="line-separator">
-          <h2 style="text-align: center">Precios</h2>
-          <p>Primera sesión de prueba gratis</p>
-          <p>Precio bono semanal (1h 30min): {{datosEntrenador.precios.semanal}}€</p>
-          <p>Precio por día (1h 30min): {{datosEntrenador.precios.porDia}}€</p>
+          <h2 style="text-align: center">Tarifas y servicios</h2>
+          <ion-row id="precios">
+
+            <ion-card col col-6>
+              <ion-card-header>
+                <ion-card-title> Sesión gratis</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-list>
+                  <ion-item><li>Primera sesión gratis</li></ion-item>
+                  <ion-item><li>1h y 30 min</li></ion-item>
+                  <ion-item><li>Entrenamiento grupal</li></ion-item>
+                </ion-list>
+                <div class="footer-price">
+                  <ion-badge>¡GRATIS!</ion-badge>
+                  <ion-buttons style="text-align: center;">
+                    <button ion-button class="boton-reserva">Reserva</button>
+                  </ion-buttons>
+                </div>
+
+              </ion-card-content>
+
+            </ion-card>
+            <ion-card col col-6>
+              <ion-card-header>
+                <ion-card-title>Bono semanal</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-list>
+                  <ion-item><li>5 días de entrenamiento</li></ion-item>
+                  <ion-item><li>1h y 30 min</li></ion-item>
+                  <ion-item><li>Todas las actividades incluidas</li></ion-item>
+                </ion-list>
+                <div class="footer-price">
+                  <ion-badge>20€</ion-badge>
+                  <ion-buttons style="text-align: center;">
+                    <button ion-button class="boton-reserva">Reserva</button>
+                  </ion-buttons>
+                </div>
+
+              </ion-card-content>
+
+            </ion-card>
+            <ion-card col col-6>
+              <ion-card-header>
+                <ion-card-title>Bono mensual</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-list>
+                  <ion-item><li>20 sesiones de entrenamiento</li></ion-item>
+                  <ion-item><li>1h y 30 min</li></ion-item>
+                  <ion-item><li>Todas las actividades incluidas</li></ion-item>
+                </ion-list>
+                <div class="card-footer footer-price">
+                  <ion-badge>42€</ion-badge>
+                  <ion-buttons style="text-align: center;">
+                    <button ion-button class="boton-reserva">Reserva</button>
+                  </ion-buttons>
+                </div>
+
+              </ion-card-content>
+
+            </ion-card>
+            <ion-card col col-6>
+              <ion-card-header>
+                <ion-card-title>Bono 3 meses</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-list>
+                  <ion-item><li>60 sesiones de entrenamiento</li></ion-item>
+                  <ion-item><li>1h y 30 min</li></ion-item>
+                  <ion-item><li>Todas las actividades incluidas</li></ion-item>
+                  <ion-item><li>Tabla de menú saludable incluido</li></ion-item>
+                </ion-list>
+                <div class="card-footer footer-price">
+                  <ion-badge>105€</ion-badge>
+                  <ion-buttons style="text-align: center;">
+                    <button ion-button class="boton-reserva">Reserva</button>
+                  </ion-buttons>
+                </div>
+
+              </ion-card-content>
+
+            </ion-card>
+          </ion-row>
         </div>
+
+        <div id="seccion-descripcion" class="line-separator">
+          <h2>El servicio...</h2>
+          <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen</p>
+        </div>
+
         <div id="seccion-comentarios" class="line-separator">
           <h2 style="text-align: center;">Opiniones y comentarios</h2>
           <ion-card>
             <ion-card-header>
-              <ion-avatar></ion-avatar>
-              <ion-card-title>Bueno</ion-card-title>
+              <ion-avatar class="circle"></ion-avatar>
+              <ion-card-title class="nombre-comentario">Rosa Maria</ion-card-title>
+                <rating class="val-comentario" [(ngModel)]="rate"
+                        readOnly="false"  max="5"
+                        emptyStarIconName="star-outline"
+                        halfStarIconName="star-half"
+                        starIconName="star"
+                        nullable="false"
+                        (ngModelChange)="onModelChange($event)"></rating>
+            </ion-card-header>
+            <ion-card-content>Buen entrenador</ion-card-content>
+          </ion-card>
+          <ion-card>
+            <ion-card-header>
+              <ion-avatar class="circle"></ion-avatar>
+              <ion-card-title class="nombre-comentario">Juana Maria Perez </ion-card-title>
+                <rating class="val-comentario" [(ngModel)]="rate"
+                        readOnly="false"  max="5"
+                        emptyStarIconName="star-outline"
+                        halfStarIconName="star-half"
+                        starIconName="star"
+                        nullable="false"
+                        (ngModelChange)="onModelChange($event)"></rating>
             </ion-card-header>
             <ion-card-content>Buen entrenador</ion-card-content>
           </ion-card>
@@ -136,8 +273,8 @@
       </div>
     </ion-list>
     <ion-list id="seccion-blog" *ngSwitchCase="'blog'">
-      <div  *ngFor="let publi of publicacionesEntrenador">
-        <card-publi id="card-public" [descripcion]="publi.descripcion"></card-publi>
+      <div class="publi-div" *ngFor="let publi of publicacionesEntrenador">
+        <card-publi (click)="irAVistaPublicacion(publi,$event)" id="card-public" [descripcion]="publi.descripcion" [titulo]="publi.titulo" [especialidad]="publi.especialidad"></card-publi>
       </div>
     </ion-list>
   </div>

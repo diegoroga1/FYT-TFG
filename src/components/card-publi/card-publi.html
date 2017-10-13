@@ -2,33 +2,35 @@
 <div>
   <ion-card >
     <ion-card-header>
-      <ion-card-title><strong>{{titulo}}</strong></ion-card-title>
-      <div ><img src="../../assets/perfil.jpg"></div>
+      <div ><img src="../../assets/imagenes/publi1.jpg"></div>
+      <ion-card-title><strong>{{entrenador}}</strong>
+      </ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <div class="contenido-card-publi">
-        <h2 style="float: left"><strong>{{entrenador}}</strong></h2>
+        <h1 class="titulo-publi">{{titulo}}</h1>
       </div>
-      <h4 class="text-especialidad" style="float: right;margin-right: 3%">{{especialidad}}</h4>
+
+
       <div class="descripcion-publi" style="float: left">
+        <ion-badge class="text-especialidad" style="float: right;margin-right: 3%">{{especialidad}}</ion-badge>
+
         <h3>{{descripcion}}</h3>
       </div>
       <div class="content-footer">
-        <div style="float: left">
-          <rating [(ngModel)]="rate"
-                  readOnly="false"  max="5"
-                  emptyStarIconName="star-outline"
-                  halfStarIconName="star-half"
-                  starIconName="star"
-                  nullable="false"
-                  (ngModelChange)="onModelChange($event)"></rating>
-        </div>
-
-        <ion-buttons style="float: right">
-          <button ion-button icon-only clear>
-            <ion-icon name="share"></ion-icon>
-          </button>
-        </ion-buttons>
+        <!--<div class="icon-likes">
+          <img src="../../assets/icon/like.png"/>
+          <img src="../../assets/icon/dislike.png"/>
+        </div>-->
+        <ion-fab class="button-fab" edge>
+          <button ion-fab mini><ion-icon name="share"></ion-icon></button>
+          <ion-fab-list side="left" class="fablist">
+            <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+            <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+            <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+            <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+          </ion-fab-list>
+        </ion-fab>
       </div>
     </ion-card-content>
   </ion-card>

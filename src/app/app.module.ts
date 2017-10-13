@@ -17,6 +17,8 @@ import {VistaPublicacion} from '../pages/vista-publicacion/vista-publicacion'
 import {CrearPublicacion} from '../pages/crear-publicacion/crear-publicacion'
 import {CrearAnuncio} from '../pages/crear-anuncio/crear-anuncio'
 import {VistaMapa} from '../pages/vista-mapa/vista-mapa'
+import {Login} from '../pages/login/login';
+import {Registro} from '../pages/registro/registro';
 
 import {AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -55,7 +57,9 @@ export const firebase={
     MapComponent,
     CrearPublicacion,
     CrearAnuncio,
-    VistaMapa
+    VistaMapa,
+    Registro,
+    Login
   ],
   imports: [
     BrowserModule,
@@ -82,7 +86,9 @@ export const firebase={
     MapComponent,
     CrearPublicacion,
     CrearAnuncio,
-    VistaMapa
+    VistaMapa,
+    Registro,
+    Login
   ],
   providers: [
     StatusBar,

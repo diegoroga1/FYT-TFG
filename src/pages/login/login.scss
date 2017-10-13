@@ -1,0 +1,87 @@
+page-login {
+  .toolbar-background{
+    background-color: transparent;
+
+  }
+  .content{
+    background-color: rgba(157, 244, 0, 0.28);
+
+  }
+  .scroll-content{
+    margin-top: 0 !important;
+  }
+  .header::after{
+    display: none;
+  }
+  .back-button-icon{
+    color:white;
+    background-color: $naranja;
+    font-size: 20pt;
+    font-weight:bold;
+    border-radius: 50%;
+
+  }
+  #logo{
+    img{
+      width: 59%;
+    }
+    text-align: center;
+    margin-top: 8%;
+    margin-bottom: 5%;
+  }
+  #seccion-login{
+    width: 100%;
+    padding: 15px;
+    background-color: rgba(0,0,0,0.2);
+    box-shadow: -1px 7px 54px -1px rgba(0,0,0,0.4);
+    border-radius: 7px;
+    text-align: center;
+    margin-top: 12%;
+    #boton-login{
+      margin-top: 3%;
+      .button{
+        background-color: $naranja;
+        color:white;
+        font-size: 14pt;
+      }
+
+    }
+    #login-redes{
+      margin-top: 4%;
+    }
+    .boton-facebook{
+      background-color: #3b5998;
+    }
+    .boton-google{
+      background-color: #d34836;
+    }
+    .boton-facebook,.boton-google{
+      .icon{
+        margin-right: 6px;
+        vertical-align: middle;
+      }
+      .icon::before{
+        font-size: 18pt;
+        vertical-align: super;
+      }
+    }
+    .button{
+      width: 95%;
+    }
+
+    .input{
+      background-color: white;
+      border-radius: 20px;
+      text-align: center;
+      margin-top: 8%;
+      font-size:14pt;
+      ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: black;
+        font-size:13pt;
+
+      }
+
+
+    }
+  }
+}

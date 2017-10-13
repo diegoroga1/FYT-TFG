@@ -7,12 +7,20 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>crear-publicacion</ion-title>
+    <ion-title>Añade una publicación</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <form #form="ngForm" (submit)="addPubli()">
+    <ion-input type="text" name="titulo" required ngModel placeholder="Añade un título"></ion-input>
+    <ion-textarea type="text" name="descripcion" required ngModel placeholder="Añade una descripción..."></ion-textarea>
+
+    <ion-buttons>
+      <button type="submit" ion-button >Crear</button>
+    </ion-buttons>
+  </form>
 
 </ion-content>

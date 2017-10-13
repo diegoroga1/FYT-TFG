@@ -2,10 +2,10 @@ $naranja:#FF3D00;
 $verde-oscuro:#649300;
 $verde-limon:#9df400;
 page-vista-entrenador {
-  .toolbar-background{
-    background-color: #FF5019;
+    .toolbar-background{
+      background-color: transparent;
 
-  }
+    }
   .toolbar-title{
      color:white;
      letter-spacing: 5px;
@@ -28,6 +28,9 @@ page-vista-entrenador {
         margin-bottom:2pt;
         background-color: white;
     }
+  }
+  #seccion-blog{
+    background-color: rgba(157, 244, 0, 0.28);
   }
 
   #seccion-seguidores-val{
@@ -53,13 +56,18 @@ page-vista-entrenador {
       }
     }
   }
+
   .scroll-content{
     padding:0 !important;
+    margin-top:0 !important;
+    background-color: rgba(157, 244, 0,0.28);
+
   }
   .segment-button{
     color:$naranja !important;
     border-color:$naranja !important;
     background: white !important;
+    font-size:16pt !important;
   }
   .segment-activated{
     background-color: $naranja !important;
@@ -71,8 +79,8 @@ page-vista-entrenador {
     padding: 0;
   }
   #seccion-valoracion{
-    margin-top: 10%;
-    margin-bottom:5%;
+    margin-top:4%;
+
   }
   #valoracion{
     margin:0;
@@ -84,22 +92,28 @@ page-vista-entrenador {
   }
   .back-button-icon{
     color:white;
+    background-color: $naranja;
+    font-size: 20pt;
+    font-weight:bold;
+    border-radius: 50%;
+
   }
   .swiper-pagination-bullet-active{
     background: $naranja;
   }
   .scroll-content{
-
+    margin-top:0;
 
   }
   .line-separator{
-    border-top:2px solid #9df400;
-    border-bottom:2px solid #9df400;
+    border-top:4px solid #9df400;
+    border-bottom:4px solid #9df400;
 
     // margin-top:4%;
   }
   #seccion-descripcion,#seccion-especialidades,#seccion-contacto,#seccion-exp-form,#seccion-disponibilidad,#seccion-precios,#seccion-lugar-entrenamiento,#seccion-comentarios{
-    background-color: rgba(255,255,255,0.5);
+   //background-color: rgba(255,255,255,0.5);
+    background: transparent;
     margin-bottom: 10%;
 
     h2{
@@ -108,6 +122,45 @@ page-vista-entrenador {
       color:$verde-oscuro;
       font-weight: bold;
       letter-spacing: 2pt;
+    }
+  }
+  #seccion-comentarios{
+    .card{
+      .card-header{
+        background: rgba(100, 147, 0,0.6);
+      }
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      .nombre-comentario{
+        margin-left: 6%;
+        float:left;
+        font-size: 14pt;
+      }
+      .val-comentario{
+        float: right;
+      }
+    }
+  }
+  #seccion-contacto{
+    margin-bottom:0;
+    p{
+      text-indent: 0;
+      padding: 0;
+
+      img{
+        margin-right: 2%;
+        width: 10pt;
+      }
+    }
+  }
+
+
+  #info-redes{
+    margin-top:2%;
+    text-align: center;
+
+    img{
+      padding: 1% ;
+
     }
   }
   #seccion-descripcion{
@@ -132,13 +185,16 @@ page-vista-entrenador {
 
   #seccion-especialidades {
     text-align: center;
+    margin-bottom: 0;
+    //background: rgba(100, 147, 0,0.6);
+    background-color: transparent;
+    margin-left:-2%;
     .list{
       display: inline-block;
       text-align: center;
       margin-bottom: 5%;
       margin-top:5%;
       .badge{
-        border:1px solid $naranja;
         background: transparent;
         color: black;
         margin-right: 6px;
@@ -148,18 +204,18 @@ page-vista-entrenador {
           margin-right: 5%;
           vertical-align: middle;
         }
-
-
-
       }
     }
-
   }
   #card-public {
 margin-bottom:10%;
     .card{
     margin:0;
     width: 100%;
+      border-radius: 18px;
+      .card-title{
+        display: none;
+      }
     }
   }
   #seccion-seguidores-val{
@@ -172,45 +228,153 @@ margin-bottom:10%;
     }
   }
   #seccion-disponibilidad{
-    p{
-      border:1px solid $naranja;
-      padding: 1%;
-      text-indent: 0.5%;
-      text-align: center;
+    text-align: center;
+    .list{
+      margin: 4% 0;
+      ion-fab{
+        position: relative;
+        .fab{
+          cursor: pointer;
+          color:white;
+          margin:0 2%;
+          border-radius: 50%;
+          background-color: $naranja;
+          display: inline-block;
+          text-indent: 0;
+          width: 25pt;
+          height: 25pt;
+          text-align: center;
+
+        }
+        .fab[activated]{
+          background-color: white;
+          color:$naranja;
+        }
+
+      }
 
     }
 
-  }
-  #seccion-precios{
-    text-align: center;
-    p{
-      display: inline-block;
-      border:1px solid $naranja;
-      padding: 1.3%;
-      margin:1.5%;
-      text-indent: 0;
 
-    }
   }
-  #ver-mapa{
-    text-align: center;
+    #seccion-precios{
+      #precios{
+        margin-top: 4%;
+
+      }
+      .card{
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        border-radius: 15px;
+        background: transparent;
+        padding: 0;
+        margin: 2%;
+        max-width: 45%;
+        margin-bottom:2%;
+        .card-header{
+          padding:0;
+          background: $naranja;
+
+          text-align: center;
+          .card-title{
+            color: white;
+            padding: 0;
+          }
+        }
+        .card-content{
+          padding: 0;
+          text-align: center;
+          background: transparent;
+          .item{
+            margin-bottom: 5%;
+            .label{
+              white-space: pre-line;
+            }
+            li{
+              list-style-type: circle;
+              font-weight: bold;
+            }
+          }
+
+          .badge{
+            background-color: $verde-limon;
+            font-size: 18pt;
+            letter-spacing: 3px;
+          }
+          .button{
+            background-color: $naranja;
+            color:white;
+            letter-spacing: 3px;
+          }
+        }
+      }
+    }
+  #button-mapa{
+    padding: 0;
+    margin: 0;
+    margin-top: 3%;
+    margin-bottom: 3%;
     button{
-      border:1px solid $naranja;
-      padding: 5%;
-      background-color: transparent;
-      color:black;
-      font-size: 13pt;
-      font-weight: bold;
-      line-height: 1;
-      margin-top:5%;
-
+      margin:0;
+      background-color: $naranja;
+      color:white;
+      padding: 0;
     }
+  }
+  .publi-div{
+    padding: 3%;
   }
   #card-public{
     .card{
-      background: rgba(255,255,255,0.6);
+      background-color: rgba(157, 244, 0,0.8);
       margin-bottom:8%;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+      .titulo-publi{
+        font-weight: bold;
+        background-color: white;
+        color: black;
+      }
+      .badge{
+        background: $naranja;
+        font-size:13pt;
+      }
+      .card-content{
+        margin-top:0;
+        .contenido-card-publi{
+          margin-bottom: 3%;
 
+        }
+        .descripcion-publi{
+          width: 100%;
+
+          h3{
+            font-size:12pt;
+            font-weight: 500;
+            text-indent: 2%;
+
+          }
+        }
+        .button-fab{
+          float:right;
+          position: inherit;
+
+          .fab{
+            background-color: $naranja;
+            float:right;
+            .icon{
+              color:white;
+            }
+          }
+          .fablist{
+            position: inherit;
+            .fab{
+              background-color: white;
+              .icon{
+                color:$verde-limon;
+              }
+            }
+          }
+        }
+      }
     }
   }
   .icon[name="share"]{
@@ -225,6 +389,19 @@ margin-bottom:10%;
     overflow: hidden;
     img{
       max-width: 130%;
+    }
+  }
+  #map{
+    width: 100%;
+    height: 250px;
+  }
+  .header:after{
+    display: none;
+  }
+  #horario{
+    text-align: center;
+    p{
+      text-align: center;
     }
   }
 

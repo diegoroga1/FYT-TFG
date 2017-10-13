@@ -1,3 +1,6 @@
+$naranja:#FF3D00;
+$verde-oscuro:#649300;
+$verde-limon:#9df400;
 page-entrenadores {
   .toolbar-title{
     color:white;
@@ -7,14 +10,16 @@ page-entrenadores {
     letter-spacing: 2px;
 }
   .toolbar-background{
-    background-color: #32001D;
+    background-color: $naranja;
   }
   .searchbar{
     position: fixed;
+    padding: 0;
     z-index: 999999;
-    top:8%;
+    top:9%;
     .searchbar-input-container{
-      width: 85%;
+      width: 100%;
+      padding: 0;
       margin:0 auto;
     }
   }
@@ -23,7 +28,7 @@ page-entrenadores {
   }
 
   .body-gray{
-    background-color: #dedede;
+    background-color: rgba(157, 244, 0, 0.28);
   }
   body {
     background: linear-gradient(to bottom, rgba(140,122,122,1) 0%, rgba(175,135,124,1) 65%, rgba(175,135,124,1) 100%) fixed;

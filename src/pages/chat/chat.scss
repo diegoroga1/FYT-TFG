@@ -1,3 +1,50 @@
+$naranja:#FF3D00;
+$verde-oscuro:#649300;
+$verde-limon:#9df400;
 page-chat {
 
+  #marca-agua{
+    position: absolute;
+    left: 0;
+    top: 20%;
+    z-index: 1;
+    opacity: 0.09;
+    width: 200%;
+  }
+  #seccion-no-login{
+    margin-top: 10%;
+    span{
+      font-size: 14pt;
+    }
+  }
+  #seccion-registro-login{
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 80%;
+
+    p{
+      display: inline-block;
+      font-size: 16pt;
+      margin: 7px;
+      color:$verde-limon;
+    }
+  }
+  .center{
+    text-align: center;
+  }
+  .content{
+    background-color: rgba(157, 244, 0, 0.28);
+
+  }
+  .toolbar-background{
+    background-color: $naranja;
+  }
+  .toolbar-title{
+    color:white;
+    letter-spacing: 5px;
+    font-weight: bold;
+    font-size: 16pt;
+    text-align: center;
+  }
 }

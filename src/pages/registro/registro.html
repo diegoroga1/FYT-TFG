@@ -1,0 +1,63 @@
+<!--
+  Generated template for the Registro page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div id="seccion-registro">
+    <h2 style="color:white;">Registrate en FYT</h2>
+    <div id="logo">
+      <img src="../../assets/imagenes/logotipo4.png">
+    </div>
+    <ion-buttons   id="registro-correo">
+      <button ion-button (click)="mostrarRegistroCorreo()">Registrate con tu correo</button>
+      <form *ngIf="showRegister"[formGroup]="formRegister" (ngSubmit)="crearUsuario()">
+        <ion-input type="text" formControlName="nombre" placeholder="Nombre"></ion-input>
+        <ion-input type="text" formControlName="apellidos" placeholder="Apellidos"></ion-input>
+        <ion-input type="email" formControlName="email" required placeholder="Correo electrónico"></ion-input>
+        <div formGroupName="passwordRetry">
+          <ion-input type="password" formControlName="password" placeholder="Contraseña"></ion-input>
+          <ion-input type="password" formControlName="passwordConfirm" placeholder="Confirma contraseña"></ion-input>
+        </div>
+
+        <ion-list radio-group formControlName="rol" >
+          <ion-item>
+            <ion-label>Entrenador</ion-label>
+            <ion-radio value="entrenador" ></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Usuario</ion-label>
+            <ion-radio value="usuario" checked></ion-radio>
+          </ion-item>
+
+        </ion-list>
+        <ion-buttons id="boton-registro">
+          <button ion-button block type="submit" [disabled]="!formRegister.valid">Registrarse</button>
+        </ion-buttons>
+      </form>
+    </ion-buttons>
+    <div *ngIf="!showRegister" id="registro-redes">
+      <ion-buttons>
+        <button class="boton-facebook" ion-button>
+          <ion-icon name="logo-facebook"></ion-icon>
+          <p>Registrate con Facebook</p>
+        </button>
+        <button class="boton-google" ion-button>
+          <ion-icon name="logo-google"></ion-icon>
+          <p>Registrate con Google</p>
+        </button>
+      </ion-buttons>
+    </div>
+  </div>
+
+</ion-content>

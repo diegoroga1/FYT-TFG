@@ -7,23 +7,95 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>perfil</ion-title>
+    <ion-title>Mi perfil FYT</ion-title>
   </ion-navbar>
 
 </ion-header>
 
+<ion-content >
+  <div *ngIf="!user" class="center" id="seccion-no-login">
+    <div>
+      <img style="width: 90px;height: 90px;" src="../../assets/icon/triste3.png"/>
+      <h2 >Aún no has iniciado sesión</h2>
+      <span>Inicia sesión o registrate en la app para crear tu perfil.</span>
+      <img id="marca-agua"  src="../../assets/icon/trainer.png">
+      <div id="seccion-registro-login">
+        <p (click)="irALogin()">Iniciar sesíon</p>
+        <p>|</p>
+        <p (click)="irARegistro()">Registrarse</p>
 
-<ion-content padding>
-  <ion-buttons class="buttons-add">
+      </div>
+    </div>
+  </div>
+
+  <div id="header-profile">
+    <div id="seccion-foto-perfil" class="circle">
+      <img id="foto-perfil" src=""/>
+      <p class="edit-photo">Editar foto</p>
+    </div>
+    <div  *ngFor="let user of cogerDatos.currentUser|async" id="datos-perfil-header">
+      <h2 style="margin-top: 2%;" *ngIf="user.$key=='nombre'">{{user.$value}}</h2>
+    </div>
+    <div style="width: 100%;" >
+      <p style="display:inline;"><ion-icon style="margin-right: 2%;" name="navigate"></ion-icon>Localidad</p>
+      <ion-icon style="float: right;margin-right: 10%;font-size: 18pt;" name="create"></ion-icon>
+    </div>
+
+
+  </div>
+  <ion-segment [(ngModel)]="perfilSegment"  >
+    <ion-segment-button value="info">
+      Sobre mí
+    </ion-segment-button>
+    <ion-segment-button value="servicio">
+      Mis servicios
+    </ion-segment-button>
+  </ion-segment>
+
+  <!--SECCION INFO-->
+  <div [ngSwitch]="perfilSegment">
+    <div id="seccion-info" *ngSwitchCase="'info'">
+      <div id="body-profile">
+        <ion-label >Descripción</ion-label>
+        <p class="white">Añade una descripción<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <ion-label>Información pública</ion-label>
+        <p class="white">Formación<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <p class="white">Experiencia<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <ion-label>Información privada</ion-label>
+        <p class="white">Edad<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <p class="white">Sexo<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <p class="white">Nacionalidad<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <ion-label>Datos de contacto</ion-label>
+        <p class="white">Teléfono<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <p class="white">Correo<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <p class="white">Facebook<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <p class="white">Instagram<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <p class="white">Twitter<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <p class="white">Linkedin<ion-icon class="right-icon" name="add"></ion-icon></p>
+
+      </div>
+    </div>
+
+    <!--SECCION BLOG-->
+    <ion-list id="seccion-servicio" *ngSwitchCase="'servicio'">
+
+    </ion-list>
+    </div>
+
+
+  <!--
+  <ion-buttons *ngIf="user" class="buttons-add">
     <div style="margin:0 auto;">
       <button (click)="crearAnuncio()" color="danger" ion-button icon-only>
         <ion-icon name="add"></ion-icon>
+        <p>Crea tu anuncion</p>
       </button>
       <button (click)="crearPublicacion()" color="dark" ion-button icon-only>
         <ion-icon name="add"></ion-icon>
+        <p>Añade una publicación</p>
       </button>
     </div>
 
 
-  </ion-buttons>
+  </ion-buttons>-->
 </ion-content>

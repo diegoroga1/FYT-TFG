@@ -5,18 +5,20 @@ page-entrenadores .toolbar-title {
   font-size: 18pt;
   letter-spacing: 2px; }
 page-entrenadores .toolbar-background {
-  background-color: #32001D; }
+  background-color: #FF3D00; }
 page-entrenadores .searchbar {
   position: fixed;
+  padding: 0;
   z-index: 999999;
-  top: 8%; }
+  top: 9%; }
   page-entrenadores .searchbar .searchbar-input-container {
-    width: 85%;
+    width: 100%;
+    padding: 0;
     margin: 0 auto; }
 page-entrenadores .grid {
   margin-top: 16%; }
 page-entrenadores .body-gray {
-  background-color: #dedede; }
+  background-color: rgba(157, 244, 0, 0.28); }
 page-entrenadores body {
   background: linear-gradient(to bottom, #8c7a7a 0%, #af877c 65%, #af877c 100%) fixed;
   background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/coc-background.jpg") no-repeat center center fixed;

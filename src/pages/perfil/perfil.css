@@ -1,5 +1,95 @@
 page-perfil .buttons-add {
+  bottom: 10px;
+  text-align: center; }
+  page-perfil .buttons-add .button {
+    width: 80%; }
+  page-perfil .buttons-add p {
+    margin-right: 6px; }
+page-perfil #marca-agua {
   position: absolute;
-  bottom: 10px; }
+  left: 0;
+  top: 20%;
+  z-index: 1;
+  opacity: 0.07;
+  width: 200%; }
+page-perfil #seccion-no-login {
+  margin-top: 10%; }
+  page-perfil #seccion-no-login span {
+    font-size: 14pt; }
+page-perfil #seccion-registro-login {
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+  margin-top: 80%; }
+  page-perfil #seccion-registro-login p {
+    display: inline-block;
+    font-size: 16pt;
+    margin: 7px;
+    color: #9df400; }
+page-perfil .center {
+  text-align: center; }
+page-perfil .content {
+  background-color: rgba(157, 244, 0, 0.28);
+  padding: 0; }
+  page-perfil .content .scroll-content {
+    padding: 0 !important; }
+page-perfil .toolbar-background {
+  background-color: #FF3D00; }
+page-perfil .toolbar-title {
+  color: white;
+  letter-spacing: 5px;
+  font-weight: bold;
+  font-size: 16pt;
+  text-align: center; }
+page-perfil #header-profile {
+  margin-top: 4%;
+  width: 100%;
+  height: 80px; }
+  page-perfil #header-profile #seccion-foto-perfil {
+    width: 35%;
+    float: left;
+    text-align: center;
+    margin-bottom: 3%; }
+    page-perfil #header-profile #seccion-foto-perfil #foto-perfil {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      background-color: white; }
+    page-perfil #header-profile #seccion-foto-perfil .edit-photo {
+      color: #FF3D00;
+      margin: 0; }
+      page-perfil #header-profile #seccion-foto-perfil .edit-photo .icon {
+        margin-left: 2%; }
+  page-perfil #header-profile .seguidores {
+    float: right;
+    background-color: #FF3D00;
+    color: white;
+    font-size: 12pt;
+    margin-top: 4%; }
+  page-perfil #header-profile #datos-perfil-header {
+    width: 65%; }
+page-perfil .segment-button {
+  color: #FF3D00 !important;
+  border-color: #FF3D00 !important;
+  background: white !important;
+  font-size: 16pt !important; }
+page-perfil .segment-activated {
+  background-color: #FF3D00 !important;
+  color: white !important; }
+page-perfil #body-profile .label {
+  font-size: 14pt;
+  font-weight: bold;
+  margin-left: 3%; }
+page-perfil #body-profile .white {
+  background-color: white;
+  width: 100%;
+  padding: 3%;
+  font-size: 13pt;
+  border-top: 2px solid #9df400;
+  border-bottom: 2px solid #9df400; }
+page-perfil #body-profile .right-icon {
+  float: right;
+  margin-right: 2%;
+  color: #FF3D00; }
 
 /*# sourceMappingURL=perfil.css.map */

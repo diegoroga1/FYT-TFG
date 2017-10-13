@@ -1,7 +1,7 @@
 import { Injectable,Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {FirebaseListObservable,AngularFireDatabase} from "angularfire2/database";
+import {FirebaseObjectObservable,FirebaseListObservable,AngularFireDatabase} from "angularfire2/database";
 import {FirebaseApp} from 'angularfire2';
 import * as firebase from 'firebase';
 
@@ -17,8 +17,10 @@ export class CogerDatos {
   datos:FirebaseListObservable<any>;
   entrenadores:FirebaseListObservable<any>;
   publicaciones:FirebaseListObservable<any>;
+  currentUser:FirebaseListObservable<any>;
   constructor(public af:AngularFireDatabase,@Inject(FirebaseApp) firebaseApp: firebase.app.App) {
     console.log('Hello CogerDatos Provider');
+
 
   }
 
@@ -34,6 +36,15 @@ export class CogerDatos {
   getPublicacionesTrainer(){
     this.publicaciones=this.af.list('/publicaciones')
     return this.publicaciones
+  }
+
+  getDataCurrentUser(key){
+   this.currentUser=this.af.list('usuarios/'+key);
+    console.log(this.currentUser);
+
+    return this.currentUser;
+
+
   }
 
 

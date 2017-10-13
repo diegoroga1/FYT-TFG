@@ -4,10 +4,8 @@ card-publi {
   }
   .card-content{
     padding: 0;
-    margin-top: 2%;
   }
   .descripcion-publi{
-    margin-top: 3%;
   }
   .contenido-card-publi{
     h2{
@@ -27,5 +25,19 @@ card-publi {
         font-size: 25px;
       }
     }
+  }
+  .icon-likes{
+    img{
+      width: 20px;
+      height: 20px;
+      float:left;
+      margin-right: 20px;
+      margin-left: 10px;
+      margin-top:12px;
+
+    }
+  }
+  .fablist{
+    margin-left:0;
   }
 }

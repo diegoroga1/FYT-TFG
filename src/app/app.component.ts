@@ -6,6 +6,8 @@ import { Entrenadores } from '../pages/entrenadores/entrenadores';
 import { HomePage } from '../pages/home/home';
 import { Tabs } from '../pages/tabs/tabs';
 import { Chat } from '../pages/chat/chat';
+import { Perfil } from '../pages/perfil/perfil';
+import { Registro } from '../pages/registro/registro';
 
 @Component({
   templateUrl: 'app.html'
@@ -13,7 +15,7 @@ import { Chat } from '../pages/chat/chat';
 export class MyApp {
   @ViewChild('content') navCtrl: NavController;
 
-  rootPage:any = Entrenadores;
+  rootPage:any = Tabs;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

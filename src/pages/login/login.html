@@ -1,0 +1,48 @@
+<!--
+  Generated template for the Login page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div  id="seccion-login">
+    <h2 style="color:white;" >Inicia sesión en FYT</h2>
+    <div id="logo">
+      <img src="../../assets/imagenes/logotipo4.png">
+    </div>
+    <form #form="ngForm" (ngSubmit)="submitLogin(form)">
+      <ion-input type="email" name="email" ngModel required placeholder="Introduce tu correo"></ion-input>
+      <ion-input style="margin-bottom: 6%;" type="password" name="password" ngModel required placeholder="Contraseña"></ion-input>
+      <span style="margin-top: 7%;font-size: 13pt;color:white;"> ¿Has olvidado tu contraseña?</span>
+      <ion-buttons id="boton-login">
+        <button ion-button type="submit">Iniciar</button>
+      </ion-buttons>
+      <div id="login-redes">
+        <ion-buttons>
+          <button class="boton-facebook" ion-button>
+            <ion-icon name="logo-facebook"></ion-icon>
+            <p>Inicia con Facebook</p>
+          </button>
+          <button class="boton-google" ion-button>
+            <ion-icon name="logo-google"></ion-icon>
+            <p>Inicia con Google</p>
+          </button>
+        </ion-buttons>
+      </div>
+    </form>
+
+  </div>
+
+
+
+
+</ion-content>
