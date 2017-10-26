@@ -15,8 +15,9 @@ import * as firebase from 'firebase';
 export class CardTrainer {
   text: string;
   @Input('nombre') nombre:string;
+  @Input('apellidos') apellidos:string;
   @Input('localidad') localidad:string;
-  @Input('especialidad') especialidad:string;
+  @Input('especialidades') especialidades:any;
   @Input('fotoPerfil') fotoPerfil:any;
   @Input('key') key:any;
 
@@ -27,7 +28,9 @@ export class CardTrainer {
   }
   ngOnInit() {
     console.log(this.key);
-    this.firebaseApp.storage().ref().child('fotos-perfil/' + this.key + '/perfil.jpg').getDownloadURL().then(url => this.fotoPerfil = url);
+    this.firebaseApp.storage().ref().child('fotos-perfil/' + this.key + '/perfil.jpg').getDownloadURL()
+      .then(url => this.fotoPerfil = url)
+      .catch(error=>console.log(error));
   }
 
 

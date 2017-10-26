@@ -1,22 +1,23 @@
 <!-- Generated template for the CardTrainer component -->
-<div>
+<div style="margin:1%;">
   <ion-card class="card_entrenador grid-item">
     <div class="card_image ">
-      <img src="{{fotoPerfil}}" alt="entrenador" />
+      <img *ngIf="fotoPerfil" src="{{fotoPerfil}}" alt="entrenador" />
+      <div class="div-price">
+        <div class="stat-value">desde 9€</div>
+      </div>
     </div>
     <ion-card-content class="card-content-entrenador">
-      <div class="card_nombre ">{{nombre}}</div>
-
+      <div class="card_nombre ">{{nombre}} {{apellidos}}</div>
       <div class="bottom-content">
-        <div class="card_especialidad">{{especialidad}}</div>
+        <div *ngIf="especialidades" class="card_especialidad">{{especialidades}}</div>
         <div class="card_descripcion">
+          <ion-icon *ngIf="localidad" name="navigate" style="margin-right: 2%"></ion-icon>
           {{localidad}}
         </div>
       </div>
       <div class="card_footer  clearfix">
-        <div class="div-price">
-          <div class="stat-value">desde 9€</div>
-        </div>
+
         <div class="one-third">
           <div class="stat-value">Enviar mensaje</div>
         </div>

@@ -3,7 +3,9 @@ import { IonicPage, NavController, NavParams,Events } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Perfil } from '../perfil/perfil';
+import { Facebook } from '@ionic-native/facebook';
 
+import firebase from 'firebase';
 /**
  * Generated class for the Login page.
  *
@@ -19,12 +21,14 @@ export class Login {
   email:any;
   password:any;
   userKey:any;
+  userProfile:any;
   userEmail:any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public afAuth: AngularFireAuth,
               public af: AngularFireDatabase,
-              public events:Events) {
+              public events:Events,
+              private facebook: Facebook) {
   }
 
   ionViewDidLoad() {
@@ -54,6 +58,21 @@ export class Login {
         }
       }
     );
+  }
+  facebookLogin(){
+    this.facebook.login(['email']).then((response)=>{
+      const facebookCredential=firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
+      firebase.auth().signInWithCredential(facebookCredential)
+        .then((success)=>{
+          console.log("Firebase success: "+ JSON.stringify(success));
+          this.userProfile=success;
+        })
+        .catch((error)=>{
+          console.log("Firebase failure: " + JSON.stringify(error));
+        })
+    }).catch((error)=>{
+      console.log(error);
+    })
   }
 
 }

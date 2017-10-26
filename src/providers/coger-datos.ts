@@ -39,11 +39,10 @@ export class CogerDatos {
   }
 
   getDataCurrentUser(key){
-   this.currentUser=this.af.list('usuarios/'+key);
-    console.log(this.currentUser);
-
-    return this.currentUser;
-
+    this.currentUser
+   this.af.list('usuarios/').forEach(data=>{
+     console.log(data);
+   })
 
   }
 

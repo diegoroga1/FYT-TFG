@@ -7,14 +7,16 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Mi perfil FYT</ion-title>
-  </ion-navbar>
+    <ion-title>Mi perfil FYT     <ion-icon end (click)="editProfile()" style="float: right;font-size: 18pt;" name="create"></ion-icon>
+    </ion-title>
 
+  </ion-navbar>
 </ion-header>
 
 <ion-content >
   <div *ngIf="!user" class="center" id="seccion-no-login">
     <div>
+
       <img style="width: 90px;height: 90px;" src="../../assets/icon/triste3.png"/>
       <h2 >Aún no has iniciado sesión</h2>
       <span>Inicia sesión o registrate en la app para crear tu perfil.</span>
@@ -29,17 +31,22 @@
   </div>
 
   <div id="header-profile">
-    <div id="seccion-foto-perfil" class="circle">
-      <img id="foto-perfil" src=""/>
-      <p class="edit-photo">Editar foto</p>
+    <div *ngFor="let user of usuarios|async" id="seccion-foto-perfil">
+      <ion-icon class="icon-camera circle" *ngIf="user.$key==userKey && !user.fotoPerfil" (click)="actionPhoto()"  name="camera" ></ion-icon>
+      <img *ngIf="user.$key==userKey && user.fotoPerfil" class="circle" id="foto-perfil" src=""/>
+      <p *ngIf="user.$key==userKey&&!base64img" (click)="actionPhoto()" class="edit-photo">Editar foto</p>
+      <p *ngIf="user.$key==userKey&&base64img" (click)="addPhoto()" class="edit-photo">Subir foto</p>
     </div>
-    <div  *ngFor="let user of cogerDatos.currentUser|async" id="datos-perfil-header">
-      <h2 style="margin-top: 2%;" *ngIf="user.$key=='nombre'">{{user.$value}}</h2>
+    <div *ngFor="let user of usuarios|async" >
+      <div   *ngIf="user.$key==userKey " id="datos-perfil-header">
+        <h2 *ngIf="user.$key==userKey "  >{{user.nombre}} {{user.apellidos}}</h2>
+      </div>
+      <div  *ngIf="user.$key==userKey " style="width: 100%;margin-left: 4%;" >
+        <p *ngIf="user.localidad " style="display:inline;width: 80%;"><ion-icon style="margin-right: 2%;" name="navigate"></ion-icon>{{user.localidad}}</p>
+        <p (click)="editProfile()" *ngIf="!user.localidad " style="display:inline;width: 80%;"><ion-icon style="margin-right: 2%;" name="navigate"></ion-icon>Añade tu localidad</p>
+      </div>
     </div>
-    <div style="width: 100%;" >
-      <p style="display:inline;"><ion-icon style="margin-right: 2%;" name="navigate"></ion-icon>Localidad</p>
-      <ion-icon style="float: right;margin-right: 10%;font-size: 18pt;" name="create"></ion-icon>
-    </div>
+
 
 
   </div>
@@ -54,24 +61,59 @@
 
   <!--SECCION INFO-->
   <div [ngSwitch]="perfilSegment">
-    <div id="seccion-info" *ngSwitchCase="'info'">
-      <div id="body-profile">
-        <ion-label >Descripción</ion-label>
-        <p class="white">Añade una descripción<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <ion-label>Información pública</ion-label>
-        <p class="white">Formación<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <p class="white">Experiencia<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <ion-label>Información privada</ion-label>
-        <p class="white">Edad<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <p class="white">Sexo<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <p class="white">Nacionalidad<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <ion-label>Datos de contacto</ion-label>
-        <p class="white">Teléfono<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <p class="white">Correo<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <p class="white">Facebook<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <p class="white">Instagram<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <p class="white">Twitter<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <p class="white">Linkedin<ion-icon class="right-icon" name="add"></ion-icon></p>
+    <div   id="seccion-info" *ngSwitchCase="'info'">
+      <div  *ngFor="let user of usuarios|async"  id="body-profile">
+        <ion-label *ngIf="user.$key==userKey " >Descripción</ion-label>
+        <p  *ngIf="user.$key==userKey && !user.descripcion" (click)="addDescription()" class="white">Añade una descripción<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <p  *ngIf="user.$key==userKey && user.descripcion"(click)="addDescription()" class="white">{{user.descripcion}}<ion-icon class="right-icon" name="create"></ion-icon></p>
+        <ion-label *ngIf="user.$key==userKey">Formación</ion-label>
+        <div *ngIf="user.$key==userKey && user.formacion">
+          <div *ngFor="let f of user.formacion;let i =index">
+            <p  *ngIf="user.$key==userKey && user.formacion[i]" (click)="addEducation(i)" class="white">{{user.formacion[i]}}<ion-icon class="right-icon" name="create"></ion-icon></p>
+          </div>
+        </div>
+          <p  *ngIf="user.$key==userKey" (click)="addEducation(tamanoFormacion)" class="white">Añade formación<ion-icon class="right-icon" name="add"></ion-icon></p>
+
+        <ion-label  *ngIf="user.$key==userKey" stacked>Experiencia</ion-label>
+        <div *ngIf="user.$key==userKey && user.experiencia">
+          <div *ngFor="let e of user.experiencia;let i=index">
+            <p  *ngIf="user.$key==userKey && user.experiencia[i]" (click)="addExperiencia(i)" class="white">{{user.experiencia[i]}}<ion-icon class="right-icon" name="create"></ion-icon></p>
+          </div>
+        </div>
+        <p  *ngIf="user.$key==userKey " (click)="addExperiencia(tamanoExperiencia)" class="white">Añade experiencia<ion-icon class="right-icon" name="add"></ion-icon></p>
+       <div *ngIf="user.$key==userKey">
+         <ion-label >Fecha de nacimiento</ion-label>
+         <ion-datetime   class="white placeholder-letter" displayFormat="DD/MM/YYYY" placeholder="Añade tu fecha de nacimiento" [(ngModel)]="fechaNacimiento" (ionChange)="addFechaNacimiento(fechaNacimiento)" value=""></ion-datetime>
+       </div>
+        <!--<p *ngIf="user.$key==userKey && !user.fechaNacimiento" (click)="addFechaNacimiento()" class="white">Añade tu fecha de nacimiento<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <p *ngIf="user.$key==userKey && user.fechaNacimiento" (click)="addFechaNacimiento()" class="white">{{user.fechaNacimiento}} años<ion-icon class="right-icon" name="create"></ion-icon></p>-->
+        <ion-label *ngIf="user.$key==userKey" >Sexo</ion-label>
+        <ion-select  *ngIf="user.$key==userKey"  class="white" placeholder="Selecciona tu sexo" (ionChange)="addSex(sexo)" [(ngModel)]="sexo">
+          <ion-option [selected]="user.sexo=='Hombre'" >Hombre</ion-option>
+          <ion-option  [selected]="user.sexo=='Mujer'" >Mujer</ion-option>
+        </ion-select>
+        <ion-label *ngIf="user.$key==userKey" > Nacionalidad</ion-label>
+        <ion-select  *ngIf="user.$key==userKey" placeholder="Selecciona tu país" class="white" (ionChange)="addNationality(nacionalidad)" [(ngModel)]="nacionalidad">
+              <ion-option   *ngFor="let country of country_list"  [selected]="user.nacionalidad==country">{{country}}</ion-option>
+        </ion-select>
+        <div *ngIf="user.$key==userKey">
+          <ion-label stacked>Teléfono</ion-label>
+          <p *ngIf="!user.telefono" (click)="addPhone()" class="white">Añade tu teléfono de contacto<ion-icon class="right-icon" name="add"></ion-icon></p>
+          <p *ngIf="user.telefono" (click)="addPhone()" class="white">{{user.telefono}}<ion-icon class="right-icon" name="create"></ion-icon></p>
+          <ion-label stacked>Correo</ion-label>
+          <p *ngIf="!user.email" (click)="changeEmail()" class="white">Añade tu correo electrónico<ion-icon class="right-icon" name="add"></ion-icon></p>
+          <p *ngIf="user.email" (click)="changeEmail()" class="white">{{user.email}}<ion-icon class="right-icon" name="create"></ion-icon></p>
+          <ion-label>Redes sociales</ion-label>
+          <p *ngIf="!user.facebook" (click)="addFacebook()" class="white"><ion-icon class="logo" name="logo-facebook"></ion-icon>Facebook<ion-icon class="right-icon" name="add"></ion-icon></p>
+          <p *ngIf="user.facebook" (click)="addFacebook()" class="white"><ion-icon class="logo" name="logo-facebook"></ion-icon>{{user.facebook}}<ion-icon class="right-icon" name="add"></ion-icon></p>
+          <p *ngIf="!user.instagram" (click)="addInstagram()" class="white"><ion-icon class="logo" name="logo-instagram"></ion-icon>Instagram<ion-icon class="right-icon" name="add"></ion-icon></p>
+          <p *ngIf="user.instagram" (click)="addInstagram()" class="white"><ion-icon class="logo" name="logo-instagram"></ion-icon>{{user.instagram}}<ion-icon class="right-icon" name="add"></ion-icon></p>
+          <p *ngIf="!user.twitter" (click)="addTwitter()" class="white"><ion-icon class="logo" name="logo-twitter"></ion-icon>Twitter<ion-icon class="right-icon" name="add"></ion-icon></p>
+          <p *ngIf="user.twitter" (click)="addTwitter()" class="white"><ion-icon class="logo" name="logo-twitter"></ion-icon>{{user.twitter}}<ion-icon class="right-icon" name="add"></ion-icon></p>
+          <p *ngIf="!user.linkedin" (click)="addLinkedin()" class="white"><ion-icon class="logo" name="logo-linkedin"> </ion-icon>Linkedin<ion-icon class="right-icon" name="add"></ion-icon></p>
+          <p *ngIf="user.linkedin" (click)="addLinkedin()" class="white"><ion-icon class="logo" name="logo-linkedin"> </ion-icon>{{user.linkedin}}<ion-icon class="right-icon" name="add"></ion-icon></p>
+        </div>
+
 
       </div>
     </div>
@@ -82,20 +124,17 @@
     </ion-list>
     </div>
 
-
-  <!--
   <ion-buttons *ngIf="user" class="buttons-add">
-    <div style="margin:0 auto;">
-      <button (click)="crearAnuncio()" color="danger" ion-button icon-only>
+      <button id="boton-crea-anuncio" (click)="crearAnuncio()" ion-button icon-only>
         <ion-icon name="add"></ion-icon>
-        <p>Crea tu anuncion</p>
+
+        Crea tu anuncio
       </button>
+      <!--
       <button (click)="crearPublicacion()" color="dark" ion-button icon-only>
         <ion-icon name="add"></ion-icon>
         <p>Añade una publicación</p>
-      </button>
-    </div>
+      </button>-->
 
-
-  </ion-buttons>-->
+  </ion-buttons>
 </ion-content>

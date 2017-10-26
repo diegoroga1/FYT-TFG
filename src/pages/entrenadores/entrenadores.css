@@ -1,7 +1,10 @@
+page-entrenadores .scroll-content {
+  padding: 0 !important; }
+page-entrenadores .content {
+  background-color: rgba(157, 244, 0, 0.28); }
 page-entrenadores .toolbar-title {
   color: white;
   text-align: center;
-  font-family: 'Lobster', cursive;
   font-size: 18pt;
   letter-spacing: 2px; }
 page-entrenadores .toolbar-background {
@@ -15,26 +18,8 @@ page-entrenadores .searchbar {
     width: 100%;
     padding: 0;
     margin: 0 auto; }
-page-entrenadores .grid {
-  margin-top: 16%; }
-page-entrenadores .body-gray {
-  background-color: rgba(157, 244, 0, 0.28); }
-page-entrenadores body {
-  background: linear-gradient(to bottom, #8c7a7a 0%, #af877c 65%, #af877c 100%) fixed;
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/coc-background.jpg") no-repeat center center fixed;
-  background-size: cover;
-  font: 14px/20px "Lato", Arial, sans-serif;
-  color: #9E9E9E;
-  margin-top: 30px;
-  padding: 0; }
-page-entrenadores .ion-content {
-  padding: 0; }
-page-entrenadores .scroll-content {
-  padding: 0; }
-page-entrenadores .slide-container {
-  margin: auto;
-  width: 600px;
-  text-align: center; }
+page-entrenadores #lista-entrenadores {
+  margin-top: 12%; }
 page-entrenadores .clearfix:after {
   visibility: hidden;
   display: block;

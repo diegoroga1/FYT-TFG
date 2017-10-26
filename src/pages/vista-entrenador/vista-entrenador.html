@@ -40,17 +40,18 @@
 
       <div class="circle foto-perfil">
         <div >
-          <img  src="{{fotoPerfil}}"/>
+          <img  *ngIf="fotoPerfil" src="{{fotoPerfil}}"/>
+          <img  *ngIf="!fotoPerfil" src="../../assets/imagenes/foto3.jpg"/>
 
         </div>
       </div>
 
       <div *ngIf="datosEntrenador" class="info-entrenador">
         <div style="margin-left: 2%">
-          <h2 style="width: 60%;background-color: transparent;">{{datosEntrenador.nombre}}</h2>
+          <h2 style="width: 60%;background-color: transparent;">{{datosEntrenador.nombre}} {{datosEntrenador.apellidos}}</h2>
 
           <div id="seccion-localidad">
-            <p><ion-icon style="margin-right: 2%" name="navigate"></ion-icon>{{datosEntrenador.localidad}}</p>
+            <p style="width: 60%;" ><ion-icon style="margin-right: 2%;" name="navigate"></ion-icon>{{datosEntrenador.localidad}}</p>
           </div>
           <div id="seccion-contacto" >
             <p col col-8><img src="../../assets/icon/email.png"/>{{datosEntrenador.email}}</p>
@@ -60,8 +61,8 @@
             <img src="../../assets/icon/youtube.png" />
             <img src="../../assets/icon/linkedin.png" />
             <img src="../../assets/icon/whatsapp.png" />
-            <img src="../../assets/icon/instagram.png" />
-            <img src="../../assets/icon/facebook.png" />
+            <a href="https://instagram.com/{{datosEntrenador.instagram}}" ><img src="../../assets/icon/instagram.png" /></a>
+            <a href="{{datosEntrenador.facebook}}"><img src="../../assets/icon/facebook.png" /></a>
             <img src="../../assets/icon/gorjeo.png" />
           </div>
           <div id="seccion-valoracion">
@@ -98,11 +99,6 @@
           <!--<p>A domicilio: <strong>{{datosEntrenador.lugarEntrenamiento.domicilio}}</strong></p>
           <p>Lugares:<strong>{{datosEntrenador.lugarEntrenamiento.lugar}}</strong> </p>-->
         </div>
-
-
-
-
-
         <div id="seccion-exp-form" class="line-separator">
           <h2>Experiencia y formación</h2>
           <ion-list>
@@ -235,14 +231,14 @@
 
         <div id="seccion-descripcion" class="line-separator">
           <h2>El servicio...</h2>
-          <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen</p>
+          <p>{{datosEntrenador.descripcion}}</p>
         </div>
 
         <div id="seccion-comentarios" class="line-separator">
           <h2 style="text-align: center;">Opiniones y comentarios</h2>
           <ion-card>
             <ion-card-header>
-              <ion-avatar class="circle"></ion-avatar>
+              <ion-avatar ><img class="circle" src="../../assets/imagenes/perfil1.jpg "></ion-avatar>
               <ion-card-title class="nombre-comentario">Rosa Maria</ion-card-title>
                 <rating class="val-comentario" [(ngModel)]="rate"
                         readOnly="false"  max="5"
@@ -256,7 +252,7 @@
           </ion-card>
           <ion-card>
             <ion-card-header>
-              <ion-avatar class="circle"></ion-avatar>
+              <ion-avatar ><img class="circle" src="../../assets/imagenes/perfil2.jpg "></ion-avatar>
               <ion-card-title class="nombre-comentario">Juana Maria Perez </ion-card-title>
                 <rating class="val-comentario" [(ngModel)]="rate"
                         readOnly="false"  max="5"

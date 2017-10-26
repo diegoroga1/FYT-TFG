@@ -1,0 +1,26 @@
+page-nueva-tarifa {
+  .toolbar-background{
+    background-color: $naranja;
+  }
+  .toolbar-title{
+    color:white;
+  }
+  .back-button{
+    color:white;
+  }
+  .white{
+    background-color: white;
+    margin: 0;
+    width: 100%;
+    padding: 3%;
+    font-size: 13pt;
+    border-top:2px solid $verde-limon;
+    border-bottom:2px solid $verde-limon;
+  }
+  .right-icon{
+    float: right;
+    margin-right: 2%;
+    color: $naranja;
+
+  }
+}

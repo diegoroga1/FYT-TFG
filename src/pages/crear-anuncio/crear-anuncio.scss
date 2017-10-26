@@ -1,3 +1,128 @@
 page-crear-anuncio {
 
+  .toolbar-background{
+    background-color: $naranja;
+
+  }
+  .toolbar-title{
+    color:white;
+  }
+  .back-button-icon{
+    color:white;
+  }
+  .white{
+    background-color: white;
+    margin: 0;
+    width: 100%;
+    padding: 3%;
+    font-size: 13pt;
+    border-bottom:2px solid $verde-limon;
+  }
+  .right-icon{
+    float: right;
+    margin-right: 2%;
+    color: $naranja;
+
+  }
+  .especialidad-select{
+    .select-text{
+      overflow: visible;
+      white-space: normal;
+      margin-left: 2%;
+    }
+  }
+  .datetime{
+    width: 50%;
+    float: left;
+    .item-cover{
+      position: relative;
+      width: 20px;
+    }
+  }
+  .select{
+    max-width: 100% !important;
+    .item-cover{
+      position: relative;
+      width: 20px;
+    }
+  }
+  .center{
+    text-align: center;
+  }
+  .separator{
+    border-bottom: 2px solid $naranja;
+    width: 100%;
+    float:left;
+    margin-top: 3%;
+  }
+  .div-fields{
+    width: 100%;
+    float: left;
+  }
+  .titulo-style{
+    font-size: 14pt !important;
+    color:black;
+    white-space: normal;
+    margin-bottom: 3% !important;
+
+  }
+  .item{
+    padding: 0;
+    .item-inner{
+      padding-right: 0 !important;
+    }
+    .label{
+      font-size: 13pt;
+      font-weight: bold;
+      color:black;
+      text-indent: 2%;
+    }
+    .select-placeholder{
+      text-indent: 3%;
+      color:black;
+    }
+
+
+  }
+  .select-placeholder,.select-text{
+    color:black !important;
+    overflow: visible;
+  }
+  .select-icon-inner,.datetime-icon-inner{
+    color:$naranja !important;
+    left:10px !important;
+  }
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: black !important;
+  }
+  .titulo-input{
+    .text-input{
+      margin: 0;
+    }
+  }
+  #añade-fotos{
+    width: 100%;
+    text-align: center;
+    .bloque-add{
+      width: 100px;
+      height: 100px;
+      border: 3px solid $verde-limon;
+      background-color: rgba(0,0,0,0.2);
+      display: inline-block;
+      text-align: center;
+      margin:1%;
+      margin-bottom: 4%;
+
+    }
+    .icon{
+      font-size: 25pt;
+      color:white;
+      position: relative;
+      top: calc(50% - 12px);
+    }
+  }
+
+  .button{
+    background-color: $naranja;
+  }
 }

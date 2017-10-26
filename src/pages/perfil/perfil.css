@@ -1,10 +1,13 @@
 page-perfil .buttons-add {
-  bottom: 10px;
-  text-align: center; }
-  page-perfil .buttons-add .button {
-    width: 80%; }
-  page-perfil .buttons-add p {
-    margin-right: 6px; }
+  margin-top: 10%;
+  position: fixed;
+  bottom: 10%;
+  left: 25%;
+  padding: 2%; }
+  page-perfil .buttons-add #boton-crea-anuncio {
+    padding-right: 4%;
+    border-radius: 20px;
+    background-color: #FF3D00; }
 page-perfil #marca-agua {
   position: absolute;
   left: 0;
@@ -46,15 +49,23 @@ page-perfil #header-profile {
   width: 100%;
   height: 80px; }
   page-perfil #header-profile #seccion-foto-perfil {
-    width: 35%;
-    float: left;
+    float: right;
     text-align: center;
-    margin-bottom: 3%; }
+    margin-bottom: 3%;
+    margin-right: 3%; }
     page-perfil #header-profile #seccion-foto-perfil #foto-perfil {
       border-radius: 50%;
       width: 80px;
       height: 80px;
       background-color: white; }
+    page-perfil #header-profile #seccion-foto-perfil .icon-camera:before {
+      font-size: 250%;
+      margin-top: 20%; }
+    page-perfil #header-profile #seccion-foto-perfil .circle {
+      background-color: white;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px; }
     page-perfil #header-profile #seccion-foto-perfil .edit-photo {
       color: #FF3D00;
       margin: 0; }
@@ -67,7 +78,10 @@ page-perfil #header-profile {
     font-size: 12pt;
     margin-top: 4%; }
   page-perfil #header-profile #datos-perfil-header {
-    width: 65%; }
+    margin-left: 3%; }
+    page-perfil #header-profile #datos-perfil-header h2 {
+      padding-top: 5%;
+      font-size: 14pt; }
 page-perfil .segment-button {
   color: #FF3D00 !important;
   border-color: #FF3D00 !important;
@@ -76,20 +90,74 @@ page-perfil .segment-button {
 page-perfil .segment-activated {
   background-color: #FF3D00 !important;
   color: white !important; }
-page-perfil #body-profile .label {
-  font-size: 14pt;
-  font-weight: bold;
-  margin-left: 3%; }
-page-perfil #body-profile .white {
-  background-color: white;
-  width: 100%;
-  padding: 3%;
-  font-size: 13pt;
-  border-top: 2px solid #9df400;
-  border-bottom: 2px solid #9df400; }
-page-perfil #body-profile .right-icon {
-  float: right;
-  margin-right: 2%;
+page-perfil #body-profile {
+  position: relative; }
+  page-perfil #body-profile .label {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-left: 3%;
+    margin-top: 2px;
+    margin-bottom: 2px; }
+  page-perfil #body-profile .white {
+    background-color: white;
+    margin: 0;
+    width: 100%;
+    padding: 3%;
+    font-size: 13pt;
+    border-top: 2px solid #9df400;
+    border-bottom: 2px solid #9df400; }
+  page-perfil #body-profile .right-icon {
+    float: right;
+    margin-right: 2%;
+    color: #FF3D00; }
+  page-perfil #body-profile .logo {
+    margin-right: 4%;
+    font-size: 13pt; }
+page-perfil #boton-formacion .button {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  color: black; }
+page-perfil #boton-formacion .icon {
+  margin-right: 8%; }
+page-perfil .datetime .item-cover, page-perfil .select .item-cover {
+  position: relative;
+  width: 20px; }
+page-perfil .datetime-placeholder, page-perfil .datetime-text {
+  color: black !important;
+  overflow: visible; }
+page-perfil .select {
+  max-width: 100% !important; }
+page-perfil .select-placeholder, page-perfil .select-text {
+  color: black !important;
+  overflow: visible; }
+page-perfil .select-icon-inner, page-perfil .datetime-icon-inner {
+  color: #FF3D00 !important;
+  left: 10px !important; }
+
+.picker-wrapper .picker-button {
   color: #FF3D00; }
+.picker-wrapper .picker-columns {
+  color: black; }
+.picker-wrapper .picker-opt-selected {
+  font-weight: bold;
+  color: #649300 !important; }
+
+.alert-top, .select-alert {
+  background-color: rgba(157, 244, 0, 0.28); }
+  .alert-top ::-webkit-input-placeholder, .select-alert ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: black; }
+  .alert-top .alert-wrapper, .select-alert .alert-wrapper {
+    border-radius: 20px;
+    margin-top: 10%;
+    transform: scale(1.25); }
+  .alert-top .alert-message, .select-alert .alert-message {
+    color: black; }
+  .alert-top .alert-input, .select-alert .alert-input {
+    color: black;
+    border-bottom: 1px solid #9df400; }
+  .alert-top .alert-button, .select-alert .alert-button {
+    color: #FF3D00; }
 
 /*# sourceMappingURL=perfil.css.map */

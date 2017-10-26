@@ -1,0 +1,38 @@
+<!--
+  Generated template for the NuevaTarifa page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Tarifa nueva</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+  <form #form="ngForm" (ngSubmit)="submitLogin(form)">
+    <ion-label>Nombre de la tarifa</ion-label>
+    <ion-input type="text" ngModel name="nombre"  class="white" placeholder="Añade un nombre a la tarifa" ></ion-input>
+    <ion-label>Añade alguna descripción de la tarifa</ion-label>
+    <div *ngFor="let input of inputs;let i=index;">
+      <ion-input ngModel name="{{i}}" type="text" class="white" placeholder="Añade descripcion"></ion-input>
+    </div>
+    <ion-buttons>
+      <button type="button" (click)="addMoreDescription()" ion-button>
+        Añade otra descripción
+      </button>
+    </ion-buttons>
+
+    <ion-label>Añade el precio de la tarifa</ion-label>
+    <ion-input type="text" ngModel name="precio" class="white" placeholder="Añade un precio"></ion-input>
+  <ion-buttons>
+    <button ion-button type="submit">Crear</button>
+  </ion-buttons>
+  </form>
+
+
+</ion-content>

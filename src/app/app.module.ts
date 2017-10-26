@@ -19,6 +19,10 @@ import {CrearAnuncio} from '../pages/crear-anuncio/crear-anuncio'
 import {VistaMapa} from '../pages/vista-mapa/vista-mapa'
 import {Login} from '../pages/login/login';
 import {Registro} from '../pages/registro/registro';
+import {NuevaTarifa} from '../pages/nueva-tarifa/nueva-tarifa';
+import { Camera } from '@ionic-native/camera';
+
+import { Facebook } from '@ionic-native/facebook'
 
 import {AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -59,7 +63,8 @@ export const firebase={
     CrearAnuncio,
     VistaMapa,
     Registro,
-    Login
+    Login,
+    NuevaTarifa
   ],
   imports: [
     BrowserModule,
@@ -88,7 +93,8 @@ export const firebase={
     CrearAnuncio,
     VistaMapa,
     Registro,
-    Login
+    Login,
+    NuevaTarifa
   ],
   providers: [
     StatusBar,
@@ -100,6 +106,8 @@ export const firebase={
     Geocoder,
     ViewChild,
     Toast,
+    Camera,
+    Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

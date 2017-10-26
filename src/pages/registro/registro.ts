@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
+import {Perfil} from '../perfil/perfil';
 /**
  * Generated class for the Registro page.
  *
@@ -48,16 +49,18 @@ export class Registro {
           }else{
             this.fb.object('usuarios/' + success.uid).set({
               email: this.formRegister.value.email,
+              nombre:this.formRegister.value.nombre,
+              rol:this.formRegister.value.rol
             });
             this.fb.object('entrenadores/'+success.uid).set({
               nombre: this.formRegister.value.nombre,
               apellidos: this.formRegister.value.apellidos,
               email: this.formRegister.value.email,
               rol: this.formRegister.value.rol,
-              estado:"Pendiente"
+              estado:"pendiente"
             })
           }
-
+          this.navCtrl.setRoot(Perfil);
         }).catch(error=>{
           console.log(error);
       })

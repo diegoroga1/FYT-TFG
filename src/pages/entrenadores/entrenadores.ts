@@ -46,6 +46,7 @@ export class Entrenadores {
         filtradoNombres.push({nombre:item.nombre});
       })
     }
+
     this.nombre_entrenadores=filtradoNombres;
   }
   irAVistaEntrenador(entrenador,fotoPerfil){

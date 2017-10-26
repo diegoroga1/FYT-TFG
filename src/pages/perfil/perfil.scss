@@ -3,15 +3,20 @@ $verde-oscuro:#649300;
 $verde-limon:#9df400;
 page-perfil {
   .buttons-add{
-    bottom: 10px;
-    text-align: center;
-    .button{
-      width: 80%;
+    margin-top: 10%;
+    position: fixed;
+    bottom:10%;
+    left:25%;
+    padding: 2%;
 
+    #boton-crea-anuncio{
+      padding-right: 4%;
+      border-radius: 20px;
+      background-color: $naranja;
+      .icon{
+      }
     }
-    p{
-      margin-right: 6px;
-    }
+
   }
   #marca-agua{
     position: absolute;
@@ -68,15 +73,27 @@ page-perfil {
     height: 80px;
 
     #seccion-foto-perfil{
-      width: 35%;
-      float: left;
+      float: right;
       text-align: center;
       margin-bottom: 3%;
+      margin-right: 3%;
       #foto-perfil{
         border-radius: 50%;
         width: 80px;
         height: 80px;
         background-color: white;
+      }
+      .icon-camera{
+        &:before{
+          font-size: 250%;
+          margin-top: 20%;
+        }
+      }
+      .circle{
+        background-color: white;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
       }
       .edit-photo{
         color:$naranja;
@@ -98,7 +115,11 @@ page-perfil {
 
     }
     #datos-perfil-header{
-      width: 65%;
+      margin-left: 3%;
+      h2{
+        padding-top: 5%;
+        font-size: 14pt;
+      }
     }
   }
   .segment-button{
@@ -112,13 +133,18 @@ page-perfil {
     color: white !important;
   }
   #body-profile{
+    position: relative;
     .label{
       font-size: 14pt;
       font-weight: bold;
       margin-left: 3%;
+      margin-top: 2px;
+      margin-bottom: 2px;
+
     }
     .white{
       background-color: white;
+      margin: 0;
       width: 100%;
       padding: 3%;
       font-size: 13pt;
@@ -131,6 +157,84 @@ page-perfil {
       color: $naranja;
 
     }
+    .logo{
+      margin-right: 4%;
+      font-size: 13pt;
+    }
 
+  }
+  #boton-formacion{
+    .button{
+      background-color: transparent;
+      border:none;
+      box-shadow: none;
+      color:black;
+      ;
+
+    }
+    .icon{
+      margin-right: 8%;
+    }
+  }
+  .datetime,.select{
+    .item-cover{
+      position: relative;
+      width: 20px;
+    }
+  }
+  .datetime-placeholder,.datetime-text{
+    color:black !important;
+    overflow: visible;
+
+  }
+  .select{
+    max-width: 100% !important;
+
+  }
+  .select-placeholder,.select-text{
+    color:black !important;
+    overflow: visible;
+  }
+  .select-icon-inner,.datetime-icon-inner{
+    color:$naranja !important;
+    left:10px !important;
+  }
+
+
+
+}
+.picker-wrapper{
+
+  .picker-button{
+    color:$naranja;
+  }
+  .picker-columns{
+    color:black;
+  }
+  .picker-opt-selected{
+    font-weight: bold;
+    color:$verde-oscuro !important;
+  }
+}
+.alert-top,.select-alert{
+
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: black;
+  }
+  background-color: rgba(157, 244, 0, 0.28);
+  .alert-wrapper{
+    border-radius: 20px;
+    margin-top: 10%;
+    transform: scale(1.25);
+  }
+  .alert-message{
+    color:black;
+  }
+  .alert-input{
+    color:black;
+    border-bottom: 1px solid $verde-limon;
+  }
+  .alert-button{
+    color:$naranja;
   }
 }

@@ -29,6 +29,7 @@ input:any;
   pos:any;
   geocoder:any;
   autocomplete:any;
+
   constructor(public geolocation: Geolocation,
                  private googleMaps: GoogleMaps) {
     console.log('Hello MapComponent Component');

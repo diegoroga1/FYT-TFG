@@ -1,3 +1,49 @@
 page-vista-mapa {
+  .scroll-content{
+    padding: 0 !important;
 
+  }
+  #auto-input{
+    width: 100%;
+    height: 40px;
+
+  }
+  .button-clear{
+    position: absolute;
+    right: 0;
+    top:0;
+
+    background-color: transparent;
+    .button{
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    .icon{
+      font-size:14pt;
+      color:black;
+    }
+  }
+  .button-add{
+    text-align: center;
+    .button{
+      background-color: $naranja;
+      width: 100%;
+    }
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #mapa {
+    width: 100%;
+    height: 100%;
+    overflow: inherit;
+  }
+  .button-fixed{
+    position: fixed;bottom: 10%;
+    text-align: center;
+    width: 100%;
+  }
 }

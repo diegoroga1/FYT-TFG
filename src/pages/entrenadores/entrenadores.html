@@ -15,7 +15,7 @@
     <ion-title>{{title_page}}</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content class="body-gray">
+<ion-content >
   <ion-searchbar placeholder="Buscar en FYT" [(ngModel)]="busqueda" (ionInput)="buscarEntrenador()"></ion-searchbar>
   <!--<ul>
     <h3>Busqueda por nombre</h3>
@@ -25,13 +25,12 @@
       {{e.ubicacion}}
     </li>
   </ul>-->
-  <ion-grid>
-    <ion-row>
+    <ion-list id="lista-entrenadores">
       <ion-col  col-12 *ngFor="let entrenador of cogerDatos.entrenadores |async">
-       <card-trainer (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [especialidad]=entrenador.especialidad [localidad]=entrenador.localidad></card-trainer>
+       <card-trainer  (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [especialidades]=entrenador.especialidades [localidad]=entrenador.localidad></card-trainer>
       </ion-col>
-    </ion-row>
-  </ion-grid>
+    </ion-list>
+
 
 
 </ion-content>
