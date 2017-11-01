@@ -52,7 +52,7 @@ page-perfil #header-profile {
     float: right;
     text-align: center;
     margin-bottom: 3%;
-    margin-right: 3%; }
+    margin-right: 0.5%; }
     page-perfil #header-profile #seccion-foto-perfil #foto-perfil {
       border-radius: 50%;
       width: 80px;

@@ -23,9 +23,10 @@ import {NuevaTarifa} from '../pages/nueva-tarifa/nueva-tarifa';
 import { Camera } from '@ionic-native/camera';
 
 import { Facebook } from '@ionic-native/facebook'
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import {AngularFireModule} from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import {AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps, Geocoder } from '@ionic-native/google-maps';
@@ -108,6 +109,7 @@ export const firebase={
     Toast,
     Camera,
     Facebook,
+    GooglePlus,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

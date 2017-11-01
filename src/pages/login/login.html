@@ -19,12 +19,12 @@
     <div id="logo">
       <img src="../../assets/imagenes/logotipo4.png">
     </div>
-    <form #form="ngForm" (ngSubmit)="submitLogin(form)">
-      <ion-input type="email" name="email" ngModel required placeholder="Introduce tu correo"></ion-input>
-      <ion-input style="margin-bottom: 6%;" type="password" name="password" ngModel required placeholder="Contraseña"></ion-input>
+    <form [formGroup]="formLogin"(ngSubmit)="submitLogin(form)">
+      <ion-input type="email" name="email"  formControlName="email" required placeholder="Introduce tu correo"></ion-input>
+      <ion-input style="margin-bottom: 6%;" type="password" name="password" formControlName="password" required placeholder="Contraseña"></ion-input>
       <span style="margin-top: 7%;font-size: 13pt;color:white;"> ¿Has olvidado tu contraseña?</span>
       <ion-buttons id="boton-login">
-        <button ion-button type="submit">Iniciar</button>
+        <button [disabled]="!formLogin.valid" ion-button type="submit">Iniciar</button>
       </ion-buttons>
       <div id="login-redes">
         <ion-buttons>
@@ -32,7 +32,7 @@
             <ion-icon name="logo-facebook"></ion-icon>
             <p>Inicia con Facebook</p>
           </button>
-          <button class="boton-google" ion-button>
+          <button (click)="googleLogin()" class="boton-google" ion-button>
             <ion-icon name="logo-google"></ion-icon>
             <p>Inicia con Google</p>
           </button>
@@ -43,6 +43,5 @@
   </div>
 
 
-
-
 </ion-content>
+
