@@ -4,16 +4,23 @@ page-perfil .buttons-add {
   bottom: 10%;
   left: 25%;
   padding: 2%; }
-  page-perfil .buttons-add #boton-crea-anuncio {
+  page-perfil .buttons-add #boton-crea-anuncio, page-perfil .buttons-add #boton-modifica-anuncio {
     padding-right: 4%;
     border-radius: 20px;
     background-color: #FF3D00; }
+page-perfil #boton-ser-entrenador {
+  margin-top: 1%;
+  width: 100%;
+  background-color: rgba(100, 147, 0, 0.2);
+  color: black;
+  margin: 0;
+  border: none; }
 page-perfil #marca-agua {
   position: absolute;
   left: 0;
   top: 20%;
   z-index: 1;
-  opacity: 0.07;
+  opacity: 0.029;
   width: 200%; }
 page-perfil #seccion-no-login {
   margin-top: 10%; }
@@ -23,16 +30,19 @@ page-perfil #seccion-registro-login {
   width: 100%;
   background-color: white;
   border-radius: 20px;
-  margin-top: 80%; }
+  margin-top: 50%;
+  position: relative;
+  z-index: 99; }
   page-perfil #seccion-registro-login p {
     display: inline-block;
     font-size: 16pt;
     margin: 7px;
-    color: #9df400; }
+    color: #9df400;
+    font-weight: bold;
+    letter-spacing: 1px; }
 page-perfil .center {
   text-align: center; }
 page-perfil .content {
-  background-color: rgba(157, 244, 0, 0.28);
   padding: 0; }
   page-perfil .content .scroll-content {
     padding: 0 !important; }

@@ -6,14 +6,18 @@
 -->
 
 <ion-header>
-  <ion-navbar class="color-toolbar">
-    <ion-buttons start >
-      <button ion-button icon-only menuToggle>
-        <ion-icon name="menu"></ion-icon>
+
+  <ion-navbar>
+    <ion-buttons end >
+      <button (click)="goFilterTrainer()" ion-button >
+        <img src="../../assets/icon/funnel.png" />
       </button>
     </ion-buttons>
-    <ion-title>{{title_page}}</ion-title>
+    <ion-title>
+      {{title_page}}
+    </ion-title>
   </ion-navbar>
+
 </ion-header>
 <ion-content >
   <ion-searchbar placeholder="Buscar en FYT" [(ngModel)]="busqueda" (ionInput)="buscarEntrenador()"></ion-searchbar>
@@ -27,7 +31,7 @@
   </ul>-->
     <ion-list id="lista-entrenadores">
       <ion-col  col-12 *ngFor="let entrenador of cogerDatos.entrenadores |async">
-       <card-trainer  (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [especialidades]=entrenador.especialidades [localidad]=entrenador.localidad></card-trainer>
+       <card-trainer *ngIf="entrenador.estado=='confirmado' &&entrenador.servicio" (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [especialidades]=entrenador.especialidades [localidad]=entrenador.localidad></card-trainer>
       </ion-col>
     </ion-list>
 

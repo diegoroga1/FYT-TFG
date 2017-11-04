@@ -1,4 +1,19 @@
 .content {
-  background-color: rgba(157, 244, 0, 0.28); }
+  background-color: rgba(157, 244, 0, 0.17); }
+
+.tabbar .tab-button {
+  color: black; }
+  .tabbar .tab-button .icon {
+    color: black;
+    font-size: 30px; }
+.tabbar .tab-button-text {
+  font-size: 1.5rem; }
+
+.tabs-md .tab-button[aria-selected=true] {
+  color: #FF3D00;
+  padding: 0; }
+  .tabs-md .tab-button[aria-selected=true] .icon {
+    font-size: 32px !important;
+    color: #FF3D00; }
 
 /*# sourceMappingURL=app.css.map */

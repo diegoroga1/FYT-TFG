@@ -6,28 +6,22 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>vista-mapa</ion-title>
-  </ion-navbar>
-
 </ion-header>
 
 
 <ion-content >
-  <div >
+  <div id="input-mapa">
     <input  id="auto-input" type="text" /><ion-buttons class="button-clear"><button (click)="clearInput()" ion-button><ion-icon name="close-circle"></ion-icon></button></ion-buttons>
     <ion-buttons class="button-add">
       <button (click)="addMarker()" ion-button>Añadir lugar</button>
     </ion-buttons>
   </div>
-  <ion-list *ngIf="lugares">
+ <!-- <ion-list *ngIf="lugares">
     <ion-item *ngFor="let lugar of lugares">{{lugar.nombre}}</ion-item>
-  </ion-list>
+  </ion-list>-->
   <div #mapa id="mapa">
 
   </div>
-  <ion-buttons  class="button-fixed">
-    <button (click)="guardarLugares()" ion-button>Aceptar</button>
-  </ion-buttons>
+  <ion-buttons><button ion-button (click)="guardarLugares()" class="button-guardar">Aceptar</button> </ion-buttons>
 
 </ion-content>

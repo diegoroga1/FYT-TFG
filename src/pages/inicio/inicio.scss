@@ -1,29 +1,25 @@
+$naranja:#FF3D00;
+$verde-oscuro:#649300;
+$verde-limon:#9df400;
 page-inicio {
-  @import url(https://fonts.googleapis.com/css?family=Lato:400,700,900);
-  $border-radius-size: 14px;
-  $barbarian: #EC9B3B;
-  *, *:before, *:after {
-    box-sizing: border-box;
-  }
   .toolbar-title{
     color:white;
     text-align: center;
-    font-family: 'Lobster', cursive;
     font-size: 18pt;
     letter-spacing: 2px;
-
   }
   .toolbar-background{
 
-    background-color: #32001D;
+    background-color: $naranja;
   }
   .searchbar{
     position: fixed;
     z-index: 999999;
-    top:8%;
+    top:10%;
+    padding: 0;
     .searchbar-input-container{
-      width: 85%;
-      margin:0 auto;
+      width: 100%;
+      margin:0;
     }
   }
   .slider{
@@ -34,31 +30,12 @@ page-inicio {
   }
 
 
-  .grid{
-    margin-top: 16%;
-  }
-  .brick{
-    top:0 !important;
-  }
-  .body-gray{
-    background-color: #dedede;
-  }
-
-  body {
-    background: linear-gradient(to bottom, rgba(140,122,122,1) 0%, rgba(175,135,124,1) 65%, rgba(175,135,124,1) 100%) fixed;
-    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/coc-background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    font: 14px/20px "Lato", Arial, sans-serif;
-    color: #9E9E9E;
-    margin-top: 30px;
-    padding: 0;
-
-  }
   .ion-content{
     padding: 0;
   }
   .scroll-content{
-    padding:0;
+    padding:0 !important;
+    margin: 0;
   }
   .slide-container {
     margin: auto;

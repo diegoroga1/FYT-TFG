@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Events } from 'ionic-angular';
+import { IonicPage,AlertController, NavController, NavParams,Events,LoadingController  } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -26,22 +26,28 @@ export class Login {
   userProfile:any;
   userEmail:any;
   formLogin : FormGroup;
+  rolSelect:any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public afAuth: AngularFireAuth,
               public af: AngularFireDatabase,
-              public events:Events,
+                public events:Events,
               public formBuilder: FormBuilder,
               private facebook: Facebook,
-              private google:GooglePlus
+              private google:GooglePlus,
+              public loadingCtrl: LoadingController,
+              public alert:AlertController
     ) {
     this.formLogin=this.createForm();
   }
 
+
+
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad Login');
-  }
 
+  }
   submitLogin(form){
     this.email=this.formLogin.value.email;
     this.password=this.formLogin.value.password;
@@ -67,8 +73,46 @@ export class Login {
       }
     );
   }
+  alertRol(){
+    let prompt = this.alert.create({
+      title: 'Tipo de usuario',
+      message: "Selecciona un tipo de usuario con el que te registrarás",
+      inputs: [
+        {
+          name: 'entrenador',
+          label:'Entrenador',
+          type:'radio',
+          value:'entrenador'
+        },
+        {
+          name: 'usuario',
+          label:'Usuario',
+          type:'radio',
+          value:'usuario'
+        }
+      ],
+      cssClass: 'alertStyle',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: data => {
+            this.facebookLogin(data);
 
-  facebookLogin(){
+
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+  facebookLogin(rol){
+    this.rolSelect=rol;
     this.facebook.login(['email']).then((response)=>{
       console.log("Respuesta Login facebook "+JSON.stringify(response))
       const facebookCredential=firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
@@ -76,7 +120,6 @@ export class Login {
         .then((success)=>{
           console.log("Firebase success: "+ JSON.stringify(success));
           if(response.status=='connected'){
-            alert("Email "+success.email +' - '+ 'Key '+success.uid);
             this.userEmail=success.email;
             this.userKey=success.uid;
             localStorage.setItem("user_uid",this.userKey);
@@ -84,7 +127,6 @@ export class Login {
             this.events.publish('useractual:changed', this.userKey);
             this.events.publish('rol:changed', this.userKey);
             this.userProfile=success;
-            this.af.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'usuario'})
             this.navCtrl.setRoot(Perfil);
         }
         })
@@ -113,9 +155,7 @@ export class Login {
          this.events.publish('rol:changed', this.userKey);
          console.log("Firebase success: "+ JSON.stringify(success));
          this.userProfile=success;
-         this.af.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'usuario'})
          this.navCtrl.setRoot(Perfil);
-         alert("LOGIN GOOGLE SUCCESS");
        }).catch(err=>alert("NOT GOOGLE SUCCESS"));
     })
   }

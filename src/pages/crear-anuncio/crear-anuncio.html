@@ -55,8 +55,7 @@
       </ion-list>
       <ion-item *ngIf="formulario.get('tarifas').errors && formulario.get('tarifas').dirty">
         <p color="danger" ion-text *ngIf="formulario.get('tarifas').hasError('required')">Añade un campo a tu anuncio</p>
-        <p color="danger" ion-text *ngIf="formulario.get('tarifas').hasError('minlength')">Descripción muy corta</p>
-        <p color="danger" ion-text *ngIf="formulario.get('tarifas').hasError('maxlength')">Descripción muy larga</p>
+
       </ion-item>
     </div>
 
@@ -69,98 +68,98 @@
 
     <div class="div-fields">
       <ion-label class="titulo-style" stacked>Selecciona tus horarios de entrenamiento</ion-label>
-      <div id="h-lunes" class="separator">
+      <div id="h-lunes" formGroupName="horarios" class="separator">
         <p (click)="mostrarFranjas(L)" #L id="L"  class="white">Lunes<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <div *ngIf="franjasShow[0]" class="center" id="franjas-lunes">
+        <div *ngIf="franjasShow[0]" class="center" formGroupName="lunes" id="franjas-lunes">
           <span>Puedes añadir hasta 3 franjas horarias</span>
 
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " name="franja1-from-l"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " name="franja1-to-l"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" name="franja2-from-l"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" name="franja2-to-l"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" name="franja3-from-l"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" name="franja3-to-l"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " formControlName="franja1From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " formControlName="franja1To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" formControlName="franja2From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" formControlName="franja2To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" formControlName="franja3From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" formControlName="franja3To"></ion-datetime>
 
         </div>
       </div>
       <div id="h-martes" class="separator">
         <p (click)="mostrarFranjas(M)" #M id="M"  class="white">Martes<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <div *ngIf="franjasShow[1]" id="franjas-martes" class="center">
+        <div *ngIf="franjasShow[1]" id="franjas-martes"  formGroupName="martes" class="center">
           <span>Puedes añadir hasta 3 franjas horarias</span>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " name="franja1-from-m"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " name="franja1-to-m"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" name="franja2-from-m"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" name="franja2-to-m"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" name="franja3-from-m"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" name="franja3-to-m"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " formControlName="franja1From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " formControlName="franja1To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" formControlName="franja2From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" formControlName="franja2To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" formControlName="franja3From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" formControlName="franja3To"></ion-datetime>
 
         </div>
       </div>
       <div id="h-miercoles" class="separator">
         <p (click)="mostrarFranjas(X)" #X id="X"  class="white">Miercoles<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <div *ngIf="franjasShow[2]" class="center" id="franjas-miercoles">
+        <div *ngIf="franjasShow[2]" class="center" formGroupName="miercoles" id="franjas-miercoles">
           <span>Puedes añadir hasta 3 franjas horarias</span>
 
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " name="franja1-from-x"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " name="franja1-to-x"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" name="franja2-from-x"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" name="franja2-to-x"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" name="franja3-from-x"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" name="franja3-to-x"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " formControlName="franja1From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " formControlName="franja1To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" formControlName="franja2From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" formControlName="franja2To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" formControlName="franja3From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" formControlName="franja3To"></ion-datetime>
 
         </div>
       </div>
       <div id="h-jueves" class="separator">
         <p (click)="mostrarFranjas(J)" #J id="J"  class="white">Jueves<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <div *ngIf="franjasShow[3]" id="franjas-jueves" class="center">
+        <div *ngIf="franjasShow[3]" id="franjas-jueves" formGroupName="jueves" class="center">
           <span>Puedes añadir hasta 3 franjas horarias</span>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " name="franja1-from-j"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " name="franja1-to-j"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" name="franja2-from-j"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" name="franja2-to-j"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" name="franja3-from-j"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" name="franja3-to-j"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " formControlName="franja1From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " formControlName="franja1To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" formControlName="franja2From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" formControlName="franja2To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" formControlName="franja3From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" formControlName="franja3To"></ion-datetime>
 
         </div>
       </div>
       <div id="h-viernes" class="separator">
         <p (click)="mostrarFranjas(V)" #V id="V"  class="white">Viernes<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <div *ngIf="franjasShow[4]" class="center" id="franjas-viernes">
+        <div *ngIf="franjasShow[4]" class="center" formGroupName="viernes" id="franjas-viernes">
           <span>Puedes añadir hasta 3 franjas horarias</span>
 
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " name="franja1-from-v"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " name="franja1-to-v"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" name="franja2-from-v"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" name="franja2-to-v"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" name="franja3-from-v"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" name="franja3-to-v"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " formControlName="franja1From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " formControlName="franja1To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" formControlName="franja2From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" formControlName="franja2To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" formControlName="franja3From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" formControlName="franja3To"></ion-datetime>
 
         </div>
       </div>
       <div id="h-sabado" class="separator">
         <p (click)="mostrarFranjas(S)" #S id="S"  class="white">Sábado<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <div *ngIf="franjasShow[5]" id="franjas-sabado" class="center">
+        <div *ngIf="franjasShow[5]" id="franjas-sabado" formGroupName="sabado" class="center">
           <span>Puedes añadir hasta 3 franjas horarias</span>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " name="franja1-from-s"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " name="franja1-to-s"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" name="franja2-from-s"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" name="franja2-to-s"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" name="franja3-from-s"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" name="franja3-to-s"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " formControlName="franja1From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " formControlName="franja1To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" formControlName="franja2From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" formControlName="franja2To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" formControlName="franja3From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" formControlName="franja3To"></ion-datetime>
 
         </div>
       </div>
         <div id="h-domingo" class="separator">
         <p (click)="mostrarFranjas(D)" #D id="D"  class="white">Domingo<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <div *ngIf="franjasShow[6]" class="center" id="franjas-domingo">
+        <div *ngIf="franjasShow[6]" class="center" formGroupName="domingo" id="franjas-domingo">
           <span>Puedes añadir hasta 3 franjas horarias</span>
 
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " name="franja1-from-d"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " name="franja1-to-d"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" name="franja2-from-d"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" name="franja2-to-d"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" name="franja3-from-d"></ion-datetime>
-          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" name="franja3-to-d"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Desde " class="white " formControlName="franja1From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 1 - Hasta" class="white " formControlName="franja1To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Desde" class="white" formControlName="franja2From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 2 - Hasta" class="white" formControlName="franja2To"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Desde" class="white" formControlName="franja3From"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" placeholder="Franja 3 - Hasta" class="white" formControlName="franja3To"></ion-datetime>
 
         </div>
       </div>
@@ -171,7 +170,7 @@
         <ion-item *ngFor="let lugar of lugares">{{lugar.nombre}}</ion-item>
       </ion-list>
       <ion-buttons >
-        <button style="width: 100%;" ion-button (click)="irAlMapa()">Ir al mapa </button>
+        <button type="button" style="width: 100%;" ion-button (click)="irAlMapa()">Ir al mapa </button>
       </ion-buttons>
     </div>
     <div style="width: 100%;float: left;" padding>

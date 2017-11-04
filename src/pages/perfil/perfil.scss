@@ -9,7 +9,7 @@ page-perfil {
     left:25%;
     padding: 2%;
 
-    #boton-crea-anuncio{
+    #boton-crea-anuncio,#boton-modifica-anuncio{
       padding-right: 4%;
       border-radius: 20px;
       background-color: $naranja;
@@ -18,12 +18,20 @@ page-perfil {
     }
 
   }
+  #boton-ser-entrenador{
+    margin-top: 1%;
+    width: 100%;
+    background-color: rgba($verde-oscuro,0.2);
+    color: black;
+    margin: 0;
+    border: none;
+  }
   #marca-agua{
     position: absolute;
     left: 0;
     top: 20%;
     z-index: 1;
-    opacity: 0.07;
+    opacity: 0.029;
     width: 200%;
   }
   #seccion-no-login{
@@ -36,20 +44,23 @@ page-perfil {
     width: 100%;
     background-color: white;
     border-radius: 20px;
-    margin-top: 80%;
+    margin-top: 50%;
+    position: relative;
+    z-index: 99;
 
     p{
       display: inline-block;
       font-size: 16pt;
       margin: 7px;
       color:$verde-limon;
+      font-weight: bold;
+      letter-spacing: 1px;
     }
   }
   .center{
     text-align: center;
   }
   .content{
-    background-color: rgba(157, 244, 0, 0.28);
     padding: 0;
     .scroll-content{
       padding:0 !important;

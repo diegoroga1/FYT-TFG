@@ -14,8 +14,33 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
+$naranja:#FF3D00;
+$verde-oscuro:#649300;
+$verde-limon:#9df400;
 .content{
-  background-color: rgba(157, 244, 0, 0.28);
+  background-color: rgba(157, 244, 0, 0.17);
 
+}
+.tabbar{
+  .tab-button{
+
+    color:black;
+    .icon{
+      color:black;
+      font-size:30px;
+    }
+  }
+  .tab-button-text{
+    font-size: 1.5rem;
+  }
+
+}
+.tabs-md .tab-button[aria-selected=true] {
+  color: $naranja;
+
+  padding: 0;
+  .icon{
+    font-size: 32px !important;
+    color:$naranja;
+  }
 }

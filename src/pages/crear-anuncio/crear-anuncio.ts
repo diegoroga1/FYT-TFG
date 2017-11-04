@@ -7,6 +7,7 @@ import {FirebaseApp} from 'angularfire2';
 import * as firebase from 'firebase';
 import {NuevaTarifa} from '../nueva-tarifa/nueva-tarifa';
 import {VistaMapa} from '../vista-mapa/vista-mapa';
+import {Perfil} from '../perfil/perfil';
 /**
  * Generated class for the CrearAnuncio page.
  *
@@ -29,6 +30,7 @@ export class CrearAnuncio {
   franjasShow:boolean[]=[false,false,false,false,false,false,false];
   especialidades:FirebaseListObservable<any>;
   lugares=[];
+  franja1FromL:any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public fb: FormBuilder,
@@ -42,26 +44,103 @@ export class CrearAnuncio {
   ) {
     this.formulario=this.fb.group({
       'titulo':['',[Validators.required,Validators.minLength(5), Validators.maxLength(25)]],
-      'tarifas':['',[Validators.required,Validators.minLength(15), Validators.maxLength(120)]],
-      'especialidad':['']
+      'tarifas':[''],
+      'especialidad':[''],
+      'horarios':this.fb.group({
+          'lunes':this.fb.group({
+            'franja1From':[''],
+            'franja1To':[''],
+            'franja2From':[''],
+            'franja2To':[''],
+            'franja3From':[''],
+            'franja3To':['']
+          })
+          ,
+        'martes':this.fb.group({
+          'franja1From':[''],
+          'franja1To':[''],
+          'franja2From':[''],
+          'franja2To':[''],
+          'franja3From':[''],
+          'franja3To':['']
+        }),
+        'miercoles':this.fb.group({
+          'franja1':this.fb.group({
+            'franja1From':[''],
+            'franja1To':[''],
+            'franja2From':[''],
+            'franja2To':[''],
+            'franja3From':[''],
+            'franja3To':['']
+          })
+        }),
+        'jueves':this.fb.group({
+          'franja1':this.fb.group({
+            'franja1From':[''],
+            'franja1To':[''],
+            'franja2From':[''],
+            'franja2To':[''],
+            'franja3From':[''],
+            'franja3To':['']
+          })
+        }),
+        'viernes':this.fb.group({
+          'franja1':this.fb.group({
+            'franja1From':[''],
+            'franja1To':[''],
+            'franja2From':[''],
+            'franja2To':[''],
+            'franja3From':[''],
+            'franja3To':['']
+          })
+        }),
+        'sabado':this.fb.group({
+          'franja1':this.fb.group({
+            'franja1From':[''],
+            'franja1To':[''],
+            'franja2From':[''],
+            'franja2To':[''],
+            'franja3From':[''],
+            'franja3To':['']
+          })
+        }),
+        'domingo':this.fb.group({
+          'franja1':this.fb.group({
+            'franja1From':[''],
+            'franja1To':[''],
+            'franja2From':[''],
+            'franja2To':[''],
+            'franja3From':[''],
+            'franja3To':['']
+          })
+        })
+      })
     })
     this.storageRef = firebaseApp.storage().ref();
     this.userKey=localStorage.getItem('user_uid');
     this.especialidades=this.af.list('/especialidades');
+    this.getData()
   }
   ionViewDidEnter(){
 
     console.log(this.navParams.get('tarifa'));
     console.log("Otra vez");
     console.log(this.lugares);
-    if(localStorage.getItem('lugares')){
-      this.lugares=JSON.parse(localStorage["lugares"])
+    if(localStorage.getItem('lugares')) {
+      var arrayLugares=JSON.parse(localStorage["lugares"]);
+      for(var i=0;i<arrayLugares.length;i++){
+        this.lugares.push(arrayLugares[i])
+      }
       console.log(JSON.parse(localStorage["lugares"]));
+      console.log(this.lugares);
+
     }
+    localStorage.removeItem('lugares');
     if(localStorage.getItem('tarifas')){
       this.tarifasArray=JSON.parse(localStorage["tarifas"])
       console.log(this.tarifasArray);
     }
+
   }
   addTarifa(){
    this.navCtrl.push(NuevaTarifa)
@@ -79,11 +158,23 @@ export class CrearAnuncio {
 
       });
     }
+
     if(this.foto3){
       this.storageRef.child('/'+this.userKey+'/fotoAnuncio/foto3.jpg').putString(this.foto3,'base64').then(snapshot=>{
       }).catch(error=>{
       });
     }
+    this.af.object('entrenadores/'+this.userKey+'/servicio')
+      .update({'titulo':this.formulario.value.titulo,
+        'tarifas':this.tarifasArray,
+        'especialidad':this.formulario.value.especialidad,
+        'lugares':this.lugares,
+        'horarios':this.formulario.value.horarios
+      });
+    console.log(this.formulario.value.especialidad);
+    this.navCtrl.setRoot(Perfil)
+
+
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad CrearAnuncio');
@@ -180,6 +271,42 @@ export class CrearAnuncio {
   }
   irAlMapa(){
     this.navCtrl.push(VistaMapa);
+  }
+  getData(){
+    var esp=[];
+    if(this.storageRef.child('/'+this.userKey+'/fotoAnuncio/foto1.jpg')){
+      this.storageRef.child('/'+this.userKey+'/fotoAnuncio/foto1.jpg').getDownloadURL().then(url=>{
+        this.foto1=url;
+      }).catch(err=>console.log(err));
+    }
+   this.af.list('entrenadores/'+this.userKey+'/servicio').forEach(data=>{
+     console.log(data);
+     data.forEach(item=>{
+       if(item.$key=="titulo"){
+         this.formulario.controls[item.$key].setValue(item.$value);
+       }
+       if(item.$key=="especialidad"){
+         this.formulario.controls[item.$key].setValue(item);
+         console.log(item);
+       }
+       if(item.$key=="tarifas"){
+         console.log  (item);
+         item.forEach(tarifa=>{
+           console.log(tarifa);
+         })
+         this.tarifasArray=item;
+       }
+       if(item.$key=="lugares"){
+         console.log(item);
+         this.lugares=item;
+       }
+       if(item.$key=="horarios"){
+         console.log(item);
+         this.formulario.controls[item.$key].setValue(item);
+       }
+     })
+   })
+
   }
 
 }

@@ -7,6 +7,7 @@ import { Tabs } from '../tabs/tabs';
 import {FirebaseListObservable,AngularFireDatabase} from "angularfire2/database";
 import {CardTrainer} from '../../components/card-trainer/card-trainer';
 import {VistaEntrenador} from '../../pages/vista-entrenador/vista-entrenador'
+import {FiltrarEntrenadorPage} from '../../pages/filtrar-entrenador/filtrar-entrenador'
 import {FirebaseApp} from 'angularfire2';
 import * as firebase from 'firebase';
 import * as _ from 'lodash';
@@ -52,5 +53,8 @@ export class Entrenadores {
   irAVistaEntrenador(entrenador,fotoPerfil){
     console.log(fotoPerfil);
     this.navCtrl.push(VistaEntrenador,{entrenador,fotoPerfil})
+  }
+  goFilterTrainer(){
+    this.navCtrl.push(FiltrarEntrenadorPage)
   }
 }

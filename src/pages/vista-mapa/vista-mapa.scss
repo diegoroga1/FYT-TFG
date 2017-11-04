@@ -1,13 +1,52 @@
+$naranja:#FF3D00;
+$verde-oscuro:#649300;
+$verde-limon:#9df400;
 page-vista-mapa {
   .scroll-content{
     padding: 0 !important;
 
   }
+  .toolbar-background{
+    background-color: transparent;
+
+  }
+  .header::after{
+    display: none;
+  }
+  .back-button-icon{
+    color:white;
+    background-color: $naranja;
+    font-size: 20pt;
+    font-weight:bold;
+    border-radius: 50%;
+
+  }
+  #input-mapa{
+    position: fixed;
+    /* top: 0; */
+    width: 100%;
+    /* left: 0; */
+    z-index: 999;
+  }
   #auto-input{
     width: 100%;
     height: 40px;
+  }
+  .button-guardar{
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    bottom: 50px;
+    background-color: white;
+    color:$naranja;
+
+
 
   }
+
+
   .button-clear{
     position: absolute;
     right: 0;
@@ -40,6 +79,7 @@ page-vista-mapa {
     width: 100%;
     height: 100%;
     overflow: inherit;
+    margin-top: 30px;
   }
   .button-fixed{
     position: fixed;bottom: 10%;

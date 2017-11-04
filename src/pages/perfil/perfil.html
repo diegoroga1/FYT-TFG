@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <div id="header-profile">
+  <div *ngIf="user" id="header-profile">
     <div *ngFor="let user of usuarios|async" id="seccion-foto-perfil">
       <ion-icon class="icon-camera circle" *ngIf="user.$key==userKey && !user.fotoPerfil" (click)="actionPhoto()"  name="camera" ></ion-icon>
       <img *ngIf="user.$key==userKey && user.fotoPerfil" class="circle" id="foto-perfil" src=""/>
@@ -48,9 +48,9 @@
     </div>
 
 
-
   </div>
-  <ion-segment [(ngModel)]="perfilSegment"  >
+
+  <ion-segment *ngIf="user" [(ngModel)]="perfilSegment"  >
     <ion-segment-button value="info">
       Sobre mí
     </ion-segment-button>
@@ -58,6 +58,12 @@
       Mis servicios
     </ion-segment-button>
   </ion-segment>
+  <ion-buttons style="    margin: 1% 0 2% 0;">
+    <button *ngIf="user&&!isTrainer" id="boton-ser-entrenador" (click)="userToTrainer()" ion-button icon-only>
+
+      Crear cuenta de entrenador
+    </button>
+  </ion-buttons>
 
   <!--SECCION INFO-->
   <div [ngSwitch]="perfilSegment">
@@ -92,10 +98,6 @@
           <ion-option [selected]="user.sexo=='Hombre'" >Hombre</ion-option>
           <ion-option  [selected]="user.sexo=='Mujer'" >Mujer</ion-option>
         </ion-select>
-        <ion-label *ngIf="user.$key==userKey" > Nacionalidad</ion-label>
-        <ion-select  *ngIf="user.$key==userKey" placeholder="Selecciona tu país" class="white" (ionChange)="addNationality(nacionalidad)" [(ngModel)]="nacionalidad">
-              <ion-option   *ngFor="let country of country_list"  [selected]="user.nacionalidad==country">{{country}}</ion-option>
-        </ion-select>
         <div *ngIf="user.$key==userKey">
           <ion-label stacked>Teléfono</ion-label>
           <p *ngIf="!user.telefono" (click)="addPhone()" class="white">Añade tu teléfono de contacto<ion-icon class="right-icon" name="add"></ion-icon></p>
@@ -123,13 +125,19 @@
 
     </ion-list>
     </div>
-
+  {{user.servicio}}
   <ion-buttons *ngIf="user" class="buttons-add">
-      <button id="boton-crea-anuncio" (click)="crearAnuncio()" ion-button icon-only>
+      <button *ngIf="isTrainer && !hasService" id="boton-crea-anuncio" (click)="crearAnuncio()" ion-button icon-only>
         <ion-icon name="add"></ion-icon>
 
         Crea tu anuncio
       </button>
+      <button *ngIf="isTrainer && hasService" id="boton-modifica-anuncio" (click)="crearAnuncio()" ion-button icon-only>
+        <ion-icon name="create"></ion-icon>
+
+        Modifica tu anuncio
+      </button>
+
       <!--
       <button (click)="crearPublicacion()" color="dark" ion-button icon-only>
         <ion-icon name="add"></ion-icon>

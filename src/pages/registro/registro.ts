@@ -6,6 +6,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import {Perfil} from '../perfil/perfil';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
+import firebase from 'firebase';
+
 /**
  * Generated class for the Registro page.
  *
@@ -59,16 +61,22 @@ export class Registro {
             this.fb.object('usuarios/' + success.uid).set({
               email: this.formRegister.value.email,
               nombre:this.formRegister.value.nombre,
+              apellidos: this.formRegister.value.apellidos,
               rol:this.formRegister.value.rol
             });
             this.fb.object('entrenadores/'+success.uid).set({
               nombre: this.formRegister.value.nombre,
               apellidos: this.formRegister.value.apellidos,
               email: this.formRegister.value.email,
-              rol: this.formRegister.value.rol,
               estado:"pendiente"
             })
           }
+          this.userEmail= this.formRegister.value.email
+          this.userKey=success.uid;
+          localStorage.setItem("user_uid",this.userKey);
+          sessionStorage.setItem("user_uid",this.userKey);
+          this.events.publish('useractual:changed', this.userKey);
+          this.events.publish('rol:changed', this.userKey);
           this.navCtrl.setRoot(Perfil);
         }).catch(error=>{
           console.log(error);
@@ -76,6 +84,7 @@ export class Registro {
     }
 
   }
+
   confirmPassword(){
     if(this.formRegister.value.passwordRetry.password==this.formRegister.value.passwordRetry.passwordConfirm){
         return true;
@@ -101,7 +110,6 @@ export class Registro {
         .then((success)=>{
           console.log("Firebase success: "+ JSON.stringify(success));
           if(response.status=='connected'){
-            alert("Email "+success.email +' - '+ 'Key '+success.uid);
             this.userEmail=success.email;
             this.userKey=success.uid;
             localStorage.setItem("user_uid",this.userKey);
@@ -109,10 +117,18 @@ export class Registro {
             this.events.publish('useractual:changed', this.userKey);
             this.events.publish('rol:changed', this.userKey);
             this.userProfile=success;
-            this.fb.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'usuario'})
+            this.fb.object('usuarios/'+success.uid).forEach(data=>{
+              if(data.email==null){
+                this.fb.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'usuario'})
+              }else{
+                console.log("Si existe usuario");
+              }
+            })
             this.navCtrl.setRoot(Perfil);
           }
+
         })
+
         .catch((error)=>{
           console.log("Firebase failure: " + JSON.stringify(error));
         })
@@ -126,7 +142,6 @@ export class Registro {
       'offline':true
     }).then((response)=>{
       console.log("Respuesta Login google "+JSON.stringify(response))
-
       firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(response.idToken))
         .then((success)=>{
           console.log("Respuesta Login google credential "+JSON.stringify(success))
@@ -136,12 +151,16 @@ export class Registro {
           sessionStorage.setItem("user_uid",this.userKey);
           this.events.publish('useractual:changed', this.userKey);
           this.events.publish('rol:changed', this.userKey);
-          console.log("Firebase success: "+ JSON.stringify(success));
           this.userProfile=success;
-          this.fb.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'usuario'})
+          this.fb.object('usuarios/'+success.uid).forEach(data=>{
+            if(data.email==null){
+              this.fb.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'usuario'})
+            }else{
+              console.log("Si existe usuarioasdasdas");
+            }
+          })
           this.navCtrl.setRoot(Perfil);
-          alert("LOGIN GOOGLE SUCCESS");
-        }).catch(err=>alert("NOT GOOGLE SUCCESS"));
+        }).catch(err=>console.log("NOT GOOGLE SUCCESS"));
     })
   }
 }

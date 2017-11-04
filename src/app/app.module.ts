@@ -20,6 +20,7 @@ import {VistaMapa} from '../pages/vista-mapa/vista-mapa'
 import {Login} from '../pages/login/login';
 import {Registro} from '../pages/registro/registro';
 import {NuevaTarifa} from '../pages/nueva-tarifa/nueva-tarifa';
+import {FiltrarEntrenadorPage} from '../pages/filtrar-entrenador/filtrar-entrenador';
 import { Camera } from '@ionic-native/camera';
 
 import { Facebook } from '@ionic-native/facebook'
@@ -65,7 +66,8 @@ export const firebase={
     VistaMapa,
     Registro,
     Login,
-    NuevaTarifa
+    NuevaTarifa,
+    FiltrarEntrenadorPage
   ],
   imports: [
     BrowserModule,
@@ -95,7 +97,8 @@ export const firebase={
     VistaMapa,
     Registro,
     Login,
-    NuevaTarifa
+    NuevaTarifa,
+    FiltrarEntrenadorPage
   ],
   providers: [
     StatusBar,
