@@ -1,3 +1,74 @@
 page-filtrar-entrenador {
+  #input-place{
+    width: 100%;
+    border: none;
+    height: 8%;
+    margin: 2% 0;
+    text-indent: 8px;
+    }
+  #form-filtro{
+    text-align: center;
+  }
+  .toolbar-background{
+    background-color: $naranja;
+  }
+  .toolbar-title{
+    color:white;
+    letter-spacing: 5px;
+    font-weight: bold;
+    font-size: 16pt;
+    text-align: center;
+  }
+  .back-button-icon{
+    color:white;
+    background-color: $naranja;
+    font-size: 20pt;
+    font-weight:bold;
+    border-radius: 50%;
 
+  }
+  #input-place{
+    border: 1px solid #FF3D00;
+    height: 40px;
+  }
+  .radio-50{
+    width: 40%;
+    float: left;
+    border:1px solid $naranja;
+    background-color: white;
+
+  }
+  .select{
+    max-width: 100%;
+    border: 1px solid $naranja;
+    background-color: white;
+    margin-bottom: 10px;
+    .item-cover{
+      position: relative;
+      width: 20px;
+    }
+  }
+  .select-placeholder,.select-text,.text-input{
+    color:black !important;
+    overflow: visible;
+  }
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: black;
+  }
+  .text-input::-moz-placeholder {
+    color: black;
+  }
+
+  .text-input:-ms-input-placeholder {
+    color: black;
+  }
+
+  .text-input::-webkit-input-placeholder {
+    text-indent: 0;
+    color: black;
+  }
+  .button{
+    background-color: $naranja;
+    color:white;
+  }
 }

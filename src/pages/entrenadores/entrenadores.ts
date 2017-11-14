@@ -24,6 +24,10 @@ export class Entrenadores {
   datosEntrenador:FirebaseListObservable<any>;
   busqueda:string='';
   nombre_entrenadores:any=[];
+  filtroEntrenadores=[];
+  filtrado=false;
+  filtros:any;
+  userKey:any;
   constructor(public navCtrl: NavController,
               public http:Http,
               public cogerDatos:CogerDatos,
@@ -31,9 +35,21 @@ export class Entrenadores {
     this.title_page="Entrenadores";
     this.datosUsuario=this.cogerDatos.getDataUser();
     this.datosEntrenador=this.cogerDatos.getDataTrainer();
-
+    localStorage.removeItem('filtro');
+    this.userKey=localStorage.getItem('user_uid');
   }
   ionViewDidEnter(){
+    if(localStorage.getItem('filtro')){
+      this.filtros=JSON.parse(localStorage.getItem('filtro'));
+      this.filtrado=true;
+
+    }else{
+      this.filtrado=false;
+    }
+    if(this.filtrado){
+      this.filtrar();
+    }
+
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad Entrenadores');
@@ -57,4 +73,58 @@ export class Entrenadores {
   goFilterTrainer(){
     this.navCtrl.push(FiltrarEntrenadorPage)
   }
+  filtrar(){
+    var arrayAux=[];
+    this.filtroEntrenadores=[];
+    this.datosEntrenador.forEach(data=>{
+      data.forEach(item=>{
+        arrayAux.push(item);
+      })
+      if(this.filtros){
+        arrayAux.forEach((entrenador)=>{
+          if(entrenador.servicio){
+            this.filtros.forEach(filtro=>{
+              if(filtro.precios){
+                _.find(entrenador.servicio.tarifas,(tarifa)=>{
+                    if(tarifa.precio>parseInt(filtro.precios.precio1)&&tarifa.precio<parseInt(filtro.precios.precio2)){
+                      if(!_.includes(this.filtroEntrenadores,entrenador)){
+                        this.filtroEntrenadores.push(entrenador)
+                      }
+                    }
+                })
+              }
+              if(filtro.localidad){
+                    if(_.includes(entrenador.localidad,filtro.localidad)){
+                      if(!_.includes(this.filtroEntrenadores,entrenador)){
+                        this.filtroEntrenadores.push(entrenador)
+                      }
+                    }
+              }
+              if(filtro.especialidades){
+                    _.find(entrenador.servicio.especialidad, (esp) => {
+                      if (esp == filtro.especialidades) {
+                        if (!_.includes(this.filtroEntrenadores, entrenador)) {
+                          this.filtroEntrenadores.push(entrenador)
+                        }
+                      }
+                    })
+              }
+              if(filtro.genero){
+                  if(entrenador.sexo==filtro.genero){
+                    if(!_.includes(this.filtroEntrenadores,entrenador)){
+                      this.filtroEntrenadores.push(entrenador);
+                    }
+                  }
+
+              }
+            })
+          }
+        })
+      }
+      console.log(this.filtroEntrenadores);
+
+    })
+
+  }
+
 }

@@ -27,6 +27,9 @@ page-vista-entrenador #seccion-seguidores-val {
   text-align: center;
   padding: 2%;
   margin-top: -3%; }
+page-vista-entrenador rating {
+  float: right;
+  margin-right: 20%; }
 page-vista-entrenador ul {
   padding: 0px;
   margin: 0;
@@ -74,10 +77,10 @@ page-vista-entrenador .scroll-content {
 page-vista-entrenador .line-separator {
   border-top: 4px solid #9df400;
   border-bottom: 4px solid #9df400; }
-page-vista-entrenador #seccion-descripcion, page-vista-entrenador #seccion-especialidades, page-vista-entrenador #seccion-contacto, page-vista-entrenador #seccion-exp-form, page-vista-entrenador #seccion-disponibilidad, page-vista-entrenador #seccion-precios, page-vista-entrenador #seccion-lugar-entrenamiento, page-vista-entrenador #seccion-comentarios {
+page-vista-entrenador .secciones {
   background: transparent;
   margin-bottom: 10%; }
-  page-vista-entrenador #seccion-descripcion h2, page-vista-entrenador #seccion-especialidades h2, page-vista-entrenador #seccion-contacto h2, page-vista-entrenador #seccion-exp-form h2, page-vista-entrenador #seccion-disponibilidad h2, page-vista-entrenador #seccion-precios h2, page-vista-entrenador #seccion-lugar-entrenamiento h2, page-vista-entrenador #seccion-comentarios h2 {
+  page-vista-entrenador .secciones h2 {
     text-align: center;
     margin-top: 0;
     color: #649300;
@@ -93,6 +96,11 @@ page-vista-entrenador #seccion-comentarios .card {
     font-size: 14pt; }
   page-vista-entrenador #seccion-comentarios .card .val-comentario {
     float: right; }
+page-vista-entrenador progress {
+  background-color: #f3f3f3;
+  border: 0;
+  height: 18px;
+  border-radius: 9px; }
 page-vista-entrenador #seccion-contacto {
   margin-bottom: 0; }
   page-vista-entrenador #seccion-contacto p {
@@ -274,5 +282,17 @@ page-vista-entrenador #horario {
   text-align: center; }
   page-vista-entrenador #horario p {
     text-align: center; }
+page-vista-entrenador .p-valoration {
+  padding: 0;
+  margin-right: 20px; }
+page-vista-entrenador .progress-bar {
+  width: 100%;
+  float: left; }
+page-vista-entrenador .p-title-valoration {
+  float: left;
+  margin-right: 30px;
+  padding: 0; }
+page-vista-entrenador .m-left {
+  margin-left: 12%; }
 
 /*# sourceMappingURL=vista-entrenador.css.map */

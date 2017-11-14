@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler,ViewChild } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { NgProgressModule } from 'ng2-progressbar';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -39,6 +40,7 @@ import { CogerDatos} from '../providers/coger-datos';
 import {CardTrainer} from '../components/card-trainer/card-trainer';
 import {CardPubli} from '../components/card-publi/card-publi';
 import {MapComponent} from '../components/map-component/map-component'
+import * as _ from 'lodash';
 export const firebase={
   apiKey: "AIzaSyAmdijlzMaRzeXEmIcWTAImU8SgtCI1mTA",
   authDomain: "fytrainer-69aef.firebaseapp.com",
@@ -47,6 +49,8 @@ export const firebase={
   storageBucket: "fytrainer-69aef.appspot.com",
   messagingSenderId: "179397221458"
 }
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -76,7 +80,8 @@ export const firebase={
     AngularFireModule.initializeApp(firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    Ionic2RatingModule
+    Ionic2RatingModule,
+    NgProgressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

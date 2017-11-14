@@ -201,7 +201,7 @@ export class Perfil {
       this.autocomplete = new google.maps.places.Autocomplete(this.inputPlace);
       this.autocomplete.addListener('place_changed', (data=> {
         console.log(data);
-        this.localidad=this.autocomplete.getPlace().formatted_address
+        this.localidad=this.autocomplete.getPlace().name + ', '+this.autocomplete.getPlace().address_components[1].short_name;
       }))
 
     });

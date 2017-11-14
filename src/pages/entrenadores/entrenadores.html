@@ -29,11 +29,21 @@
       {{e.ubicacion}}
     </li>
   </ul>-->
+
     <ion-list id="lista-entrenadores">
-      <ion-col  col-12 *ngFor="let entrenador of cogerDatos.entrenadores |async">
-       <card-trainer *ngIf="entrenador.estado=='confirmado' &&entrenador.servicio" (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [especialidades]=entrenador.especialidades [localidad]=entrenador.localidad></card-trainer>
-      </ion-col>
+      <div *ngIf="filtrado">
+        <ion-col col-12 *ngFor="let entrenador of filtroEntrenadores">
+        <card-trainer  *ngIf="entrenador.$key!=userKey" (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [especialidades]=entrenador.especialidades [localidad]=entrenador.localidad></card-trainer>
+        </ion-col>
+      </div>
+      <div *ngIf="!filtrado">
+        <ion-col  col-12 *ngFor="let entrenador of datosEntrenador |async">
+            <card-trainer *ngIf="entrenador.estado=='confirmado' &&entrenador.servicio&&entrenador.$key!=userKey" (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [especialidades]=entrenador.especialidades [localidad]=entrenador.localidad></card-trainer>
+        </ion-col>
+      </div>
+
     </ion-list>
+
 
 
 

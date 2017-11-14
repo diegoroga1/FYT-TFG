@@ -87,7 +87,7 @@
             </div>
           </div>
 
-        <div id="seccion-lugar-entrenamiento" class="line-separator">
+        <div id="seccion-lugar-entrenamiento" class="line-separator secciones">
           <h2 style="text-align: center">¿Dónde podemos entrenar?</h2>
           <map-component></map-component>
 
@@ -99,14 +99,14 @@
           <!--<p>A domicilio: <strong>{{datosEntrenador.lugarEntrenamiento.domicilio}}</strong></p>
           <p>Lugares:<strong>{{datosEntrenador.lugarEntrenamiento.lugar}}</strong> </p>-->
         </div>
-        <div id="seccion-exp-form" class="line-separator">
+        <div id="seccion-exp-form" class="line-separator secciones">
           <h2>Experiencia y formación</h2>
           <ion-list>
             <p>Formación: <strong>{{datosEntrenador.formacion}}</strong></p>
             <p>Experiencia: <strong>{{datosEntrenador.experiencia}}</strong></p>
           </ion-list>
         </div>
-        <div id="seccion-disponibilidad" class="line-separator">
+        <div id="seccion-disponibilidad" class="line-separator secciones">
           <h2 style="text-align: center">Disponibilidad</h2>
           <ion-list #listFab>
             <ion-fab><button activated #L id="L" (click)="mostrarDisponibilidad(L)" ion-fab >L</button></ion-fab>
@@ -141,7 +141,7 @@
 
 
 
-        <div id="seccion-precios" class="line-separator">
+        <div id="seccion-precios" class="line-separator secciones">
           <h2 style="text-align: center">Tarifas y servicios</h2>
           <ion-row id="precios">
 
@@ -229,12 +229,141 @@
           </ion-row>
         </div>
 
-        <div id="seccion-descripcion" class="line-separator">
+        <div id="seccion-descripcion" class="line-separator secciones">
           <h2>El servicio...</h2>
           <p>{{datosEntrenador.descripcion}}</p>
         </div>
+        <div id="seccion-valoraciones" class="secciones">
+          <h2 style="text-align: center;">Valoraciones</h2>
 
-        <div id="seccion-comentarios" class="line-separator">
+          <div id="valoracion-profesionalidad" class="progress-bar">
+            <div >
+              <p class="p-title-valoration">Profesionalidad</p>
+              <rating class="val-comentario" [(ngModel)]="rateprof"
+                      readOnly="false"  max="5"
+                      emptyStarIconName="star-outline"
+                      halfStarIconName="star-half"
+                      starIconName="star"
+                      nullable="false"
+                      (ngModelChange)="onModelChange($event,datosEntrenador.$key)">
+
+              </rating>
+            </div>
+            <div id="progress-prof" class="progress-bar m-left">
+              <ion-row >
+                <p class="p-valoration">5</p><progress *ngIf="numProf" value={{numProf.prof5}} max={{totalProf}}></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">4</p><progress *ngIf="numProf"  value={{numProf.prof4}} max={{totalProf}}></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">3</p><progress *ngIf="numProf" value={{numProf.prof3}} max={{totalProf}}></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">2</p><progress *ngIf="numProf" value={{numProf.prof2}} max={{totalProf}}></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">1</p><progress *ngIf="numProf" value={{numProf.prof1}} max={{totalProf}}></progress>
+              </ion-row>
+            </div>
+            <h1 *ngIf="mediaProf" style="position: absolute;right: 20%;" id="prof-media">{{mediaProf}}</h1>
+          </div>
+
+          <div id="valoracion-trato" class="progress-bar">
+            <p class="p-title-valoration">Trato personal</p>
+            <rating class="val-comentario" [(ngModel)]="ratetrato"
+                    readOnly="false"  max="5"
+                    emptyStarIconName="star-outline"
+                    halfStarIconName="star-half"
+                    starIconName="star"
+                    nullable="false"
+                    (ngModelChange)="onModelChange($event,datosEntrenador.$key)">
+
+            </rating>
+
+            <div id="progress-trato" class="progress-bar m-left">
+              <ion-row >
+                <p class="p-valoration">5</p><progress *ngIf="numTrato" value={{numTrato.trato5}} max={{totalTrato}}></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">4</p><progress *ngIf="numTrato"  value={{numTrato.trato4}} max={{totalTrato}}></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">3</p><progress *ngIf="numTrato" value={{numTrato.trato3}} max={{totalTrato}}></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">2</p><progress *ngIf="numTrato" value={{numTrato.trato2}} max={{totalTrato}}></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">1</p><progress *ngIf="numTrato" value={{numTrato.trato1}} max={{totalTrato}}></progress>
+              </ion-row>
+
+            </div>
+            <h1 *ngIf="mediaTrato" style="position: absolute;right: 20%;" id="trato-media">{{mediaTrato}}</h1>
+
+          </div>
+          <div id="valoracion-motivacion" class="progress-bar">
+            <p class="p-title-valoration">Motivación</p>
+            <rating class="val-comentario" [(ngModel)]="ratemoti"
+                    readOnly="false"  max="5"
+                    emptyStarIconName="star-outline"
+                    halfStarIconName="star-half"
+                    starIconName="star"
+                    nullable="false"
+                    (ngModelChange)="onModelChange($event,datosEntrenador.$key)">
+
+            </rating>
+
+            <div id="progress-moti" class="progress-bar m-left">
+              <ion-row>
+                <p class="p-valoration">5</p><progress value="50" max="100"></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">4</p><progress value="50" max="100"></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">3</p><progress value="50" max="100"></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">2</p><progress value="50" max="100"></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">1</p><progress value="50" max="100"></progress>
+              </ion-row>
+            </div>
+          </div>
+          <div id="valoracion-objetivos" class="progress-bar">
+            <p class="p-title-valoration">Objetivos</p>
+            <rating class="val-comentario" [(ngModel)]="rateobj"
+                    readOnly="false"  max="5"
+                    emptyStarIconName="star-outline"
+                    halfStarIconName="star-half"
+                    starIconName="star"
+                    nullable="false"
+                    (ngModelChange)="onModelChange($event,datosEntrenador.$key)">
+
+            </rating>
+            <div id="progress-objetivo" class="progress-bar m-left">
+              <ion-row>
+                <p class="p-valoration">5</p><progress value="50" max="100"></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">4</p><progress value="50" max="100"></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration" >3</p><progress value="50" max="100"></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">2</p><progress value="50" max="100"></progress>
+              </ion-row>
+              <ion-row>
+                <p class="p-valoration">1</p><progress value="50" max="100"></progress>
+              </ion-row>
+            </div>
+          </div>
+        </div>
+
+        <!--<div id="seccion-comentarios" class="line-separator secciones">
           <h2 style="text-align: center;">Opiniones y comentarios</h2>
           <ion-card>
             <ion-card-header>
@@ -264,7 +393,7 @@
             </ion-card-header>
             <ion-card-content>Buen entrenador</ion-card-content>
           </ion-card>
-        </div>
+        </div>-->
 
       </div>
     </ion-list>
