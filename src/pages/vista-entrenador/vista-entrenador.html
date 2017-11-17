@@ -65,15 +65,15 @@
             <a href="{{datosEntrenador.facebook}}"><img src="../../assets/icon/facebook.png" /></a>
             <img src="../../assets/icon/gorjeo.png" />
           </div>
-          <div id="seccion-valoracion">
-            <rating [(ngModel)]="rate"
-                    readOnly="false"  max="5"
+          <div  id="seccion-valoracion">
+            <rating (click)="scrollTo()" id="rating-perfil" [(ngModel)]="mediaTotal"
+                    readOnly="true"  max="5"
                     emptyStarIconName="star-outline"
                     halfStarIconName="star-half"
                     starIconName="star"
                     nullable="false"
-                    (ngModelChange)="onModelChange($event)"></rating>
-            <p id="valoracion">(9)</p>
+            ></rating>
+            <p id="valoracion">({{totalValoration}})  </p>
             <div id="seccion-seguidores-val">
               <ion-badge>Seguir <span>(21)</span></ion-badge>
             </div>
@@ -233,14 +233,14 @@
           <h2>El servicio...</h2>
           <p>{{datosEntrenador.descripcion}}</p>
         </div>
-        <div id="seccion-valoraciones" class="secciones">
+        <div (click)="valorar()" id="seccion-valoraciones" class="secciones">
           <h2 style="text-align: center;">Valoraciones</h2>
 
           <div id="valoracion-profesionalidad" class="progress-bar">
             <div >
               <p class="p-title-valoration">Profesionalidad</p>
-              <rating class="val-comentario" [(ngModel)]="rateprof"
-                      readOnly="false"  max="5"
+              <rating class="val-comentario" [(ngModel)]="mediaProf"
+                      readOnly="true"  max="5"
                       emptyStarIconName="star-outline"
                       halfStarIconName="star-half"
                       starIconName="star"
@@ -249,30 +249,28 @@
 
               </rating>
             </div>
-            <div id="progress-prof" class="progress-bar m-left">
+            <div *ngIf="numProf" id="progress-prof" class="progress-bar m-left">
               <ion-row >
-                <p class="p-valoration">5</p><progress *ngIf="numProf" value={{numProf.prof5}} max={{totalProf}}></progress>
+                <p class="p-valoration">5</p><progress *ngIf="numProf" value={{numProf.prof5}} max={{totalProf}}></progress><p *ngIf="numProf.prof5">({{numProf.prof5}})</p><p *ngIf="!numProf.prof5">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">4</p><progress *ngIf="numProf"  value={{numProf.prof4}} max={{totalProf}}></progress>
+                <p class="p-valoration">4</p><progress *ngIf="numProf"  value={{numProf.prof4}} max={{totalProf}}></progress><p *ngIf="numProf.prof4">({{numProf.prof4}})</p><p *ngIf="!numProf.prof4">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">3</p><progress *ngIf="numProf" value={{numProf.prof3}} max={{totalProf}}></progress>
+                <p class="p-valoration">3</p><progress *ngIf="numProf" value={{numProf.prof3}} max={{totalProf}}></progress><p *ngIf="numProf.prof3">({{numProf.prof3}})</p><p *ngIf="!numProf.prof3">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">2</p><progress *ngIf="numProf" value={{numProf.prof2}} max={{totalProf}}></progress>
+                <p class="p-valoration">2</p><progress *ngIf="numProf" value={{numProf.prof2}} max={{totalProf}}></progress><p *ngIf="numProf.prof2">({{numProf.prof2}})</p><p *ngIf="!numProf.prof2">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">1</p><progress *ngIf="numProf" value={{numProf.prof1}} max={{totalProf}}></progress>
+                <p class="p-valoration">1</p><progress *ngIf="numProf" value={{numProf.prof1}} max={{totalProf}}></progress><p *ngIf="numProf.prof1">({{numProf.prof1}})</p><p *ngIf="!numProf.prof1">(0)</p>
               </ion-row>
             </div>
-            <h1 *ngIf="mediaProf" style="position: absolute;right: 20%;" id="prof-media">{{mediaProf}}</h1>
           </div>
-
           <div id="valoracion-trato" class="progress-bar">
             <p class="p-title-valoration">Trato personal</p>
-            <rating class="val-comentario" [(ngModel)]="ratetrato"
-                    readOnly="false"  max="5"
+            <rating class="val-comentario" [(ngModel)]="mediaTrato"
+                    readOnly="true"  max="5"
                     emptyStarIconName="star-outline"
                     halfStarIconName="star-half"
                     starIconName="star"
@@ -281,31 +279,30 @@
 
             </rating>
 
-            <div id="progress-trato" class="progress-bar m-left">
+            <div *ngIf="numTrato" id="progress-trato" class="progress-bar m-left">
               <ion-row >
-                <p class="p-valoration">5</p><progress *ngIf="numTrato" value={{numTrato.trato5}} max={{totalTrato}}></progress>
+                <p class="p-valoration">5</p><progress *ngIf="numTrato" value={{numTrato.trato5}} max={{totalTrato}}></progress><p *ngIf="numTrato.trato5">({{numTrato.trato5}})</p><p *ngIf="!numTrato.trato5">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">4</p><progress *ngIf="numTrato"  value={{numTrato.trato4}} max={{totalTrato}}></progress>
+                <p class="p-valoration">4</p><progress *ngIf="numTrato"  value={{numTrato.trato4}} max={{totalTrato}}></progress><p *ngIf="numTrato.trato4">({{numTrato.trato4}})</p><p *ngIf="!numTrato.trato4">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">3</p><progress *ngIf="numTrato" value={{numTrato.trato3}} max={{totalTrato}}></progress>
+                <p class="p-valoration">3</p><progress *ngIf="numTrato" value={{numTrato.trato3}} max={{totalTrato}}></progress><p *ngIf="numTrato.trato3">({{numTrato.trato3}})</p><p *ngIf="!numTrato.trato3">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">2</p><progress *ngIf="numTrato" value={{numTrato.trato2}} max={{totalTrato}}></progress>
+                <p class="p-valoration">2</p><progress *ngIf="numTrato" value={{numTrato.trato2}} max={{totalTrato}}></progress><p *ngIf="numTrato.trato2">({{numTrato.trato2}})</p><p *ngIf="!numTrato.trato2">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">1</p><progress *ngIf="numTrato" value={{numTrato.trato1}} max={{totalTrato}}></progress>
+                <p class="p-valoration">1</p><progress *ngIf="numTrato" value={{numTrato.trato1}} max={{totalTrato}}></progress><p *ngIf="numTrato.trato1">({{numTrato.trato1}})</p><p *ngIf="!numTrato.trato1">(0)</p>
               </ion-row>
 
             </div>
-            <h1 *ngIf="mediaTrato" style="position: absolute;right: 20%;" id="trato-media">{{mediaTrato}}</h1>
 
           </div>
           <div id="valoracion-motivacion" class="progress-bar">
             <p class="p-title-valoration">Motivación</p>
-            <rating class="val-comentario" [(ngModel)]="ratemoti"
-                    readOnly="false"  max="5"
+            <rating class="val-comentario" [(ngModel)]="mediaMoti"
+                    readOnly="true"  max="5"
                     emptyStarIconName="star-outline"
                     halfStarIconName="star-half"
                     starIconName="star"
@@ -314,28 +311,30 @@
 
             </rating>
 
-            <div id="progress-moti" class="progress-bar m-left">
-              <ion-row>
-                <p class="p-valoration">5</p><progress value="50" max="100"></progress>
+            <div *ngIf="numMoti" id="progress-moti" class="progress-bar m-left">
+              <ion-row >
+                <p class="p-valoration">5</p><progress *ngIf="numMoti" value={{numMoti.moti5}} max={{totalMoti}}></progress><p *ngIf="numMoti.moti5">({{numMoti.moti5}})</p><p *ngIf="!numMoti.moti5">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">4</p><progress value="50" max="100"></progress>
+                <p class="p-valoration">4</p><progress *ngIf="numMoti"  value={{numMoti.moti4}} max={{totalMoti}}></progress><p *ngIf="numMoti.moti4">({{numMoti.moti4}})</p><p *ngIf="!numMoti.moti4">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">3</p><progress value="50" max="100"></progress>
+                <p class="p-valoration">3</p><progress *ngIf="numMoti" value={{numMoti.moti3}} max={{totalMoti}}></progress><p *ngIf="numMoti.moti3">({{numMoti.moti3}})</p><p *ngIf="!numMoti.moti3">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">2</p><progress value="50" max="100"></progress>
+                <p class="p-valoration">2</p><progress *ngIf="numMoti" value={{numMoti.moti2}} max={{totalMoti}}></progress><p *ngIf="numMoti.moti2">({{numMoti.moti2}})</p><p *ngIf="!numMoti.moti2">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">1</p><progress value="50" max="100"></progress>
+                <p class="p-valoration">1</p><progress *ngIf="numMoti" value={{numMoti.moti1}} max={{totalMoti}}></progress><p *ngIf="numMoti.moti1">({{numMoti.moti1}})</p><p *ngIf="!numMoti.moti1">(0)</p>
               </ion-row>
+
             </div>
+
           </div>
           <div id="valoracion-objetivos" class="progress-bar">
             <p class="p-title-valoration">Objetivos</p>
-            <rating class="val-comentario" [(ngModel)]="rateobj"
-                    readOnly="false"  max="5"
+            <rating class="val-comentario" [(ngModel)]="mediaObj"
+                    readOnly="true"  max="5"
                     emptyStarIconName="star-outline"
                     halfStarIconName="star-half"
                     starIconName="star"
@@ -343,23 +342,25 @@
                     (ngModelChange)="onModelChange($event,datosEntrenador.$key)">
 
             </rating>
-            <div id="progress-objetivo" class="progress-bar m-left">
-              <ion-row>
-                <p class="p-valoration">5</p><progress value="50" max="100"></progress>
+            <div *ngIf="numObj" id="progress-objetivo" class="progress-bar m-left">
+              <ion-row >
+                <p class="p-valoration">5</p><progress *ngIf="numObj" value={{numObj.obj5}} max={{totalObj}}></progress><p *ngIf="numObj.obj5">({{numObj.obj5}})</p><p *ngIf="!numObj.obj5">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">4</p><progress value="50" max="100"></progress>
+                <p class="p-valoration">4</p><progress *ngIf="numObj"  value={{numObj.obj4}} max={{totalObj}}></progress><p *ngIf="numObj.obj4">({{numObj.obj4}})</p><p *ngIf="!numObj.obj4">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration" >3</p><progress value="50" max="100"></progress>
+                <p class="p-valoration">3</p><progress *ngIf="numObj" value={{numObj.obj3}} max={{totalObj}}></progress><p *ngIf="numObj.obj3">({{numObj.obj3}})</p><p *ngIf="!numObj.obj3">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">2</p><progress value="50" max="100"></progress>
+                <p class="p-valoration">2</p><progress *ngIf="numObj" value={{numObj.obj2}} max={{totalObj}}></progress><p *ngIf="numObj.obj2">({{numObj.obj2}})</p><p *ngIf="!numObj.obj2">(0)</p>
               </ion-row>
               <ion-row>
-                <p class="p-valoration">1</p><progress value="50" max="100"></progress>
+                <p class="p-valoration">1</p><progress *ngIf="numObj" value={{numObj.obj1}} max={{totalObj}}></progress><p *ngIf="numObj.obj1">({{numObj.obj1}})</p><p *ngIf="!numObj.obj1">(0)</p>
               </ion-row>
+
             </div>
+
           </div>
         </div>
 

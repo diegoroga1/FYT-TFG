@@ -1,5 +1,5 @@
 import { Component,ViewChild,ViewChildren,HostListener,ElementRef,Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController,Content, VirtualScroll,NavParams } from 'ionic-angular';
 import {FirebaseListObservable,AngularFireDatabase} from "angularfire2/database";
 import {CardPubli} from '../../components/card-publi/card-publi'
 import {MapComponent} from '../../components/map-component/map-component'
@@ -8,6 +8,7 @@ import {VistaPublicacion} from '../vista-publicacion/vista-publicacion'
 import { DomSanitizer } from '@angular/platform-browser';
 import {FirebaseApp} from 'angularfire2';
 import * as firebase from 'firebase';
+import {NuevaValoracionPage} from "../nueva-valoracion/nueva-valoracion";
 
 /**
  * Generated class for the VistaEntrenador page.
@@ -21,6 +22,9 @@ import * as firebase from 'firebase';
   templateUrl: 'vista-entrenador.html',
 })
 export class VistaEntrenador {
+  @ViewChild(VirtualScroll) listView: VirtualScroll;
+  @ViewChild(Content) content: Content;
+
   buttonClicked:boolean=false;
   datosEntrenador:any;
   datos=[];
@@ -35,16 +39,21 @@ export class VistaEntrenador {
   vp;
   sp;
   dp;
-  rateobj;
-  rateprof;
-  ratemoti;
-  ratetrato;
+
   numProf;
   totalProf=0;
   mediaProf=0;
   numTrato;
   totalTrato=0;
   mediaTrato=0;
+  numObj;
+  totalObj=0;
+  mediaObj=0;
+  numMoti;
+  totalMoti=0;
+  mediaMoti=0;
+  mediaTotal=0;
+  totalValoration=0;
   @ViewChild('horario') horario:ElementRef;
   @ViewChild('listFab') listFab:ElementRef;
   constructor(public navCtrl: NavController,
@@ -76,11 +85,19 @@ export class VistaEntrenador {
   getDataTrainer() {
 
       this.datosEntrenador=this.navParams.data.entrenador;
-    this.firebaseApp.storage().ref().child('fotos-perfil/' + this.datosEntrenador.$key + '/perfil.jpg').getDownloadURL().then(url => this.fotoPerfil = url);
 
-    this.datosEntrenador.especialidades.forEach(data=>{
-      this.especialidadesEntrenador.push(data);
-    })
+      this.firebaseApp.storage().ref().child('fotos-perfil/' + this.datosEntrenador.$key + '/perfil.jpg').getDownloadURL()
+        .then(url => this.fotoPerfil = url)
+        .catch(error=>console.log("NO hay foto de perfil"));
+
+
+
+    if(this.datosEntrenador.especialidades){
+      this.datosEntrenador.especialidades.forEach(data=>{
+        this.especialidadesEntrenador.push(data);
+      })
+    }
+
     if(this.datosEntrenador.publicaciones){
       this.datosEntrenador.publicaciones.forEach(data => {
         this.publicacionesEntrenador.push(data)
@@ -184,9 +201,10 @@ export class VistaEntrenador {
       this.totalProf=(data.prof1!=undefined?data.prof1:0) + (data.prof2!=undefined?data.prof2:0)+ (data.prof3!=undefined?data.prof3:0)
         +(data.prof4!=undefined?data.prof4:0)+(data.prof5!=undefined?data.prof5:0);
     });
+    console.log(document.getElementsByTagName('progress'));
     this.mediaProf=((5*(this.numProf.prof5!=undefined?this.numProf.prof5:0) + 4*(this.numProf.prof4!=undefined?this.numProf.prof4:0)
     +3*(this.numProf.prof3!=undefined?this.numProf.prof3:0)+2*(this.numProf.prof2!=undefined?this.numProf.prof2:0)
-      + (this.numProf.prof1!=undefined?this.numProf.prof1:0))/(this.totalProf))*2;
+      + (this.numProf.prof1!=undefined?this.numProf.prof1:0))/(this.totalProf)) ;
     console.log(this.mediaProf);
 
     this.af.object('entrenadores/'+key+'/servicio/valoraciones/trato/').forEach(data=>{
@@ -197,74 +215,45 @@ export class VistaEntrenador {
     });
     this.mediaTrato=((5*(this.numTrato.trato5!=undefined?this.numTrato.trato5:0) + 4*(this.numTrato.trato4!=undefined?this.numTrato.trato4:0)
     +3*(this.numTrato.trato3!=undefined?this.numTrato.trato3:0)+2*(this.numTrato.trato2!=undefined?this.numTrato.trato2:0)
-      + (this.numTrato.trato1!=undefined?this.numTrato.trato1:0))/(this.totalTrato))*2;
-  }
-  onModelChange(e,key){
-    console.log(this.rateprof);
-    console.log(key);
-    var sum=0;
-    var sum2=0;
-    var sum3=0;
-    var sum4=0;
+      + (this.numTrato.trato1!=undefined?this.numTrato.trato1:0))/(this.totalTrato));
 
-    if(this.rateprof>0){
-      var val=this.af.object('entrenadores/'+key+'/servicio/valoraciones/profesionalidad/prof'+this.rateprof).forEach(data=>{
-        sum = parseInt(data.$value) + 1;
-        console.log(sum);
-      });
-      if(sum>0){
-        this.af.object('entrenadores/'+key+'/servicio/valoraciones/profesionalidad/prof'+this.rateprof).set(sum)
-      }else{
-        this.af.object('entrenadores/'+key+'/servicio/valoraciones/profesionalidad/prof'+this.rateprof).set(1)
-      }
-      this.rateprof=0;
+    this.af.object('entrenadores/'+key+'/servicio/valoraciones/motivacion/').forEach(data=>{
+      this.numMoti=data;
+      console.log(this.numMoti)
+      this.totalMoti=(data.moti1!=undefined?data.moti1:0) + (data.moti2!=undefined?data.moti2:0)+ (data.moti3!=undefined?data.moti3:0)
+        +(data.moti4!=undefined?data.moti4:0)+(data.moti5!=undefined?data.moti5:0);
+    });
+    this.mediaMoti=((5*(this.numMoti.moti5!=undefined?this.numMoti.moti5:0) + 4*(this.numMoti.moti4!=undefined?this.numMoti.moti4:0)
+    +3*(this.numMoti.moti3!=undefined?this.numMoti.moti3:0)+2*(this.numMoti.moti2!=undefined?this.numMoti.moti2:0)
+      + (this.numMoti.moti1!=undefined?this.numMoti.moti1:0))/(this.totalMoti));
 
-    }
-
-    if(this.ratemoti>0){
-      this.af.object('entrenadores/'+key+'/servicio/valoraciones/motivacion/moti'+this.ratemoti).forEach(data=>{
-        sum2 = parseInt(data.$value) + 1;
-
-      });
-      if(sum2>0){
-        this.af.object('entrenadores/'+key+'/servicio/valoraciones/motivacion/moti'+this.ratemoti).set(sum2)
-      }else{
-        this.af.object('entrenadores/'+key+'/servicio/valoraciones/motivacion/moti'+this.ratemoti).set(1)
-      }
-      this.ratemoti=0;
-    }
-
-    if(this.rateobj>0){
-      this.af.object('entrenadores/'+key+'/servicio/valoraciones/objetivos/obj'+this.rateobj).forEach(data=>{
-        sum3 = parseInt(data.$value) + 1;
-
-      });
-      if(sum3>0){
-        this.af.object('entrenadores/'+key+'/servicio/valoraciones/objetivos/obj'+this.rateobj).set(sum3)
-      }else{
-        this.af.object('entrenadores/'+key+'/servicio/valoraciones/objetivos/obj'+this.rateobj).set(1)
-      }
-      this.rateobj=0;
-    }
-
-    if(this.ratetrato>0){
-      this.af.object('entrenadores/'+key+'/servicio/valoraciones/trato/trato'+this.ratetrato).forEach(data=>{
-        sum4= parseInt(data.$value) + 1;
-
-      });
-      if(sum4>0){
-        this.af.object('entrenadores/'+key+'/servicio/valoraciones/trato/trato'+this.ratetrato).set(sum4)
-      }else{
-        this.af.object('entrenadores/'+key+'/servicio/valoraciones/trato/trato'+this.ratetrato).set(1)
-      }
-      this.rateobj=0;
-    }
-    this.totalValoraciones(key);
-  }
-  setValoration(){
-
+    this.af.object('entrenadores/'+key+'/servicio/valoraciones/objetivos/').forEach(data=>{
+      this.numObj=data;
+      console.log(this.numObj)
+      this.totalObj=(data.obj1!=undefined?data.obj1:0) + (data.obj2!=undefined?data.obj2:0)+ (data.obj3!=undefined?data.obj3:0)
+        +(data.obj4!=undefined?data.obj4:0)+(data.obj5!=undefined?data.obj5:0);
+    });
+    this.mediaObj=((5*(this.numObj.obj5!=undefined?this.numObj.obj5:0) + 4*(this.numObj.obj4!=undefined?this.numObj.obj4:0)
+      +3*(this.numObj.obj3!=undefined?this.numObj.obj3:0)+2*(this.numObj.obj2!=undefined?this.numObj.obj2:0)
+      + (this.numObj.obj1!=undefined?this.numObj.obj1:0))/(this.totalObj));
+    this.mediaTotal=((this.mediaObj + this.mediaTrato + this.mediaProf+this.mediaMoti)/4);
+    this.totalValoration=this.totalObj+this.totalMoti+this.totalTrato+this.totalProf;
+    this.af.object('entrenadores/'+key+'/valoracionTotal/').set((this.mediaTotal*2).toFixed(2));
   }
 
+  private scrollTo() {
+    let key = '#seccion-valoraciones';
+
+    let hElement: HTMLElement = this.content._elementRef.nativeElement;
+    let element = hElement.querySelector(key);
+    element.scrollIntoView();
+
+    //wait till scroll animation completes
+
+  }
+  valorar(){
+    this.navCtrl.push(NuevaValoracionPage,{'key':this.datosEntrenador.$key});
+  }
 
 
 

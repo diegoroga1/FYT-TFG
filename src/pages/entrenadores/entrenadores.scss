@@ -16,10 +16,8 @@ page-entrenadores {
     background-color: $naranja;
   }
   .searchbar{
-    position: fixed;
     padding: 0;
     z-index: 999999;
-    top:9%;
     .searchbar-input-container{
       width: 100%;
       padding: 0;
@@ -28,7 +26,7 @@ page-entrenadores {
   }
 
   #lista-entrenadores{
-    margin-top: 12%;
+
 
   }
   .clearfix:after {
@@ -39,6 +37,60 @@ page-entrenadores {
     clear: both;
     height: 0;
   }
+  #filtrar-ordenar{
+    width: 100%;
+    border-bottom: 1px solid gray;
+    height: 46px;
+    #ordenar{
+      height: 46px;
+      .select{
+        .item-cover{
+          position: relative;
+          width: 20px;
+        }
+      }
+      .select{
+        max-width: 100% !important;
 
+      }
+      .select-placeholder,.select-text{
+        color:black !important;
+        overflow: visible;
+      }
+      .select-icon-inner{
+        color:$naranja !important;
+        left:10px !important;
+      }
+      ion-select{
+        max-width: 100%;
+        .select-placeholder{
+          color:black;
+          font-size:13pt;font-weight: bold;
+        }
+      }
+      border-right: 2px solid gray;
+      width: 50%;
+      float: left;
+    }
+    #filtrar{
+      height: 46px;
+      width: 50%;
+      float: left;
+      #button-filter{
+        background-color: transparent;
+
+        .button-style{
+          background-color: transparent;
+          font-size: 13pt;
+          font-weight: bold;
+          color:black;
+          box-shadow: none;
+          text-transform: capitalize;
+
+        }
+      }
+
+    }
+  }
 
 }

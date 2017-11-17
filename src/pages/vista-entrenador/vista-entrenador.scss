@@ -45,6 +45,10 @@ page-vista-entrenador {
     float: right;
     margin-right: 20%
   }
+  #rating-perfil{
+    margin-right: 2px;
+    float: none;
+  }
   ul {
     padding: 0px;
     margin:0;
@@ -422,6 +426,9 @@ margin-bottom:10%;
   .progress-bar{
     width: 100%;
     float: left;
+    p{
+      padding: 0;
+    }
   }
   .p-title-valoration{
 
@@ -432,8 +439,15 @@ margin-bottom:10%;
   }
   .m-left{
     margin-left: 12%;
-
-
   }
-
+  progress[value]::-webkit-progress-value {
+    background-color: $naranja;
+    border-radius: 2px;
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+  }
+  progress[value]::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  }
 }

@@ -8,16 +8,12 @@ page-entrenadores .toolbar-title {
 page-entrenadores .toolbar-background {
   background-color: #FF3D00; }
 page-entrenadores .searchbar {
-  position: fixed;
   padding: 0;
-  z-index: 999999;
-  top: 9%; }
+  z-index: 999999; }
   page-entrenadores .searchbar .searchbar-input-container {
     width: 100%;
     padding: 0;
     margin: 0 auto; }
-page-entrenadores #lista-entrenadores {
-  margin-top: 12%; }
 page-entrenadores .clearfix:after {
   visibility: hidden;
   display: block;
@@ -25,5 +21,44 @@ page-entrenadores .clearfix:after {
   content: " ";
   clear: both;
   height: 0; }
+page-entrenadores #filtrar-ordenar {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  height: 46px; }
+  page-entrenadores #filtrar-ordenar #ordenar {
+    height: 46px;
+    border-right: 2px solid gray;
+    width: 50%;
+    float: left; }
+    page-entrenadores #filtrar-ordenar #ordenar .select .item-cover {
+      position: relative;
+      width: 20px; }
+    page-entrenadores #filtrar-ordenar #ordenar .select {
+      max-width: 100% !important; }
+    page-entrenadores #filtrar-ordenar #ordenar .select-placeholder, page-entrenadores #filtrar-ordenar #ordenar .select-text {
+      color: black !important;
+      overflow: visible; }
+    page-entrenadores #filtrar-ordenar #ordenar .select-icon-inner {
+      color: #FF3D00 !important;
+      left: 10px !important; }
+    page-entrenadores #filtrar-ordenar #ordenar ion-select {
+      max-width: 100%; }
+      page-entrenadores #filtrar-ordenar #ordenar ion-select .select-placeholder {
+        color: black;
+        font-size: 13pt;
+        font-weight: bold; }
+  page-entrenadores #filtrar-ordenar #filtrar {
+    height: 46px;
+    width: 50%;
+    float: left; }
+    page-entrenadores #filtrar-ordenar #filtrar #button-filter {
+      background-color: transparent; }
+      page-entrenadores #filtrar-ordenar #filtrar #button-filter .button-style {
+        background-color: transparent;
+        font-size: 13pt;
+        font-weight: bold;
+        color: black;
+        box-shadow: none;
+        text-transform: capitalize; }
 
 /*# sourceMappingURL=entrenadores.css.map */

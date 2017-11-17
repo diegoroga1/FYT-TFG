@@ -22,6 +22,9 @@ import {Login} from '../pages/login/login';
 import {Registro} from '../pages/registro/registro';
 import {NuevaTarifa} from '../pages/nueva-tarifa/nueva-tarifa';
 import {FiltrarEntrenadorPage} from '../pages/filtrar-entrenador/filtrar-entrenador';
+import {NuevaValoracionPage} from "../pages/nueva-valoracion/nueva-valoracion";
+
+
 import { Camera } from '@ionic-native/camera';
 
 import { Facebook } from '@ionic-native/facebook'
@@ -41,6 +44,7 @@ import {CardTrainer} from '../components/card-trainer/card-trainer';
 import {CardPubli} from '../components/card-publi/card-publi';
 import {MapComponent} from '../components/map-component/map-component'
 import * as _ from 'lodash';
+import { OrdenarPipe } from '../pipes/ordenar/ordenar';
 export const firebase={
   apiKey: "AIzaSyAmdijlzMaRzeXEmIcWTAImU8SgtCI1mTA",
   authDomain: "fytrainer-69aef.firebaseapp.com",
@@ -71,7 +75,9 @@ export const firebase={
     Registro,
     Login,
     NuevaTarifa,
-    FiltrarEntrenadorPage
+    FiltrarEntrenadorPage,
+    OrdenarPipe,
+    NuevaValoracionPage
   ],
   imports: [
     BrowserModule,
@@ -103,7 +109,8 @@ export const firebase={
     Registro,
     Login,
     NuevaTarifa,
-    FiltrarEntrenadorPage
+    FiltrarEntrenadorPage,
+    NuevaValoracionPage
   ],
   providers: [
     StatusBar,

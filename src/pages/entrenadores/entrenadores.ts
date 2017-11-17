@@ -28,6 +28,8 @@ export class Entrenadores {
   filtrado=false;
   filtros:any;
   userKey:any;
+  modoOrdenacion;
+  ordenado=false;
   constructor(public navCtrl: NavController,
               public http:Http,
               public cogerDatos:CogerDatos,
@@ -48,6 +50,9 @@ export class Entrenadores {
     }
     if(this.filtrado){
       this.filtrar();
+    }
+    if(this.modoOrdenacion){
+      this.ordenar()
     }
 
   }
@@ -74,6 +79,7 @@ export class Entrenadores {
     this.navCtrl.push(FiltrarEntrenadorPage)
   }
   filtrar(){
+
     var arrayAux=[];
     this.filtroEntrenadores=[];
     this.datosEntrenador.forEach(data=>{
@@ -86,45 +92,78 @@ export class Entrenadores {
             this.filtros.forEach(filtro=>{
               if(filtro.precios){
                 _.find(entrenador.servicio.tarifas,(tarifa)=>{
-                    if(tarifa.precio>parseInt(filtro.precios.precio1)&&tarifa.precio<parseInt(filtro.precios.precio2)){
-                      if(!_.includes(this.filtroEntrenadores,entrenador)){
-                        this.filtroEntrenadores.push(entrenador)
-                      }
+                  if(tarifa.precio>parseInt(filtro.precios.precio1)&&tarifa.precio<parseInt(filtro.precios.precio2)){
+                    if(!_.includes(this.filtroEntrenadores,entrenador)){
+                      this.filtroEntrenadores.push(entrenador)
                     }
+                  }
                 })
               }
               if(filtro.localidad){
-                    if(_.includes(entrenador.localidad,filtro.localidad)){
-                      if(!_.includes(this.filtroEntrenadores,entrenador)){
-                        this.filtroEntrenadores.push(entrenador)
-                      }
-                    }
+                if(_.includes(entrenador.localidad,filtro.localidad)){
+                  if(!_.includes(this.filtroEntrenadores,entrenador)){
+                    this.filtroEntrenadores.push(entrenador)
+                  }
+                }
               }
               if(filtro.especialidades){
-                    _.find(entrenador.servicio.especialidad, (esp) => {
-                      if (esp == filtro.especialidades) {
-                        if (!_.includes(this.filtroEntrenadores, entrenador)) {
-                          this.filtroEntrenadores.push(entrenador)
-                        }
-                      }
-                    })
-              }
-              if(filtro.genero){
-                  if(entrenador.sexo==filtro.genero){
-                    if(!_.includes(this.filtroEntrenadores,entrenador)){
-                      this.filtroEntrenadores.push(entrenador);
+                _.find(entrenador.servicio.especialidad, (esp) => {
+                  if (esp == filtro.especialidades) {
+                    if (!_.includes(this.filtroEntrenadores, entrenador)) {
+                      this.filtroEntrenadores.push(entrenador)
                     }
                   }
+                })
+              }
+              if(filtro.genero){
+                if(entrenador.sexo==filtro.genero){
+                  if(!_.includes(this.filtroEntrenadores,entrenador)){
+                    this.filtroEntrenadores.push(entrenador);
+                  }
+                }
 
               }
             })
           }
         })
+      }else{
+        this.filtrado=false;
       }
+      this.filtroEntrenadores=_.orderBy(this.filtroEntrenadores,['apellidos'],['asc']);
+      console.log(_.orderBy(this.filtroEntrenadores,['apellidos'],['asc']));
       console.log(this.filtroEntrenadores);
 
     })
 
   }
+  ordenar(){
+    if(this.modoOrdenacion){
+      this.ordenado=true;
+    }
+    if(this.filtroEntrenadores.length>0 && this.filtrado){
+      console.log(this.filtrado)
+      this.filtroEntrenadores=_.orderBy(this.filtroEntrenadores,['nombre'],['asc']);
+
+      console.log("No hay fitlros");
+    }else{
+      this.filtroEntrenadores=[]
+      this.datosEntrenador.forEach(data=>{
+        data.forEach(item=>{
+          this.filtroEntrenadores.push(item);
+        });
+
+      })
+        if(this.modoOrdenacion=='valorados'){
+          this.filtroEntrenadores=_.orderBy(this.filtroEntrenadores,['valoracionTotal'],['desc']);
+
+        }else if(this.modoOrdenacion=='recientes'){
+          this.filtroEntrenadores=_.orderBy(this.filtroEntrenadores,['fechaCreacion'],['desc']);
+
+        }
+
+
+    }
+  }
+
 
 }

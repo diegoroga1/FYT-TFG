@@ -30,6 +30,9 @@ page-vista-entrenador #seccion-seguidores-val {
 page-vista-entrenador rating {
   float: right;
   margin-right: 20%; }
+page-vista-entrenador #rating-perfil {
+  margin-right: 2px;
+  float: none; }
 page-vista-entrenador ul {
   padding: 0px;
   margin: 0;
@@ -288,11 +291,21 @@ page-vista-entrenador .p-valoration {
 page-vista-entrenador .progress-bar {
   width: 100%;
   float: left; }
+  page-vista-entrenador .progress-bar p {
+    padding: 0; }
 page-vista-entrenador .p-title-valoration {
   float: left;
   margin-right: 30px;
   padding: 0; }
 page-vista-entrenador .m-left {
   margin-left: 12%; }
+page-vista-entrenador progress[value]::-webkit-progress-value {
+  background-color: #FF3D00;
+  border-radius: 2px;
+  background-size: 35px 20px, 100% 100%, 100% 100%; }
+page-vista-entrenador progress[value]::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset; }
 
 /*# sourceMappingURL=vista-entrenador.css.map */

@@ -1,0 +1,52 @@
+page-nueva-valoracion {
+  .toolbar-background{
+    background-color: $naranja;
+  }
+  .content{
+    padding: 0;
+    .scroll-content{
+      padding:0 !important;
+
+    }
+
+  }
+  .toolbar-title{
+    color:white;
+    letter-spacing: 5px;
+    font-weight: bold;
+    font-size: 16pt;
+    text-align: center;
+  }
+  rating{
+    float: right;
+    margin-right: 20%
+  }
+  #valorar{
+    margin-top: 10%;
+  }
+  .label{
+    font-size: 16pt;
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    text-indent: 3%;
+    margin-top: 5%;
+    padding: 5% 0 5% 3%;
+
+  }
+  ul {
+    padding: 0px;
+    margin:0;
+    float: left;
+
+    &.rating li {
+      padding:0 !important;
+      background: none;
+      color: #ffb400;
+
+      ion-icon {
+        font-size: 25px;
+      }
+    }
+  }
+}

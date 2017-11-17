@@ -1,0 +1,71 @@
+<!--
+  Generated template for the NuevaValoracionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Añade tu valoración</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+
+  <ion-list id="valorar">
+
+      <ion-label>Profesionalidad
+        <rating id="rating-prof" class="val-comentario" [(ngModel)]="rateprof"
+                 max="5"
+                emptyStarIconName="star-outline"
+                halfStarIconName="star-half"
+                starIconName="star"
+                nullable="false"
+                (ngModelChange)="onModelChange($event,'prof')">
+
+        </rating>
+      </ion-label>
+
+
+      <ion-label>Trato personal
+        <rating id="rating-trato" class="val-comentario" [(ngModel)]="ratetrato"
+                readOnly="false"  max="5"
+                emptyStarIconName="star-outline"
+                halfStarIconName="star-half"
+                starIconName="star"
+                nullable="false"
+                (ngModelChange)="onModelChange($event,'trato')">
+
+        </rating>
+      </ion-label>
+
+
+      <ion-label>Motivación
+        <rating class="val-comentario" [(ngModel)]="ratemoti"
+                readOnly="false"  max="5"
+                emptyStarIconName="star-outline"
+                halfStarIconName="star-half"
+                starIconName="star"
+                nullable="false"
+                (ngModelChange)="onModelChange($event,'moti')">
+
+        </rating>
+      </ion-label>
+
+      <ion-label>Objetivos
+        <rating class="val-comentario" [(ngModel)]="rateobj"
+                readOnly="false"  max="5"
+                emptyStarIconName="star-outline"
+                halfStarIconName="star-half"
+                starIconName="star"
+                nullable="false"
+                (ngModelChange)="onModelChange($event,'obj')">
+
+        </rating>
+      </ion-label>
+
+  </ion-list>
+</ion-content>
