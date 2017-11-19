@@ -1,0 +1,21 @@
+<!--
+  Generated template for the DetallesMapaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+  <ion-list id="lista-lugares">
+    <ion-item *ngFor="let lugar of datosLugares">{{lugar.nombre}}</ion-item>
+  </ion-list>
+  <map-component [lugares]="datosLugares"></map-component>
+
+</ion-content>

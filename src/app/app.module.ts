@@ -45,6 +45,7 @@ import {CardPubli} from '../components/card-publi/card-publi';
 import {MapComponent} from '../components/map-component/map-component'
 import * as _ from 'lodash';
 import { OrdenarPipe } from '../pipes/ordenar/ordenar';
+import {DetallesMapaPage} from "../pages/detalles-mapa/detalles-mapa";
 export const firebase={
   apiKey: "AIzaSyAmdijlzMaRzeXEmIcWTAImU8SgtCI1mTA",
   authDomain: "fytrainer-69aef.firebaseapp.com",
@@ -77,7 +78,8 @@ export const firebase={
     NuevaTarifa,
     FiltrarEntrenadorPage,
     OrdenarPipe,
-    NuevaValoracionPage
+    NuevaValoracionPage,
+    DetallesMapaPage
   ],
   imports: [
     BrowserModule,
@@ -110,7 +112,8 @@ export const firebase={
     Login,
     NuevaTarifa,
     FiltrarEntrenadorPage,
-    NuevaValoracionPage
+    NuevaValoracionPage,
+    DetallesMapaPage
   ],
   providers: [
     StatusBar,

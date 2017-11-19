@@ -3,6 +3,8 @@ import { IonicPage, NavController,ViewController,NavParams } from 'ionic-angular
 import {MapComponent} from '../../components/map-component/map-component'
 import {CrearAnuncio} from '../crear-anuncio/crear-anuncio';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AngularFireDatabase, FirebaseListObservable,FirebaseObjectObservable } from 'angularfire2/database';
+
 import {
   GoogleMaps,
   GoogleMap,
@@ -36,7 +38,10 @@ export class VistaMapa {
   localidad:any;
   markers:any;
   lugares=[];
-  constructor(public navCtrl: NavController, public viewCtrl:ViewController, public navParams: NavParams,public geolocation: Geolocation,
+  lugaresEntrenador=[];
+  coordenadas=[];
+  userKey;
+  constructor(public navCtrl: NavController,public af:AngularFireDatabase,public viewCtrl:ViewController, public navParams: NavParams,public geolocation: Geolocation,
   private googleMaps: GoogleMaps) {
     this.getCurrentPosition()
   }
@@ -58,12 +63,42 @@ export class VistaMapa {
   }
 
   ionViewWillEnter(){
+    this.userKey=this.navParams.data;
+    console.log(this.userKey);
+    this.af.object('entrenadores/'+this.userKey+'/servicio/lugares').forEach(lugares=>{
 
+      this.lugaresEntrenador.push(lugares);
+      console.log(this.lugaresEntrenador);
+      lugares.forEach(item=>{
+        this.coordenadas.push(item.coords);
+        console.log(this.coordenadas);
+
+      })
+    });
     this.getCurrentPosition();
     if(localStorage.getItem('lugares')){
       this.lugares=JSON.parse(localStorage["lugares"])
     }
+
     console.log(this.lugares);
+
+
+  }
+  setMarkers(){
+    this.coordenadas.forEach(coord=>{
+
+      console.log(coord.lat,coord.lng);
+      let latLng = new google.maps.LatLng(coord.lat, coord.lng);
+      console.log(latLng)
+      let marker=new google.maps.Marker({
+        map:this.map,
+        animation:google.maps.Animation.BOUNCE,
+        position:latLng,
+        icon: '../../assets/icon/mancuerna.png',
+      })
+      console.log(marker);
+      marker.setMap(this.map);
+    })
 
 
   }
@@ -92,6 +127,7 @@ export class VistaMapa {
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
     this.addMiUbicacion()
+    this.setMarkers();
 
   }
   addMiUbicacion(){
@@ -111,8 +147,6 @@ export class VistaMapa {
           if(tipo=="locality"){
             console.log(data.short_name);
             this.lugares.push({'nombre':this.localidad.name +' - '+data.short_name,'coords':this.localidad.geometry.location})
-
-
           }
         })
       })
@@ -120,6 +154,7 @@ export class VistaMapa {
   }
 
   createMarker(pos){
+    console.log(pos);
     let marker=new google.maps.Marker({
       map:this.map,
       animation:google.maps.Animation.BOUNCE,

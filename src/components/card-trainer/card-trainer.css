@@ -12,7 +12,7 @@ card-trainer .card_entrenador {
 card-trainer .card_image {
   position: relative;
   width: auto;
-  max-height: 135px;
+  max-height: 185px;
   overflow: hidden; }
   card-trainer .card_image .div-price {
     position: absolute;
@@ -34,15 +34,18 @@ card-trainer .card_nombre {
   color: #230A19; }
 card-trainer .card_especialidad {
   font-size: 110%;
-  color: black;
+  color: #FF3D00;
+  background-color: transparent;
+  border: 1px solid #FF3D00;
   font-weight: 900;
-  margin-bottom: 5px; }
+  margin: 1% 2% 1% 2%; }
 card-trainer .card_descripcion {
   margin-left: 3%; }
 card-trainer .card_footer {
   width: 100%;
   color: white;
   font-size: 13pt;
+  float: left;
   background: #FF3D00;
   font-weight: 700;
   bottom: 0; }
@@ -54,5 +57,22 @@ card-trainer .card_footer {
     text-transform: uppercase; }
   card-trainer .card_footer .no-border {
     border-right: none; }
+card-trainer ul {
+  padding: 0px;
+  margin: 0;
+  float: left;
+  margin-right: 3%;
+  margin-left: 2%; }
+  card-trainer ul.rating li {
+    padding: 0 !important;
+    background: none;
+    color: #ffb400; }
+    card-trainer ul.rating li ion-icon {
+      font-size: 18px; }
+card-trainer #valoraciones {
+  width: 100%;
+  float: left; }
+card-trainer #list-especialidades {
+  width: 100%; }
 
 /*# sourceMappingURL=card-trainer.css.map */

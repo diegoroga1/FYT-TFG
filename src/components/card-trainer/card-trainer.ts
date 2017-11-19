@@ -17,21 +17,42 @@ export class CardTrainer {
   @Input('nombre') nombre:string;
   @Input('apellidos') apellidos:string;
   @Input('localidad') localidad:string;
-  @Input('especialidades') especialidades:any;
+  @Input('especialidad') especialidad:any;
   @Input('fotoPerfil') fotoPerfil:any;
+  @Input('servicio') servicio:any;
   @Input('key') key:any;
-
+  precioBajo;
+  valoraciones;
+  valoracionMedia;
   constructor(public navCtl:NavController,@Inject(FirebaseApp) public firebaseApp: firebase.app.App) {
     console.log('Hello CardTrainer Component');
     this.text = 'Hello World';
+    this.precioBajo=0;
+
 
   }
   ngOnInit() {
-    console.log(this.key);
-    this.firebaseApp.storage().ref().child('fotos-perfil/' + this.key + '/perfil.jpg').getDownloadURL()
+
+    this.firebaseApp.storage().ref().child(this.key +'/foto-perfil/perfil.jpg').getDownloadURL()
       .then(url => this.fotoPerfil = url)
       .catch(error=>console.log(error));
+    this.servicio.tarifas.forEach(data=>{
+      this.precioBajo=data.precio;
+      if(data.precio<this.precioBajo&&data.precio!='GRATIS'){
+        this.precioBajo=data.precio;
+      }else if(data.precio=='GRATIS'){
+        this.precioBajo=='GRATIS';
+      }
+      console.log(this.precioBajo);
+
+    })
+      this.valoraciones=this.servicio.numeroValoraciones;
+    this.valoracionMedia=this.servicio.valoracionTotal;
+    console.log(this.valoraciones);
+
+
   }
+
 
 
 

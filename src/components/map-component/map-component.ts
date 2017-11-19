@@ -1,4 +1,4 @@
-import { Component,ViewChild,ElementRef } from '@angular/core';
+import { Component,ViewChild,ElementRef,Input,Inject} from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import {
   GoogleMaps,
@@ -19,6 +19,7 @@ declare var google;
 })
 export class MapComponent {
   @ViewChild('map') mapElement: ElementRef;
+  @Input('lugares') lugares:any;
 input:any;
   text: string;
   map: GoogleMap;
@@ -29,19 +30,32 @@ input:any;
   pos:any;
   geocoder:any;
   autocomplete:any;
-
+  coordenadas=[];
   constructor(public geolocation: Geolocation,
                  private googleMaps: GoogleMaps) {
     console.log('Hello MapComponent Component');
     console.log(this.mapElement)
     this.text = 'Hello World';
-    this.getCurrentPosition();
 
+    this.getCurrentPosition();
+  }
+  ngOnInit(){
+    console.log(this.lugares);
+    this.lugares.forEach(item=>{
+      console.log(item);
+      this.coordenadas.push(item.coords);
+
+    })
+
+  }
+  ionViewLoaded(){
   }
   ionViewDidLoad(){
     this.getCurrentPosition();
+
   }
-  ionViewWillEnter(){
+  ionViewDidEnter(){
+    console.log("hola");
     this.getCurrentPosition();
 
   }
@@ -75,6 +89,7 @@ input:any;
     this.autocomplete = new google.maps.places.Autocomplete(this.input);
     this.autocomplete.bindTo('bounds', this.map);
     this.addMiUbicacion()
+    this.setMarkers()
   }
 
   addMiUbicacion(){
@@ -85,6 +100,20 @@ input:any;
       position: new google.maps.LatLng(this.myPosition.latitude, this.myPosition.longitude),
     });
     let content = "<h4>Information!</h4>";
+  }
+  setMarkers(){
+    console.log(this.coordenadas)
+    this.coordenadas.forEach(coord=>{
+      console.log(coord);
+      this.markers = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        icon:'../../assets/icon/mancuerna.png',
+        position: new google.maps.LatLng(coord.lat,coord.lng),
+      });
+      this.markers.setMap(this.map);
+    })
+
   }
 
   getCoords() {

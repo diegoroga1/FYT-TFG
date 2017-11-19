@@ -198,7 +198,8 @@ page-vista-entrenador #seccion-precios .card {
     text-align: center; }
     page-vista-entrenador #seccion-precios .card .card-header .card-title {
       color: white;
-      padding: 0; }
+      padding: 0;
+      white-space: normal; }
   page-vista-entrenador #seccion-precios .card .card-content {
     padding: 0;
     text-align: center;
@@ -307,5 +308,11 @@ page-vista-entrenador progress[value]::-webkit-progress-bar {
   background-color: #eee;
   border-radius: 2px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset; }
+page-vista-entrenador .li-form {
+  list-style: circle;
+  margin-left: 15px;
+  margin-right: 5px;
+  font-size: 14pt;
+  margin-top: 2%; }
 
 /*# sourceMappingURL=vista-entrenador.css.map */

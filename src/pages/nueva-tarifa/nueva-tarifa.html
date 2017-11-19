@@ -18,14 +18,11 @@
     <ion-label>Nombre de la tarifa</ion-label>
     <ion-input type="text" ngModel name="nombre"  class="white" placeholder="Añade un nombre a la tarifa" ></ion-input>
     <ion-label>Añade alguna descripción de la tarifa</ion-label>
-    <div *ngFor="let input of inputs;let i=index;">
-      <ion-input ngModel name="{{i}}" type="text" class="white" placeholder="Añade descripcion"></ion-input>
+    <div >
+        <ion-input  ngModel name="desc0" type="text" class="white" placeholder="Añade descripcion" required></ion-input>
+        <ion-input ngModel  name="desc1" type="text" class="white" placeholder="Añade descripcion"></ion-input>
+        <ion-input ngModel  name="desc2" type="text" class="white" placeholder="Añade descripcion"></ion-input>
     </div>
-    <ion-buttons>
-      <button type="button" (click)="addMoreDescription()" ion-button>
-        Añade otra descripción
-      </button>
-    </ion-buttons>
 
     <ion-label>Añade el precio de la tarifa</ion-label>
     <ion-input type="number" ngModel name="precio" class="white" placeholder="Añade un precio"></ion-input>

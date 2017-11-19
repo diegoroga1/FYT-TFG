@@ -1,19 +1,21 @@
 /*
 Error: Undefined variable: "$naranja".
-        on line 4 of crear-anuncio.scss
+        on line 6 of crear-anuncio.scss
 
 1: page-crear-anuncio {
-2: 
-3:   .toolbar-background{
-4:     background-color: $naranja;
-5: 
-6:   }
-7:   .toolbar-title{
-8:     color:white;
-9:   }
+2:   .scroll-content{
+3:     padding: 0 !important;
+4:   }
+5:   .toolbar-background{
+6:     background-color: $naranja;
+7: 
+8:   }
+9:   .toolbar-title{
+10:     color:white;
+11:   }
 
 Backtrace:
-crear-anuncio.scss:4
+crear-anuncio.scss:6
 C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/script/tree/variable.rb:49:in `_perform'
 C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/script/tree/node.rb:50:in `perform'
 C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:402:in `visit_prop'
@@ -76,4 +78,4 @@ C:/Ruby24-x64/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$naranja\".\A         on line 4 of crear-anuncio.scss\A \A 1: page-crear-anuncio {\A 2: \A 3:   .toolbar-background{\A 4:     background-color: $naranja;\A 5: \A 6:   }\A 7:   .toolbar-title{\A 8:     color:white;\A 9:   }"; }
+  content: "Error: Undefined variable: \"$naranja\".\A         on line 6 of crear-anuncio.scss\A \A 1: page-crear-anuncio {\A 2:   .scroll-content{\A 3:     padding: 0 !important;\A 4:   }\A 5:   .toolbar-background{\A 6:     background-color: $naranja;\A 7: \A 8:   }\A 9:   .toolbar-title{\A 10:     color:white;\A 11:   }"; }

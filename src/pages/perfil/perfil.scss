@@ -210,7 +210,12 @@ page-perfil {
     color:$naranja !important;
     left:10px !important;
   }
-
+  #add-publication{
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid $naranja;
+    color:black;
+  }
 }
 .picker-wrapper{
 
@@ -246,4 +251,5 @@ page-perfil {
   .alert-button{
     color:$naranja;
   }
+
 }

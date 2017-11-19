@@ -7,14 +7,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Crea tu anuncio</ion-title>
+    <ion-title *ngIf="!hasService">Crea tu anuncio</ion-title>
+    <ion-title *ngIf="hasService">Modifica tu anuncio</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content padding>
+<ion-content >
   <form [formGroup]="formulario" (ngSubmit)="crearAnuncio()" novalidate>
-    <div >
+    <div class="div-fields">
       <ion-label class="titulo-style" stacked>Añade fotos a tu anuncio</ion-label>
       <div id="añade-fotos">
 
@@ -46,11 +47,17 @@
     <div class="div-fields">
       <ion-label class="titulo-style" stacked>Tarifas y servicios</ion-label>
       <p (click)="addTarifa()"  class="white">Añade tus tarifas<ion-icon class="right-icon" name="add"></ion-icon></p>
-      <ion-list>
-        <ion-card *ngFor="let tarifa of tarifasArray">
-          <ion-card-header><ion-card-title>{{tarifa.nombre}}</ion-card-title></ion-card-header>
-          <ion-card-content><ion-list >
-          </ion-list></ion-card-content>
+      <ion-list *ngFor="let tarifa of tarifasArray">
+        <ion-card class="card-tarifa" *ngFor="let t of tarifa">
+          <ion-card-header><ion-card-title>{{t.nombre}}</ion-card-title></ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <li *ngIf="t.desc0">{{t.desc0}}</li>
+              <li *ngIf="t.desc1">{{t.desc1}}</li>
+              <li *ngIf="t.desc2">{{t.desc2}}</li>
+          </ion-list>
+            <ion-badge>Precio: {{t.precio}} €</ion-badge>
+          </ion-card-content>
         </ion-card>
       </ion-list>
       <ion-item *ngIf="formulario.get('tarifas').errors && formulario.get('tarifas').dirty">
@@ -82,7 +89,7 @@
 
         </div>
       </div>
-      <div id="h-martes" class="separator">
+      <div id="h-martes" formGroupName="horarios" class="separator">
         <p (click)="mostrarFranjas(M)" #M id="M"  class="white">Martes<ion-icon class="right-icon" name="add"></ion-icon></p>
         <div *ngIf="franjasShow[1]" id="franjas-martes"  formGroupName="martes" class="center">
           <span>Puedes añadir hasta 3 franjas horarias</span>
@@ -95,7 +102,7 @@
 
         </div>
       </div>
-      <div id="h-miercoles" class="separator">
+      <div id="h-miercoles" formGroupName="horarios" class="separator">
         <p (click)="mostrarFranjas(X)" #X id="X"  class="white">Miercoles<ion-icon class="right-icon" name="add"></ion-icon></p>
         <div *ngIf="franjasShow[2]" class="center" formGroupName="miercoles" id="franjas-miercoles">
           <span>Puedes añadir hasta 3 franjas horarias</span>
@@ -109,7 +116,7 @@
 
         </div>
       </div>
-      <div id="h-jueves" class="separator">
+      <div id="h-jueves" formGroupName="horarios" class="separator">
         <p (click)="mostrarFranjas(J)" #J id="J"  class="white">Jueves<ion-icon class="right-icon" name="add"></ion-icon></p>
         <div *ngIf="franjasShow[3]" id="franjas-jueves" formGroupName="jueves" class="center">
           <span>Puedes añadir hasta 3 franjas horarias</span>
@@ -122,7 +129,7 @@
 
         </div>
       </div>
-      <div id="h-viernes" class="separator">
+      <div id="h-viernes" formGroupName="horarios" class="separator">
         <p (click)="mostrarFranjas(V)" #V id="V"  class="white">Viernes<ion-icon class="right-icon" name="add"></ion-icon></p>
         <div *ngIf="franjasShow[4]" class="center" formGroupName="viernes" id="franjas-viernes">
           <span>Puedes añadir hasta 3 franjas horarias</span>
@@ -136,7 +143,7 @@
 
         </div>
       </div>
-      <div id="h-sabado" class="separator">
+      <div id="h-sabado" formGroupName="horarios" class="separator">
         <p (click)="mostrarFranjas(S)" #S id="S"  class="white">Sábado<ion-icon class="right-icon" name="add"></ion-icon></p>
         <div *ngIf="franjasShow[5]" id="franjas-sabado" formGroupName="sabado" class="center">
           <span>Puedes añadir hasta 3 franjas horarias</span>
@@ -149,7 +156,7 @@
 
         </div>
       </div>
-        <div id="h-domingo" class="separator">
+        <div id="h-domingo" formGroupName="horarios" class="separator">
         <p (click)="mostrarFranjas(D)" #D id="D"  class="white">Domingo<ion-icon class="right-icon" name="add"></ion-icon></p>
         <div *ngIf="franjasShow[6]" class="center" formGroupName="domingo" id="franjas-domingo">
           <span>Puedes añadir hasta 3 franjas horarias</span>

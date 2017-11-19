@@ -2,11 +2,20 @@ page-nueva-tarifa {
   .toolbar-background{
     background-color: $naranja;
   }
+  .scroll-content{
+    padding: 0 !important;
+  }
   .toolbar-title{
     color:white;
   }
   .back-button{
     color:white;
+  }
+  .label{
+    font-size: 13pt;
+    font-weight: bold;
+    color:black;
+    text-indent: 2%;
   }
   .white{
     background-color: white;
@@ -22,5 +31,9 @@ page-nueva-tarifa {
     margin-right: 2%;
     color: $naranja;
 
+  }
+  .button{
+    width: 100%;
+    background-color: $naranja;
   }
 }

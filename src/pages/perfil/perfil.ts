@@ -207,12 +207,12 @@ export class Perfil {
     });
   }
 
-  crearPublicacion() {
+  creaPublicacion() {
     this.navCtrl.push(CrearPublicacion);
   }
 
   crearAnuncio() {
-    this.navCtrl.push(CrearAnuncio)
+    this.navCtrl.push(CrearAnuncio,{'hasService':this.hasService})
   }
 
   irALogin() {

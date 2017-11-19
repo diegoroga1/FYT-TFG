@@ -21,7 +21,7 @@ card-trainer {
   .card_image {
     position: relative;
     width: auto;
-    max-height: 135px;
+    max-height: 185px;
     overflow: hidden;
     //border-top-left-radius: $border-radius-size;
     //border-top-right-radius: $border-radius-size;
@@ -53,9 +53,11 @@ card-trainer {
 
   .card_especialidad {
     font-size: 110%;
-    color: black;
+    color: $naranja;
+    background-color: transparent;;
+    border: 1px solid $naranja;
     font-weight: 900;
-    margin-bottom: 5px;
+    margin:1% 2% 1% 2%;
   }
   .card_descripcion {
     margin-left: 3%;
@@ -64,6 +66,7 @@ card-trainer {
     width: 100%;
     color: white;
     font-size: 13pt;
+    float:left;
     background: $naranja;
     font-weight: 700;
     //border-bottom-left-radius: $border-radius-size;
@@ -84,5 +87,29 @@ card-trainer {
     .no-border {
       border-right: none;
     }
+  }
+  ul {
+    padding: 0px;
+    margin:0;
+    float: left;
+    margin-right: 3%;
+    margin-left: 2%;
+
+    &.rating li {
+      padding:0 !important;
+      background: none;
+      color: #ffb400;
+
+      ion-icon {
+        font-size: 18px;
+      }
+    }
+  }
+  #valoraciones{
+    width: 100%;
+    float:left;
+  }
+  #list-especialidades{
+    width: 100%;
   }
 }

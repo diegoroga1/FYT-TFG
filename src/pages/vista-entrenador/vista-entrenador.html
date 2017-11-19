@@ -14,17 +14,15 @@
   <div class="slide-fotos">
     <ion-slides pager="true" effect="flip">
       <ion-slide>
-        <img [src]="domsanitizer.bypassSecurityTrustUrl('../../assets/imagenes/foto1.jpg')"/>
+        <img  *ngIf="foto1" src="{{foto1}}"/>
       </ion-slide>
       <ion-slide>
-        <img [src]="domsanitizer.bypassSecurityTrustUrl('../../assets/imagenes/foto2.jpg')"/>
+        <img *ngIf="foto2" src="{{foto2}}"/>
       </ion-slide>
       <ion-slide>
-        <img [src]="domsanitizer.bypassSecurityTrustUrl('../../assets/imagenes/foto3.jpg')"/>
+        <img *ngIf="foto3" src="{{foto3}}"/>
       </ion-slide>
-      <ion-slide>
-        <img [src]="domsanitizer.bypassSecurityTrustUrl('../../assets/imagenes/foto4.jpg')"/>
-      </ion-slide>
+
     </ion-slides>
   </div>
   <ion-segment [(ngModel)]="entrenadorSegment"  (ionChange)="segmentChanged($event)">
@@ -57,13 +55,11 @@
             <p col col-8><img src="../../assets/icon/email.png"/>{{datosEntrenador.email}}</p>
             <p><img src="../../assets/icon/telefono.png"/>{{datosEntrenador.telefono}}</p>
           </div>
-          <div id="info-redes">
-            <img src="../../assets/icon/youtube.png" />
-            <img src="../../assets/icon/linkedin.png" />
-            <img src="../../assets/icon/whatsapp.png" />
-            <a href="https://instagram.com/{{datosEntrenador.instagram}}" ><img src="../../assets/icon/instagram.png" /></a>
-            <a href="{{datosEntrenador.facebook}}"><img src="../../assets/icon/facebook.png" /></a>
-            <img src="../../assets/icon/gorjeo.png" />
+          <div *ngIf="datosEntrenador.linkedin ||datosEntrenador.instagram||datosEntrenador.facebook||datosEntrenador.twitter" id="info-redes">
+            <a *ngIf="datosEntrenador.linkedin" href="https://linkedin.com/{{datosEntrenador.linkedin}}" ><img src="../../assets/icon/linkedin.png" /></a>
+            <a *ngIf="datosEntrenador.instagram" href="https://instagram.com/{{datosEntrenador.instagram}}" ><img src="../../assets/icon/instagram.png" /></a>
+            <a *ngIf="datosEntrenador.facebook" href="https://facebook.com/{{datosEntrenador.facebook}}" ><img src="../../assets/icon/facebook.png" /></a>
+            <a *ngIf="datosEntrenador.twitter" href="https://twitter.com/{{datosEntrenador.twitter}}" ><img src="../../assets/icon/twitter.png" /></a>
           </div>
           <div  id="seccion-valoracion">
             <rating (click)="scrollTo()" id="rating-perfil" [(ngModel)]="mediaTotal"
@@ -81,18 +77,18 @@
 
             <div id="seccion-especialidades" >
               <ion-list >
-                <ion-badge ><img src="../../assets/icon/abdominal.png"/>GAP</ion-badge>
-                <ion-badge ><img src="../../assets/icon/fisico.png"/>Entrenamiento personal</ion-badge>
+                <ion-badge *ngFor="let esp of datosEntrenador.servicio.especialidad"><img src="../../assets/icon/abdominal.png"/>{{esp}}</ion-badge>
               </ion-list>
             </div>
           </div>
 
         <div id="seccion-lugar-entrenamiento" class="line-separator secciones">
           <h2 style="text-align: center">¿Dónde podemos entrenar?</h2>
-          <map-component></map-component>
+
+          <map-component [lugares]=datosEntrenador.servicio.lugares></map-component>
 
           <ion-buttons id="button-mapa">
-            <button style="width: 100%;" ion-button>
+            <button (click)="detallesMapa(datosEntrenador.servicio.lugares)" style="width: 100%;" ion-button>
               Ver detalles
             </button>
           </ion-buttons>
@@ -102,8 +98,8 @@
         <div id="seccion-exp-form" class="line-separator secciones">
           <h2>Experiencia y formación</h2>
           <ion-list>
-            <p>Formación: <strong>{{datosEntrenador.formacion}}</strong></p>
-            <p>Experiencia: <strong>{{datosEntrenador.experiencia}}</strong></p>
+            <h3>Formación: </h3><li class="li-form" *ngFor="let form of datosEntrenador.formacion">{{form}}</li>
+            <h3>Experiencia: </h3><li class="li-form" *ngFor="let exp of datosEntrenador.experiencia">{{exp}}</li>
           </ion-list>
         </div>
         <div id="seccion-disponibilidad" class="line-separator secciones">
@@ -128,14 +124,64 @@
             <p>Sabado : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>
             <p>Domingo : <strong>{{datosEntrenador.disponibilidad.tarde}}</strong></p>-->
           </ion-list>
-          <div #horario id="horario" class="muestra-horario">
-            <p *ngIf="lp">Lunes: 10:00 - 13:30 | 16:30 - 20:00</p>
-            <p *ngIf="mp">Martes: 10:00 - 13:30 | 16:30 - 20:00</p>
-            <p *ngIf="xp">Miercoles: 10:00 - 13:30 | 16:30 - 20:00</p>
-            <p *ngIf="jp">Jueves: 10:00 - 13:30 | 16:30 - 20:00</p>
-            <p *ngIf="vp">Viernes: 10:00 - 13:30 | 16:30 - 20:00</p>
-            <p *ngIf="sp">Sabado: 10:00 - 13:30 | 16:30 - 20:00</p>
-            <p *ngIf="dp">Domingo: 10:00 - 13:30 | 16:30 - 20:00</p>
+          <div #horario id="horario" *ngIf="horarios" class="muestra-horario">
+            <p *ngIf="lp">Lunes:
+              <span *ngIf="horarios.lunes.franja1From">{{horarios.lunes.franja1From}} - </span>
+              <span *ngIf="horarios.lunes.franja1To">{{horarios.lunes.franja1To}}</span>
+              <span *ngIf="horarios.lunes.franja2From"> / {{horarios.lunes.franja2From}} - </span>
+              <span *ngIf="horarios.lunes.franja2To">{{horarios.lunes.franja2To}}</span>
+              <span *ngIf="horarios.lunes.franja3From"> / {{horarios.lunes.franja3From}} - </span>
+              <span *ngIf="horarios.lunes.franja3To">{{horarios.lunes.franja3To}}</span>
+            </p>
+
+            <p *ngIf="mp">Martes:
+              <span *ngIf="horarios.martes.franja1From">{{horarios.martes.franja1From}} - </span>
+              <span *ngIf="horarios.martes.franja1To">{{horarios.martes.franja1To}}</span>
+              <span *ngIf="horarios.martes.franja2From"> / {{horarios.martes.franja2From}} - </span>
+              <span *ngIf="horarios.martes.franja2To">{{horarios.martes.franja2To}}</span>
+              <span *ngIf="horarios.martes.franja3From"> / {{horarios.martes.franja3From}} - </span>
+              <span *ngIf="horarios.martes.franja3To">{{horarios.martes.franja3To}}</span>
+            </p>
+            <p *ngIf="xp">Miercoles:
+              <span *ngIf="horarios.miercoles.franja1From">{{horarios.miercoles.franja1From}} - </span>
+              <span *ngIf="horarios.miercoles.franja1To">{{horarios.miercoles.franja1To}}</span>
+              <span *ngIf="horarios.miercoles.franja2From"> / {{horarios.miercoles.franja2From}} - </span>
+              <span *ngIf="horarios.miercoles.franja2To">{{horarios.miercoles.franja2To}}</span>
+              <span *ngIf="horarios.miercoles.franja3From"> / {{horarios.miercoles.franja3From}} - </span>
+              <span *ngIf="horarios.miercoles.franja3To">{{horarios.miercoles.franja3To}}</span>
+            </p>
+            <p *ngIf="jp">Jueves:
+              <span *ngIf="horarios.jueves.franja1From">{{horarios.jueves.franja1From}} - </span>
+              <span *ngIf="horarios.jueves.franja1To">{{horarios.jueves.franja1To}}</span>
+              <span *ngIf="horarios.jueves.franja2From"> / {{horarios.jueves.franja2From}} - </span>
+              <span *ngIf="horarios.jueves.franja2To">{{horarios.jueves.franja2To}}</span>
+              <span *ngIf="horarios.jueves.franja3From"> / {{horarios.jueves.franja3From}} - </span>
+              <span *ngIf="horarios.jueves.franja3To">{{horarios.jueves.franja3To}}</span>
+            </p>
+            <p *ngIf="vp">Viernes:
+              <span *ngIf="horarios.viernes.franja1From">{{horarios.viernes.franja1From}} - </span>
+              <span *ngIf="horarios.viernes.franja1To">{{horarios.viernes.franja1To}}</span>
+              <span *ngIf="horarios.viernes.franja2From"> / {{horarios.viernes.franja2From}} - </span>
+              <span *ngIf="horarios.viernes.franja2To">{{horarios.viernes.franja2To}}</span>
+              <span *ngIf="horarios.viernes.franja3From"> / {{horarios.viernes.franja3From}} - </span>
+              <span *ngIf="horarios.viernes.franja3To">{{horarios.viernes.franja3To}}</span>
+            </p>
+            <p *ngIf="sp">Sabado:
+              <span *ngIf="horarios.sabado.franja1From">{{horarios.sabado.franja1From}} - </span>
+              <span *ngIf="horarios.sabado.franja1To">{{horarios.sabado.franja1To}}</span>
+              <span *ngIf="horarios.sabado.franja2From"> / {{horarios.sabado.franja2From}} - </span>
+              <span *ngIf="horarios.sabado.franja2To">{{horarios.sabado.franja2To}}</span>
+              <span *ngIf="horarios.sabado.franja3From"> / {{horarios.sabado.franja3From}} - </span>
+              <span *ngIf="horarios.sabado.franja3To">{{horarios.sabado.franja3To}}</span>
+            </p>
+            <p *ngIf="dp">Domingo:
+              <span *ngIf="horarios.domingo.franja1From">{{horarios.domingo.franja1From}} - </span>
+              <span *ngIf="horarios.domingo.franja1To">{{horarios.domingo.franja1To}}</span>
+              <span *ngIf="horarios.domingo.franja2From"> / {{horarios.domingo.franja2From}} - </span>
+              <span *ngIf="horarios.domingo.franja2To">{{horarios.domingo.franja2To}}</span>
+              <span *ngIf="horarios.domingo.franja3From"> / {{horarios.domingo.franja3From}} - </span>
+              <span *ngIf="horarios.domingo.franja3To">{{horarios.domingo.franja3To}}</span>
+            </p>
           </div>
         </div>
 
@@ -145,18 +191,18 @@
           <h2 style="text-align: center">Tarifas y servicios</h2>
           <ion-row id="precios">
 
-            <ion-card col col-6>
+            <ion-card *ngFor="let tarifa of datosEntrenador.servicio.tarifas;let i=index;" col col-6>
               <ion-card-header>
-                <ion-card-title> Sesión gratis</ion-card-title>
+                <ion-card-title>{{tarifa.nombre}}</ion-card-title>
               </ion-card-header>
               <ion-card-content>
                 <ion-list>
-                  <ion-item><li>Primera sesión gratis</li></ion-item>
-                  <ion-item><li>1h y 30 min</li></ion-item>
-                  <ion-item><li>Entrenamiento grupal</li></ion-item>
+                  <ion-item *ngIf="tarifa.desc0" ><li>{{tarifa.desc0}}</li></ion-item>
+                  <ion-item *ngIf="tarifa.desc1"><li>{{tarifa.desc1}}</li></ion-item>
+                  <ion-item *ngIf="tarifa.desc2"><li>{{tarifa.desc2}}</li></ion-item>
                 </ion-list>
                 <div class="footer-price">
-                  <ion-badge>¡GRATIS!</ion-badge>
+                  <ion-badge>{{tarifa.precio}}</ion-badge>
                   <ion-buttons style="text-align: center;">
                     <button ion-button class="boton-reserva">Reserva</button>
                   </ion-buttons>
@@ -165,67 +211,7 @@
               </ion-card-content>
 
             </ion-card>
-            <ion-card col col-6>
-              <ion-card-header>
-                <ion-card-title>Bono semanal</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                <ion-list>
-                  <ion-item><li>5 días de entrenamiento</li></ion-item>
-                  <ion-item><li>1h y 30 min</li></ion-item>
-                  <ion-item><li>Todas las actividades incluidas</li></ion-item>
-                </ion-list>
-                <div class="footer-price">
-                  <ion-badge>20€</ion-badge>
-                  <ion-buttons style="text-align: center;">
-                    <button ion-button class="boton-reserva">Reserva</button>
-                  </ion-buttons>
-                </div>
 
-              </ion-card-content>
-
-            </ion-card>
-            <ion-card col col-6>
-              <ion-card-header>
-                <ion-card-title>Bono mensual</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                <ion-list>
-                  <ion-item><li>20 sesiones de entrenamiento</li></ion-item>
-                  <ion-item><li>1h y 30 min</li></ion-item>
-                  <ion-item><li>Todas las actividades incluidas</li></ion-item>
-                </ion-list>
-                <div class="card-footer footer-price">
-                  <ion-badge>42€</ion-badge>
-                  <ion-buttons style="text-align: center;">
-                    <button ion-button class="boton-reserva">Reserva</button>
-                  </ion-buttons>
-                </div>
-
-              </ion-card-content>
-
-            </ion-card>
-            <ion-card col col-6>
-              <ion-card-header>
-                <ion-card-title>Bono 3 meses</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                <ion-list>
-                  <ion-item><li>60 sesiones de entrenamiento</li></ion-item>
-                  <ion-item><li>1h y 30 min</li></ion-item>
-                  <ion-item><li>Todas las actividades incluidas</li></ion-item>
-                  <ion-item><li>Tabla de menú saludable incluido</li></ion-item>
-                </ion-list>
-                <div class="card-footer footer-price">
-                  <ion-badge>105€</ion-badge>
-                  <ion-buttons style="text-align: center;">
-                    <button ion-button class="boton-reserva">Reserva</button>
-                  </ion-buttons>
-                </div>
-
-              </ion-card-content>
-
-            </ion-card>
           </ion-row>
         </div>
 

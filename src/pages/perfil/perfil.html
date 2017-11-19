@@ -55,7 +55,7 @@
       Sobre mí
     </ion-segment-button>
     <ion-segment-button value="servicio">
-      Mis servicios
+      Publicaciones
     </ion-segment-button>
   </ion-segment>
   <ion-buttons style="    margin: 1% 0 2% 0;">
@@ -122,7 +122,12 @@
 
     <!--SECCION BLOG-->
     <ion-list id="seccion-servicio" *ngSwitchCase="'servicio'">
-
+      <ion-buttons >
+        <button (click)="creaPublicacion()" id="add-publication" ion-button>
+          Añade una publicación
+        </button>
+      </ion-buttons>
+      <card-publi [entrenador]=user.nombre [descripcion]=user></card-publi>
     </ion-list>
     </div>
   {{user.servicio}}

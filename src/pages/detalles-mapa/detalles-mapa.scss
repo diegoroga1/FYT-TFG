@@ -1,0 +1,33 @@
+page-detalles-mapa {
+
+  .scroll-content{
+    padding:0 !important;
+    margin-top:0 !important;
+    background-color: rgba(157, 244, 0,0.28);
+
+  }
+  .toolbar-background{
+    background-color: transparent;
+
+  }
+  .back-button-text{
+    display: none;
+  }
+  .back-button-icon{
+    color:white;
+    background-color: $naranja;
+    font-size: 20pt;
+    font-weight:bold;
+    border-radius: 50%;
+
+  }
+  .header:after{
+    display: none;
+  }
+  #map{
+
+  }
+  #lista-lugares{
+    margin-top: 10%;
+  }
+}

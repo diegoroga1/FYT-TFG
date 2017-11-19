@@ -293,6 +293,7 @@ margin-bottom:10%;
           .card-title{
             color: white;
             padding: 0;
+            white-space:normal;
           }
         }
         .card-content{
@@ -449,5 +450,12 @@ margin-bottom:10%;
     background-color: #eee;
     border-radius: 2px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  }
+  .li-form{
+    list-style: circle;
+    margin-left: 15px;
+    margin-right: 5px;
+    font-size: 14pt;
+    margin-top: 2%;
   }
 }

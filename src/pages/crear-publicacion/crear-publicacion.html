@@ -13,13 +13,40 @@
 </ion-header>
 
 
-<ion-content padding>
-  <form #form="ngForm" (submit)="addPubli()">
-    <ion-input type="text" name="titulo" required ngModel placeholder="Añade un título"></ion-input>
-    <ion-textarea type="text" name="descripcion" required ngModel placeholder="Añade una descripción..."></ion-textarea>
-
+<ion-content >
+  <form #form="ngForm" (submit)="crearPubli(form)">
+    <ion-label>Titulo</ion-label>
+    <ion-input class="white" type="text" name="titulo" required ngModel placeholder="Añade un título"></ion-input>
+    <ion-label>Descripción</ion-label>
+    <ion-textarea class="white" type="text" name="descripcion" required ngModel placeholder="Añade una descripción..."></ion-textarea>
+    <ion-label>Añade fotos a tu publicación</ion-label>
+    <div id="añade-fotos">
+      <div (click)="addPhoto('1')" class="bloque-add">
+        <ion-icon *ngIf="!foto1" name="camera"></ion-icon>
+        <img *ngIf="foto1" [src]="foto1">
+      </div>
+      <div (click)="addPhoto('2')" class="bloque-add">
+        <ion-icon *ngIf="!foto2" name="camera"></ion-icon>
+        <img *ngIf="foto2" [src]="foto2">
+      </div>
+      <div (click)="addPhoto('3')" class="bloque-add">
+        <ion-icon *ngIf="!foto3" name="camera"></ion-icon>
+        <img *ngIf="foto3" [src]="foto3">
+      </div>
+    </div>
+    <ion-label>Añade videos a tu publicación</ion-label>
+    <div id="añade-video">
+      <div (click)="addVideo('1')" class="bloque-add">
+        <ion-icon *ngIf="!video1" name="videocam"></ion-icon>
+        <img *ngIf="video2" [src]="video2">
+      </div>
+      <div (click)="addVideo('2')" class="bloque-add">
+        <ion-icon *ngIf="!video2" name="videocam"></ion-icon>
+        <img *ngIf="video2" [src]="video2">
+      </div>
+    </div>
     <ion-buttons>
-      <button type="submit" ion-button >Crear</button>
+      <button class="button-publi" type="submit" ion-button >Crear</button>
     </ion-buttons>
   </form>
 

@@ -17,9 +17,10 @@ import {CrearAnuncio} from '../crear-anuncio/crear-anuncio'
 export class NuevaTarifa {
   datosTarifa=[];
   inputs=[];
+  descripcion=[];
   constructor(public navCtrl: NavController, public navParams: NavParams,public auth:AngularFireAuth,public af:AngularFireDatabase) {
 
-    this.inputs=[{value:' '}];
+
   }
 
   ionViewDidLoad() {
@@ -29,9 +30,11 @@ export class NuevaTarifa {
     this.inputs.push({value:' '});
   }
   submitLogin(form){
-    this.datosTarifa.push(form.value)
+    console.log(this.descripcion);
     console.log(form.value);
-    localStorage["tarifas"] = JSON.stringify(this.datosTarifa);
+    this.datosTarifa.push(form.value);
+    console.log(this.datosTarifa);
+    localStorage.setItem('tarifas',JSON.stringify(this.datosTarifa)) ;
     this.navCtrl.pop();
   }
 }

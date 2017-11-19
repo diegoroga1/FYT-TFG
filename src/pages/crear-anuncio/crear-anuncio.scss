@@ -1,5 +1,7 @@
 page-crear-anuncio {
-
+  .scroll-content{
+    padding: 0 !important;
+  }
   .toolbar-background{
     background-color: $naranja;
 
@@ -17,6 +19,7 @@ page-crear-anuncio {
     padding: 3%;
     font-size: 13pt;
     border-bottom:2px solid $verde-limon;
+    border-top:2px solid $verde-limon;
   }
   .right-icon{
     float: right;
@@ -58,6 +61,13 @@ page-crear-anuncio {
   .div-fields{
     width: 100%;
     float: left;
+    .label{
+      font-size: 14pt;
+      font-weight: bold;
+      margin-left: 3%;
+      margin-top: 2px;
+      margin-bottom: 2px;
+    }
   }
   .titulo-style{
     font-size: 14pt !important;
@@ -124,5 +134,39 @@ page-crear-anuncio {
 
   .button{
     background-color: $naranja;
+  }
+  .card-tarifa{
+    .card-header{
+      padding: 0;
+    }
+    .card-title{
+      padding: 2px;
+      font-weight: bold;
+      margin: 0;
+      color:black;
+      letter-spacing: 3px;
+      padding-left: 3%;
+      white-space: normal;
+      background-color: rgba(157, 244, 0, 0.7);
+
+    }
+    .card-content{
+      padding: 0;
+      .list{
+        li{
+          list-style: circle;
+          margin-left: 5%;
+          font-size: 13pt;
+
+        }
+      }
+      .badge{
+        width: 100%;
+        background-color: transparent;
+        border: 2px solid $verde-limon;
+        font-size: 13pt;
+        color:$naranja;
+      }
+    }
   }
 }

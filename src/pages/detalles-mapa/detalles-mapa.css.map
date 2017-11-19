@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEE,kCAAe;EACb,OAAO,EAAC,YAAY;EACpB,UAAU,EAAC,YAAY;EACvB,gBAAgB,EAAE,uBAAsB;AAG1C,sCAAmB;EACjB,gBAAgB,EAAE,WAAW",
+"sources": ["detalles-mapa.scss"],
+"names": [],
+"file": "detalles-mapa.css"
+}

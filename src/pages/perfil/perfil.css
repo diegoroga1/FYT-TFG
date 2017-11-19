@@ -144,6 +144,11 @@ page-perfil .select-placeholder, page-perfil .select-text {
 page-perfil .select-icon-inner, page-perfil .datetime-icon-inner {
   color: #FF3D00 !important;
   left: 10px !important; }
+page-perfil #add-publication {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid #FF3D00;
+  color: black; }
 
 .picker-wrapper .picker-button {
   color: #FF3D00; }

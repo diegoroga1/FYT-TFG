@@ -21,8 +21,7 @@
     <div id="ordenar">
       <ion-select placeholder="Ordenar" (ionChange)="ordenar()" [(ngModel)]="modoOrdenacion">Ordenar
         <ion-option value="valorados">Más valorados</ion-option>
-        <ion-option value="baratos">Menor precio primero</ion-option>
-        <ion-option value="caros">Mayor precio primero</ion-option>
+        <ion-option value="baratos">Menor precio</ion-option>
         <ion-option value="recientes">Más recientes</ion-option>
 
       </ion-select>
@@ -47,13 +46,19 @@
     <ion-list id="lista-entrenadores">
       <div *ngIf="filtrado ">
         <ion-col col-12 *ngFor="let entrenador of filtroEntrenadores">
-        <card-trainer  *ngIf="entrenador.estado=='confirmado' &&entrenador.servicio&&entrenador.$key!=userKey"  (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [especialidades]=entrenador.especialidades [localidad]=entrenador.localidad></card-trainer>
+
+        <card-trainer  *ngIf="entrenador.estado=='confirmado' &&entrenador.servicio&&entrenador.$key!=userKey"  (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [servicio]="entrenador.servicio" [especialidad]=entrenador.servicio.especialidad [localidad]=entrenador.localidad></card-trainer>
+        </ion-col>
+      </div>
+      <div *ngIf="ordenado&&!filtrado ">
+        <ion-col col-12 *ngFor="let entrenador of filtroEntrenadores">
+        <card-trainer  *ngIf="entrenador.estado=='confirmado' &&entrenador.servicio&&entrenador.$key!=userKey"  (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [servicio]="entrenador.servicio" [especialidad]=entrenador.servicio.especialidad [localidad]=entrenador.localidad></card-trainer>
         </ion-col>
       </div>
 
       <div *ngIf="!filtrado&&!ordenado">
         <ion-col  col-12 *ngFor="let entrenador of datosEntrenador |async">
-            <card-trainer *ngIf="entrenador.estado=='confirmado' &&entrenador.servicio&&entrenador.$key!=userKey" (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [especialidades]=entrenador.especialidades [localidad]=entrenador.localidad></card-trainer>
+            <card-trainer *ngIf="entrenador.estado=='confirmado' &&entrenador.servicio&&entrenador.$key!=userKey" (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [servicio]="entrenador.servicio" [especialidad]=entrenador.servicio.especialidad [localidad]=entrenador.localidad></card-trainer>
         </ion-col>
       </div>
 

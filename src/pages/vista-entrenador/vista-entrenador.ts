@@ -9,6 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import {FirebaseApp} from 'angularfire2';
 import * as firebase from 'firebase';
 import {NuevaValoracionPage} from "../nueva-valoracion/nueva-valoracion";
+import {DetallesMapaPage} from "../detalles-mapa/detalles-mapa";
 
 /**
  * Generated class for the VistaEntrenador page.
@@ -32,6 +33,9 @@ export class VistaEntrenador {
   especialidadesEntrenador=[];
   publicacionesEntrenador=[];
   fotoPerfil:any;
+  foto1:any;
+  foto2:any;
+  foto3:any;
   lp;
   mp;
   xp;
@@ -39,7 +43,7 @@ export class VistaEntrenador {
   vp;
   sp;
   dp;
-
+  horarios;
   numProf;
   totalProf=0;
   mediaProf=0;
@@ -85,9 +89,22 @@ export class VistaEntrenador {
   getDataTrainer() {
 
       this.datosEntrenador=this.navParams.data.entrenador;
+      this.horarios=this.datosEntrenador.servicio.horarios;
 
-      this.firebaseApp.storage().ref().child('fotos-perfil/' + this.datosEntrenador.$key + '/perfil.jpg').getDownloadURL()
+      this.firebaseApp.storage().ref().child( this.datosEntrenador.$key +'/foto-perfil/perfil.jpg').getDownloadURL()
         .then(url => this.fotoPerfil = url)
+        .catch(error=>console.log("NO hay foto de perfil"));
+
+      this.firebaseApp.storage().ref().child( this.datosEntrenador.$key + '/foto-servicio/foto1.jpg').getDownloadURL()
+        .then(url => this.foto1 = url)
+        .catch(error=>console.log("NO hay foto de perfil"));
+
+      this.firebaseApp.storage().ref().child(this.datosEntrenador.$key+ '/foto-servicio/foto2.jpg').getDownloadURL()
+        .then(url => this.foto2 = url)
+        .catch(error=>console.log("NO hay foto de perfil"));
+
+      this.firebaseApp.storage().ref().child(this.datosEntrenador.$key+'/foto-servicio/foto3.jpg').getDownloadURL()
+        .then(url => this.foto3 = url)
         .catch(error=>console.log("NO hay foto de perfil"));
 
 
@@ -238,7 +255,8 @@ export class VistaEntrenador {
       + (this.numObj.obj1!=undefined?this.numObj.obj1:0))/(this.totalObj));
     this.mediaTotal=((this.mediaObj + this.mediaTrato + this.mediaProf+this.mediaMoti)/4);
     this.totalValoration=this.totalObj+this.totalMoti+this.totalTrato+this.totalProf;
-    this.af.object('entrenadores/'+key+'/valoracionTotal/').set((this.mediaTotal*2).toFixed(2));
+    this.af.object('entrenadores/'+key+'/servicio/valoracionTotal/').set((this.mediaTotal).toFixed(2));
+    this.af.object('entrenadores/'+key+'/servicio/numeroValoraciones/').set(this.totalValoration);
   }
 
   private scrollTo() {
@@ -253,6 +271,9 @@ export class VistaEntrenador {
   }
   valorar(){
     this.navCtrl.push(NuevaValoracionPage,{'key':this.datosEntrenador.$key});
+  }
+  detallesMapa(lugares){
+    this.navCtrl.push(DetallesMapaPage,lugares);
   }
 
 
