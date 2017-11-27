@@ -13,21 +13,36 @@
 
 </ion-header>
 <ion-content >
-  <ion-searchbar placeholder="Buscar en FYT" [(ngModel)]="busqueda" (ionInput)="buscarEntrenador()"></ion-searchbar>
-  <ion-grid>
-    <ion-row *ngFor="let especialidad of especialidadConPubli">
-      <ion-title >{{especialidad}}</ion-title>
-      <ion-slides zoom="true" pager="true" effect="cube"	 style="border-bottom: 1px solid rgba(0,0,0,0.1)" >
-        <div *ngFor="let publicacion of publicaciones|async">
-          <ion-slide *ngIf="publicacion.especialidad===especialidad" >
-            <div>
-              <card-publi (click)="irAVistaPublicacion(publicacion)"   [entrenador]=publicacion.entrenador [titulo]=publicacion.titulo [especialidad]=publicacion.especialidad [descripcion]=publicacion.descripcion></card-publi>
-            </div>
-          </ion-slide>
-        </div>
-      </ion-slides >
+  <ion-searchbar placeholder="Buscar en FYT" [(ngModel)]="busqueda" (ionInput)="getSearch($event)"></ion-searchbar>
+  <ion-grid *ngIf="!busqueda">
+    <div id="lista-publicaciones" *ngFor="let publicacion of publicaciones|async">
 
-    </ion-row>
+    <div *ngFor="let especialidad of especialidadConPubli">
+          <ion-title  *ngIf="publicacion.especialidad==especialidad" >{{especialidad}}</ion-title>
+        <ion-slides  *ngIf="publicacion.especialidad==especialidad" zoom="true" pager="true" effect="cube"	  >
+          <ion-slide *ngIf="publicacion.especialidad==especialidad">
+            <card-publi    [fecha]=publicacion.fechaPublicacion [key]=publicacion.$key [userKey]=publicacion.keyUser [entrenador]=publicacion.entrenador [titulo]=publicacion.titulo [especialidad]=publicacion.especialidad [descripcion]=publicacion.descripcion></card-publi>
+          </ion-slide>
+        </ion-slides >
+        </div>
+
+
+      </div>
+  </ion-grid>
+  <ion-grid *ngIf="busqueda">
+    <div id="lista-publicaciones-busqueda" *ngFor="let publicacion of busquedaArray">
+
+    <div *ngFor="let especialidad of especialidadConPubli">
+          <ion-title  *ngIf="publicacion.especialidad==especialidad" >{{especialidad}}</ion-title>
+        <ion-slides  *ngIf="publicacion.especialidad==especialidad" zoom="true" pager="true" effect="cube"	  >
+          <ion-slide *ngIf="publicacion.especialidad==especialidad">
+            <card-publi    [fecha]=publicacion.fechaPublicacion [key]=publicacion.$key [userKey]=publicacion.keyUser [entrenador]=publicacion.entrenador [titulo]=publicacion.titulo [especialidad]=publicacion.especialidad [descripcion]=publicacion.descripcion></card-publi>
+          </ion-slide>
+        </ion-slides >
+        </div>
+
+
+      </div>
   </ion-grid>
 
 

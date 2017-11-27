@@ -21,6 +21,12 @@ $verde-limon:#9df400;
   background-color: rgba(157, 244, 0, 0.17);
 
 }
+.platform-ios {
+  .content{
+    background-color:#def5b3;
+  }
+}
+
 .tabbar{
   .tab-button{
 
@@ -35,12 +41,18 @@ $verde-limon:#9df400;
   }
 
 }
+.tabbar{
+
+  z-index: 9999;
+}
 .tabs-md .tab-button[aria-selected=true] {
   color: $naranja;
+  z-index: 9999;
 
   padding: 0;
   .icon{
     font-size: 32px !important;
     color:$naranja;
   }
+
 }

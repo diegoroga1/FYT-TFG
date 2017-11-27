@@ -10,6 +10,7 @@ import {FirebaseApp} from 'angularfire2';
 import * as firebase from 'firebase';
 import {NuevaValoracionPage} from "../nueva-valoracion/nueva-valoracion";
 import {DetallesMapaPage} from "../detalles-mapa/detalles-mapa";
+import * as _ from 'lodash';
 
 /**
  * Generated class for the VistaEntrenador page.
@@ -58,6 +59,8 @@ export class VistaEntrenador {
   mediaMoti=0;
   mediaTotal=0;
   totalValoration=0;
+  seguido=false;
+  seguidores=0;
   @ViewChild('horario') horario:ElementRef;
   @ViewChild('listFab') listFab:ElementRef;
   constructor(public navCtrl: NavController,
@@ -80,15 +83,32 @@ export class VistaEntrenador {
     console.log('ionViewDidLoad VistaEntrenador');
     this.getDataTrainer()
     console.log(this.datosEntrenador.publicaciones);
+
   }
   ionViewDidEnter(){
-    this.totalValoraciones(this.datosEntrenador.$key);
+    this.getDataTrainer()
 
+    this.totalValoraciones(this.datosEntrenador.$key);
+    if(!this.foto1&&!this.foto2&&!this.foto3){
+      console.log(this.foto1);
+      console.log("no hay fotos");
+      document.getElementById('content').style.top="10%";
+    }
 
   }
   getDataTrainer() {
 
-      this.datosEntrenador=this.navParams.data.entrenador;
+    console.log(this.navParams.data);
+      if(this.navParams.data.entrenador){
+        this.datosEntrenador=this.navParams.data.entrenador;
+      }else if(this.navParams.data.userkey){
+        this.af.object('/entrenadores/'+this.navParams.data.userkey).forEach(data=>{
+          console.log(data);
+          this.datosEntrenador=data;
+          this.entrenadorSegment=this.navParams.data.segment;
+        })
+
+      }
       this.horarios=this.datosEntrenador.servicio.horarios;
 
       this.firebaseApp.storage().ref().child( this.datosEntrenador.$key +'/foto-perfil/perfil.jpg').getDownloadURL()
@@ -114,12 +134,33 @@ export class VistaEntrenador {
         this.especialidadesEntrenador.push(data);
       })
     }
+    if(this.datosEntrenador.servicio.publicaciones){
+      console.log(this.datosEntrenador.servicio.publicaciones);
+      _.map(this.datosEntrenador.servicio.publicaciones,(data)=>{
+        this.af.object('publicaciones/'+data).forEach(data=>{
+          this.publicacionesEntrenador.push(data);
+        })
+      })
 
-    if(this.datosEntrenador.publicaciones){
-      this.datosEntrenador.publicaciones.forEach(data => {
-        this.publicacionesEntrenador.push(data)
-      });
+
+
     }
+    this.af.object('usuarios/'+localStorage.getItem('user_uid')+'/seguidos/'+this.datosEntrenador.$key).forEach(data=>{
+      if(data.$value==null){
+        this.seguido=false;
+      }else{
+       this.seguido=true;
+      }
+    })
+    this.af.object('entrenadores/'+this.datosEntrenador.$key+'/seguidores').forEach(data=>{
+
+      if(data.$value!=null){
+        this.seguidores=data.$value;
+      }else{
+        this.seguidores=0;
+      }
+
+    })
   }
   segmentChanged(e){
     console.log(this.datosEntrenador);
@@ -276,6 +317,34 @@ export class VistaEntrenador {
     this.navCtrl.push(DetallesMapaPage,lugares);
   }
 
+  seguirEntrenador(){
+    var total=0;
+    var sum=0;
+    if(this.seguido){
+      console.log("Ya lo sigues")
+      this.af.object('entrenadores/'+this.datosEntrenador.$key+'/seguidores').set(this.seguidores-1);
+      this.af.list('usuarios/'+localStorage.getItem('user_uid')+'/seguidos/').remove(this.datosEntrenador.$key).then(success=>{
+        this.seguido=false;
+      });
+    }else{
+          total=this.seguidores
+          console.log(total);
+          sum=total+1;
+          this.seguidores=sum;
+          console.log(this.seguidores)
 
+      this.af.object('entrenadores/'+this.datosEntrenador.$key+'/seguidores').set(this.seguidores);
+      this.af.object('usuarios/'+localStorage.getItem('user_uid')+'/seguidos/'+this.datosEntrenador.$key).set(this.datosEntrenador.$key).then(success=>{
+       this.seguido=true;
+      });
+    }
+
+
+
+
+
+
+
+  }
 
 }

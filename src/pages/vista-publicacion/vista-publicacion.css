@@ -3,5 +3,85 @@ page-vista-publicacion .toolbar-title {
 page-vista-publicacion #icon-share {
   font-size: 2em;
   float: right; }
+page-vista-publicacion .toolbar-background {
+  background-color: transparent; }
+page-vista-publicacion .content {
+  padding: 0; }
+  page-vista-publicacion .content .scroll-content {
+    padding: 0 !important;
+    margin-top: 0 !important; }
+page-vista-publicacion #contenido-publicacion {
+  margin-top: 3%; }
+page-vista-publicacion .header:after {
+  display: none; }
+page-vista-publicacion .back-button-text {
+  display: none; }
+page-vista-publicacion .back-button-icon {
+  color: white;
+  background-color: #FF3D00;
+  font-size: 20pt;
+  font-weight: bold;
+  border-radius: 50%; }
+page-vista-publicacion .titulo {
+  width: 100%;
+  background: #FF3D00;
+  color: white;
+  padding: 2px;
+  margin-bottom: 2px;
+  margin: 0;
+  padding-left: 4px; }
+  page-vista-publicacion .titulo .icon {
+    float: right;
+    margin-right: 10px; }
+page-vista-publicacion .nombre-entrenador {
+  padding-left: 4px;
+  margin-bottom: 2px;
+  background-color: white;
+  color: #649300; }
+page-vista-publicacion .swiper-pagination .swiper-pagination-bullet {
+  background: #FF3D00;
+  width: 10px;
+  height: 10px; }
+page-vista-publicacion #slides .icon {
+  position: absolute;
+  right: 0;
+  /* top: 0; */
+  margin-right: 20px;
+  bottom: 20px;
+  color: white;
+  background-color: #FF3D00;
+  padding: 10px;
+  border-radius: 50%; }
+page-vista-publicacion #seccion-descripcion {
+  background-color: white;
+  padding: 3px;
+  color: black;
+  font-size: 13pt;
+  text-indent: 3px; }
+  page-vista-publicacion #seccion-descripcion .icon {
+    float: right;
+    margin-right: 10px; }
+page-vista-publicacion ion-buttons {
+  text-align: center;
+  width: 100%; }
+page-vista-publicacion .boton-vermas {
+  width: 100%;
+  margin-top: 5%;
+  background-color: #649300;
+  border-radius: 10px; }
+page-vista-publicacion .boton-compartir {
+  float: right;
+  background-color: transparent;
+  border: none;
+  color: #FF3D00;
+  box-shadow: none;
+  font-size: 15pt; }
+page-vista-publicacion .icon-likes {
+  margin-top: 3%; }
+  page-vista-publicacion .icon-likes .icon {
+    font-size: 25pt;
+    float: left;
+    margin: 0px 0 8px 20px;
+    color: #FF3D00; }
 
 /*# sourceMappingURL=vista-publicacion.css.map */

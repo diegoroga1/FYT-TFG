@@ -60,5 +60,14 @@ page-entrenadores #filtrar-ordenar {
         color: black;
         box-shadow: none;
         text-transform: capitalize; }
+page-entrenadores #filtros {
+  margin-top: 2px;
+  text-align: center; }
+  page-entrenadores #filtros .badge {
+    margin: 2px;
+    padding: 5px;
+    background-color: #FF3D00;
+    font-size: 12pt;
+    display: inline-block; }
 
 /*# sourceMappingURL=entrenadores.css.map */

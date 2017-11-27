@@ -92,5 +92,20 @@ page-entrenadores {
 
     }
   }
+  #filtros{
+    margin-top: 2px;
+    text-align: center;
+
+    .badge{
+      margin: 2px;
+      padding: 5px;
+      background-color: $naranja;
+      font-size: 12pt;
+      display: inline-block;
+
+
+
+    }
+  }
 
 }

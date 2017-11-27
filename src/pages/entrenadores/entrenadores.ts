@@ -22,7 +22,7 @@ export class Entrenadores {
   json_entrenadores:any;
   datosUsuario:FirebaseListObservable<any>;
   datosEntrenador:FirebaseListObservable<any>;
-  busqueda:string='';
+  busqueda:any;
   nombre_entrenadores:any=[];
   filtroEntrenadores=[];
   filtrado=false;
@@ -31,11 +31,14 @@ export class Entrenadores {
   modoOrdenacion;
   ordenado=false;
   fotoPerfil:any;
+  busquedaArray=[];
+  listaFiltros=[];
   constructor(public navCtrl: NavController,
               public http:Http,
               public cogerDatos:CogerDatos,
               public navParams: NavParams,
               @Inject(FirebaseApp) public firebaseApp: firebase.app.App,
+              public af:AngularFireDatabase
   ) {
     this.title_page="Entrenadores";
     this.datosUsuario=this.cogerDatos.getDataUser();
@@ -54,9 +57,50 @@ export class Entrenadores {
     if(localStorage.getItem('filtro')){
       this.filtros=JSON.parse(localStorage.getItem('filtro'));
       this.filtrado=true;
+      console.log(this.filtros);
+      this.listaFiltros=[];
+      _.map(this.filtros,filtro=>{
+        if(filtro.genero){
+          console.log(filtro.genero)
+          if(filtro.genero=="Hombre"){
+            this.listaFiltros.push("Entrenador");
+
+          }else{
+            this.listaFiltros.push("Entrenadora");
+
+          }
+
+        }else if(filtro.precios){
+          var min;
+          var max;
+          if(filtro.precios.precio1){
+            _.map(filtro,p=>{
+              console.log(p);
+             min="Min:"+p.precio1+'€';
+              this.listaFiltros.push(min);
+            })
+          }
+          if(filtro.precios.precio2){
+            _.map(filtro,p=>{
+             max="Max:"+p.precio2+'€';
+              this.listaFiltros.push(max);
+            })
+          }
+
+        }
+        else{
+          _.map(filtro,f=>{
+            console.log(f);
+            this.listaFiltros.push(f);
+          })
+        }
+
+      })
 
     }else{
       this.filtrado=false;
+      this.listaFiltros=[];
+
     }
     if(this.filtrado){
       this.filtrar();
@@ -69,18 +113,7 @@ export class Entrenadores {
   ionViewDidLoad() {
     console.log('ionViewDidLoad Entrenadores');
   }
-  buscarEntrenador(){
-    let searchLower=this.busqueda.toLowerCase();
-    let filtradoNombres=[];
-    let nombre_entrenadores=_.filter(this.json_entrenadores,ents=>(<any>ents).nombre.toLowerCase().includes(searchLower));
-    if(nombre_entrenadores.length){
-      nombre_entrenadores.forEach(item=>{
-        filtradoNombres.push({nombre:item.nombre});
-      })
-    }
 
-    this.nombre_entrenadores=filtradoNombres;
-  }
   irAVistaEntrenador(entrenador,fotoPerfil){
     this.navCtrl.push(VistaEntrenador,{entrenador,fotoPerfil})
   }
@@ -271,6 +304,54 @@ export class Entrenadores {
 
 
     }
+  }
+  getSearch(busqueda){
+    this.busquedaArray=[];
+
+    var q=busqueda.srcElement.value;
+    if(!q){
+      return;
+    }
+    this.datosEntrenador.forEach(data=>{
+      _.map(data,entrenador=>{
+        if(entrenador.estado=="confirmado"){
+          console.log(entrenador);
+          if(_.includes(entrenador.nombre.toLowerCase(),q.toLowerCase())||_.includes(entrenador.apellidos.toLowerCase(),q.toLowerCase())||_.includes(entrenador.localidad.toLowerCase(),q.toLowerCase())){
+            if(!_.includes(this.busquedaArray,entrenador)){
+              this.busquedaArray.push(entrenador);
+            }
+          }
+          _.map(entrenador.servicio.especialidad,esp=>{
+            if(_.includes(esp.toLowerCase(),q.toLowerCase())){
+              if(!_.includes(this.busquedaArray,entrenador)){
+                this.busquedaArray.push(entrenador);
+              }
+            }
+          })
+          _.map(entrenador.experiencia,exp=>{
+            if(_.includes(exp.toLowerCase(),q.toLowerCase())){
+              if(!_.includes(this.busquedaArray,entrenador)){
+                this.busquedaArray.push(entrenador);
+              }
+            }
+          })
+          _.map(entrenador.formacion,form=>{
+            if(_.includes(form.toLowerCase(),q.toLowerCase())){
+              if(!_.includes(this.busquedaArray,entrenador)){
+                this.busquedaArray.push(entrenador);
+              }
+            }
+          })
+        }
+
+
+
+      })
+    })
+    console.log(this.busquedaArray);
+
+
+
   }
 
 

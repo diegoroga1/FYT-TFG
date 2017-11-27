@@ -7,35 +7,59 @@
 <ion-header>
 
   <ion-navbar >
-    <ion-title  *ngIf="datosPublicacion">{{datosPublicacion.titulo}}</ion-title>
-    <ion-icon id="icon-share" name="share" end></ion-icon>
+
   </ion-navbar>
 
 </ion-header>
 
 
 
-<ion-content padding>
+<ion-content id="content">
   <div *ngIf="datosPublicacion" id="seccion-media">
-    <ion-slides>
-      <ion-slide>
-        <img src="../../assets/perfil.jpg">
+    <ion-slides id="slides" pager="true" >
+      <ion-slide *ngIf="foto1">
+        <img [src]=foto1><ion-icon (click)="editarFoto('foto1')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon>
+      </ion-slide>
+      <ion-slide *ngIf="foto2">
+        <img [src]=foto2><ion-icon (click)="editarFoto('foto2')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon>
+      </ion-slide>
+      <ion-slide *ngIf="foto3">
+        <img [src]=foto3><ion-icon (click)="editarFoto('foto3')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon>
+      </ion-slide>
+      <ion-slide *ngIf="video1">
+        <video [src]=foto1 controls ></video><ion-icon (click)="editarVideo('video1')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon>
+      </ion-slide>
+      <ion-slide *ngIf="video2">
+        <video [src]=video2 controls ></video><ion-icon (click)="editarVideo('video2')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon>
       </ion-slide>
     </ion-slides>
   </div>
-  <div *ngIf="datosPublicacion" id="seccion-info">
-    <h2 >{{datosPublicacion.titulo}}</h2>
-    <h4>Publicado por {{datosPublicacion.entrenador}}</h4>
+  <div id="contenido-publicacion">
+    <div *ngIf="datosPublicacion" id="seccion-info">
+
+      <h2 class="titulo">{{datosPublicacion.titulo}}<ion-icon (click)="modificarPublicacion('titulo')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon></h2>
+      <h4 class="nombre-entrenador">Publicado por {{entrenador}}</h4>
+
+    </div>
+    <div *ngIf="datosPublicacion" id="seccion-descripcion">
+      <p>{{datosPublicacion.descripcion}}<ion-icon (click)="modificarPublicacion('descripcion')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon></p>
+    </div>
+
+    <div class="icon-likes">
+      <ion-icon name="thumbs-up"><span style="color:black;font-size: 13pt;margin-left: 6px;">({{likes}})</span></ion-icon>
+    </div>
+
+      <button (click)="sharePubli(datosPublicacion)" class="boton-compartir" ion-button icon-only>
+        <ion-icon name="share"></ion-icon>
+
+      </button>
+
+    <ion-buttons>
+      <button (click)="verMasDe()" class="boton-vermas" *ngIf="datosPublicacion" ion-button icon-only>
+        Ver más de {{entrenador}}
+      </button>
+
+    </ion-buttons>
   </div>
-  <div *ngIf="datosPublicacion" id="seccion-descripcion">
-    <p>{{datosPublicacion.descripcion}}</p>
-  </div>
-  <ion-buttons>
-    <button *ngIf="datosPublicacion" ion-button icon-only>
-      Ver más de {{datosPublicacion.entrenador}}
-    </button>
-    <button ion-button icon-only>
-      Recomendar
-    </button>
-  </ion-buttons>
+
 </ion-content>

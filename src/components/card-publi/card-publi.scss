@@ -6,11 +6,33 @@ card-publi {
     padding: 0;
   }
   .descripcion-publi{
+    width: 100%
+
   }
   .contenido-card-publi{
+    text-align: left;
+
+    margin-top: 5px;
+
     h2{
       margin-left: 2%;
     }
+  }
+  .titulo-publi{
+    text-align: left;
+    text-indent: 3%;
+    width: 100%;
+    background-color: $naranja;
+    font-size: 14pt !important;
+    padding: 3px;
+    color:white;
+  }
+
+  #fecha{
+    font-size: 15pt;
+    float: right;
+    margin-right: 4%;
+    font-weight: bold;
   }
   ul {
     margin-left: 3%;
@@ -27,17 +49,34 @@ card-publi {
     }
   }
   .icon-likes{
-    img{
-      width: 20px;
-      height: 20px;
+    .icon{
+      font-size: 25pt;
       float:left;
-      margin-right: 20px;
-      margin-left: 10px;
-      margin-top:12px;
-
+      margin:0px 0 8px 20px;
+      color:black;
     }
   }
   .fablist{
     margin-left:0;
+  }
+  #nombre-entre{
+
+
+    padding-left: 3%;
+  }
+  #descripcion{
+    font-size: 13pt;
+    font-weight: bold;
+    white-space:normal;
+    padding: 5px;
+    text-indent:3%;
+    text-align: justify;
+    height: auto;
+    white-space: normal;
+
+
+  }
+  .liked{
+    color: $naranja !important;
   }
 }

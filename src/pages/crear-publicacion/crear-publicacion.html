@@ -16,37 +16,47 @@
 <ion-content >
   <form #form="ngForm" (submit)="crearPubli(form)">
     <ion-label>Titulo</ion-label>
-    <ion-input class="white" type="text" name="titulo" required ngModel placeholder="Añade un título"></ion-input>
+    <ion-input class="white" type="text" name="titulo" required ngModel placeholder="Añade un título" required></ion-input>
     <ion-label>Descripción</ion-label>
     <ion-textarea class="white" type="text" name="descripcion" required ngModel placeholder="Añade una descripción..."></ion-textarea>
     <ion-label>Añade fotos a tu publicación</ion-label>
     <div id="añade-fotos">
       <div (click)="addPhoto('1')" class="bloque-add">
         <ion-icon *ngIf="!foto1" name="camera"></ion-icon>
-        <img *ngIf="foto1" [src]="foto1">
+        <img *ngIf="foto1" [src]="'data:image/jpeg;base64,'+foto1">
       </div>
       <div (click)="addPhoto('2')" class="bloque-add">
         <ion-icon *ngIf="!foto2" name="camera"></ion-icon>
-        <img *ngIf="foto2" [src]="foto2">
+        <img *ngIf="foto2" [src]="'data:image/jpeg;base64,'+foto2">
       </div>
       <div (click)="addPhoto('3')" class="bloque-add">
         <ion-icon *ngIf="!foto3" name="camera"></ion-icon>
-        <img *ngIf="foto3" [src]="foto3">
+        <img *ngIf="foto3" [src]="'data:image/jpeg;base64,'+foto3">
       </div>
     </div>
     <ion-label>Añade videos a tu publicación</ion-label>
+
     <div id="añade-video">
-      <div (click)="addVideo('1')" class="bloque-add">
+
+      <div (click)="addVideo(1)" class="bloque-add">
         <ion-icon *ngIf="!video1" name="videocam"></ion-icon>
-        <img *ngIf="video2" [src]="video2">
+        <img *ngIf="video1" [src]="video1">
+
       </div>
-      <div (click)="addVideo('2')" class="bloque-add">
+      <div (click)="addVideo(2)" class="bloque-add">
         <ion-icon *ngIf="!video2" name="videocam"></ion-icon>
         <img *ngIf="video2" [src]="video2">
       </div>
+      <ion-label>¿Cuál es la especialidad principal?</ion-label>
+
+      <ion-select required class="white" name="especialidad" ngModel placeholder="Seleciona una especialidad">
+        <ion-option  *ngFor="let especialidad of especialidades|async">{{especialidad.$key}}</ion-option>
+
+      </ion-select>
     </div>
+
     <ion-buttons>
-      <button class="button-publi" type="submit" ion-button >Crear</button>
+      <button class="button-publi" type="submit" ion-button [disabled]="!form.value.descripcion ||!this.foto1||!this.video1|| !form.value.titulo || !form.value.especialidad" >Crear</button>
     </ion-buttons>
   </form>
 

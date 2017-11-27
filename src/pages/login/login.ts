@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { IonicPage,AlertController, NavController, NavParams,Events,LoadingController  } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
@@ -8,6 +8,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 
 import firebase from 'firebase';
+import {FirebaseApp} from "angularfire2";
 /**
  * Generated class for the Login page.
  *
@@ -27,6 +28,8 @@ export class Login {
   userEmail:any;
   formLogin : FormGroup;
   rolSelect:any;
+  storageRef:any;
+  logotipo:any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public afAuth: AngularFireAuth,
@@ -36,9 +39,13 @@ export class Login {
               private facebook: Facebook,
               private google:GooglePlus,
               public loadingCtrl: LoadingController,
-              public alert:AlertController
-    ) {
+              public alert:AlertController,
+              @Inject(FirebaseApp) firebaseApp: firebase.app.App,
+
+  ) {
     this.formLogin=this.createForm();
+    this.storageRef = firebaseApp.storage().ref();
+
   }
 
 
@@ -46,6 +53,12 @@ export class Login {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Login');
+
+  }
+  ionViewDidEnter(){
+   this.storageRef.child('logotipo4.png').getDownloadURL()
+      .then(url => this.logotipo = url)
+      .catch(error=>console.log(error));
 
   }
   submitLogin(form){

@@ -17,10 +17,10 @@
   <div *ngIf="!user" class="center" id="seccion-no-login">
     <div>
 
-      <img style="width: 90px;height: 90px;" src="../../assets/icon/triste3.png"/>
+      <img style="width: 90px;height: 90px;" [src]=logoCara >
       <h2 >Aún no has iniciado sesión</h2>
       <span>Inicia sesión o registrate en la app para crear tu perfil.</span>
-      <img id="marca-agua"  src="../../assets/icon/trainer.png">
+      <img id="marca-agua"  [src]=logoTrainer>
       <div id="seccion-registro-login">
         <p (click)="irALogin()">Iniciar sesíon</p>
         <p>|</p>
@@ -32,10 +32,13 @@
 
   <div *ngIf="user" id="header-profile">
     <div *ngFor="let user of usuarios|async" id="seccion-foto-perfil">
-      <ion-icon class="icon-camera circle" *ngIf="user.$key==userKey && !user.fotoPerfil" (click)="actionPhoto()"  name="camera" ></ion-icon>
-      <img *ngIf="user.$key==userKey && user.fotoPerfil" class="circle" id="foto-perfil" src=""/>
-      <p *ngIf="user.$key==userKey&&!base64img" (click)="actionPhoto()" class="edit-photo">Editar foto</p>
-      <p *ngIf="user.$key==userKey&&base64img" (click)="addPhoto()" class="edit-photo">Subir foto</p>
+      <ion-icon class="icon-camera circle" *ngIf="user.$key==userKey && !fotoPerfil" (click)="actionPhoto()"  name="camera" ></ion-icon>
+      <div *ngIf="user.$key==userKey && fotoPerfil"  class="circle">
+        <img *ngIf="user.$key==userKey && fotoPerfil"  id="foto-perfil" [src]=fotoPerfil >
+
+      </div>
+      <p *ngIf="user.$key==userKey&&fotoPerfil" (click)="actionPhoto()" class="edit-photo">Editar foto</p>
+      <p *ngIf="user.$key==userKey&&!fotoPerfil" (click)="addPhoto()" class="edit-photo">Subir foto</p>
     </div>
     <div *ngFor="let user of usuarios|async" >
       <div   *ngIf="user.$key==userKey " id="datos-perfil-header">
@@ -127,22 +130,23 @@
           Añade una publicación
         </button>
       </ion-buttons>
-      <card-publi [entrenador]=user.nombre [descripcion]=user></card-publi>
+      {{user.nombre}}
+      <div *ngFor="let publi of publiFb|async">
+        <card-publi *ngIf="publi.keyUser==userKey "  [titulo]=publi.titulo [fecha]=publi.fechaPublicacion [key]=publi.$key [userKey]=userKey [entrenador]=user.nombre [descripcion]=publi.descripcion ></card-publi>
+
+      </div>
     </ion-list>
     </div>
   {{user.servicio}}
   <ion-buttons *ngIf="user" class="buttons-add">
       <button *ngIf="isTrainer && !hasService" id="boton-crea-anuncio" (click)="crearAnuncio()" ion-button icon-only>
         <ion-icon name="add"></ion-icon>
-
         Crea tu anuncio
       </button>
       <button *ngIf="isTrainer && hasService" id="boton-modifica-anuncio" (click)="crearAnuncio()" ion-button icon-only>
         <ion-icon name="create"></ion-icon>
-
         Modifica tu anuncio
       </button>
-
       <!--
       <button (click)="crearPublicacion()" color="dark" ion-button icon-only>
         <ion-icon name="add"></ion-icon>

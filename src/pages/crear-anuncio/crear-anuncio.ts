@@ -34,6 +34,11 @@ export class CrearAnuncio {
   especialidades:FirebaseListObservable<any>;
   lugares=[];
   franja1FromL:any;
+  today;
+  dd;
+  mm;
+  yyyy;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public fb: FormBuilder,
@@ -125,6 +130,7 @@ export class CrearAnuncio {
     console.log(this.navParams.get('tarifa'));
     console.log("Otra vez");
     console.log(this.lugares);
+    this.getDateToday();
 
     if(localStorage.getItem('lugares')) {
       var arrayLugares=JSON.parse(localStorage["lugares"]);
@@ -172,12 +178,29 @@ export class CrearAnuncio {
         'tarifas':this.tarifasArray,
         'especialidad':this.formulario.value.especialidad,
         'lugares':this.lugares,
-        'horarios':this.formulario.value.horarios
+        'horarios':this.formulario.value.horarios,
+        'fechaCreacion':this.today
       });
     console.log(this.formulario.value.especialidad);
     this.navCtrl.setRoot(Perfil)
 
 
+  }
+  getDateToday(){
+    this.today = new Date();
+    this.dd = this.today.getDate();
+    this.mm = this.today.getMonth()+1; //January is 0!
+    this.yyyy = this.today.getFullYear();
+
+    if(this.dd<10) {
+      this.dd = '0'+this.dd
+    }
+
+    if(this.mm<10) {
+      this.mm = '0'+this.mm
+    }
+
+    this.today = this.dd + '/' + this.mm + '/' + this.yyyy;
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad CrearAnuncio');

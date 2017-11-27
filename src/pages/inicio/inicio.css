@@ -2,30 +2,65 @@ page-inicio .toolbar-title {
   color: white;
   text-align: center;
   font-size: 18pt;
-  letter-spacing: 2px; }
+  letter-spacing: 2px;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  width: 100%; }
 page-inicio .toolbar-background {
   background-color: #FF3D00; }
+page-inicio .grid {
+  padding: 0; }
 page-inicio .searchbar {
-  position: fixed;
   z-index: 999999;
-  top: 10%;
   padding: 0; }
   page-inicio .searchbar .searchbar-input-container {
     width: 100%;
     margin: 0; }
-page-inicio .slider {
-  position: absolute !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  width: 100% !important; }
 page-inicio .ion-content {
   padding: 0; }
 page-inicio .scroll-content {
   padding: 0 !important;
   margin: 0; }
-page-inicio .slide-container {
-  margin: auto;
-  width: 600px;
-  text-align: center; }
+page-inicio #lista-publicaciones {
+  margin-top: 5px;
+  margin-bottom: 8%;
+  background-color: rgba(0, 0, 0, 0.1); }
+  page-inicio #lista-publicaciones .toolbar-title {
+    color: black;
+    text-align: center;
+    font-size: 18pt;
+    letter-spacing: 2px;
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    border-top: 3px solid #649300;
+    border-bottom: 3px solid #649300;
+    width: 100%; }
+page-inicio #lista-publicaciones-busqueda {
+  margin-top: 5px;
+  margin-bottom: 8%;
+  background-color: rgba(0, 0, 0, 0.1); }
+  page-inicio #lista-publicaciones-busqueda .toolbar-title {
+    color: black;
+    text-align: center;
+    font-size: 18pt;
+    letter-spacing: 2px;
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    border-top: 3px solid #649300;
+    border-bottom: 3px solid #649300;
+    width: 100%; }
+page-inicio .swiper-wrapper {
+  transform: none !important; }
+page-inicio .card {
+  margin: 10px !important; }
+page-inicio .swiper-pagination {
+  bottom: -15px !important; }
+  page-inicio .swiper-pagination .swiper-pagination-bullet {
+    background: #FF3D00;
+    width: 10px;
+    height: 10px; }
 
 /*# sourceMappingURL=inicio.css.map */

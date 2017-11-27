@@ -16,10 +16,10 @@
 <ion-content >
   <div *ngIf="!user" class="center" id="seccion-no-login">
     <div>
-      <img style="width: 90px;height: 90px;" src="../../assets/icon/triste3.png"/>
+      <img style="width: 90px;height: 90px;"  [src]=logoCara >
       <h2 >Aún no has iniciado sesión</h2>
       <span>Inicia sesión o registrate en la app para usar el chat.</span>
-      <img id="marca-agua"  src="../../assets/icon/chatting.png">
+      <img id="marca-agua"   [src]=logoChat>
       <div id="seccion-registro-login">
         <p (click)="irALogin()">Iniciar sesíon</p>
         <p>|</p>

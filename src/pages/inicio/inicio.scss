@@ -7,40 +7,84 @@ page-inicio {
     text-align: center;
     font-size: 18pt;
     letter-spacing: 2px;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    width: 100%;
   }
   .toolbar-background{
 
     background-color: $naranja;
   }
+  .grid{
+    padding: 0;
+  }
   .searchbar{
-    position: fixed;
     z-index: 999999;
-    top:10%;
+
     padding: 0;
     .searchbar-input-container{
       width: 100%;
       margin:0;
     }
   }
-  .slider{
-    position: absolute !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    width: 100% !important;
-  }
+
 
 
   .ion-content{
     padding: 0;
   }
+
   .scroll-content{
     padding:0 !important;
     margin: 0;
   }
-  .slide-container {
-    margin: auto;
-    width: 600px;
-    text-align: center;
-  }
 
+  #lista-publicaciones{
+    margin-top: 5px;
+    .toolbar-title{
+      color:black;
+      text-align: center;
+      font-size: 18pt;
+      letter-spacing: 2px;
+      background-color: white;
+      padding: 0;
+      margin: 0;
+      border-top: 3px solid $verde-oscuro;
+      border-bottom: 3px solid $verde-oscuro;
+      width: 100%;
+    }
+    margin-bottom: 8%;
+    background-color: rgba(0,0,0,0.1);
+  }#lista-publicaciones-busqueda{
+    margin-top: 5px;
+    .toolbar-title{
+      color:black;
+      text-align: center;
+      font-size: 18pt;
+      letter-spacing: 2px;
+      background-color: white;
+      padding: 0;
+      margin: 0;
+      border-top: 3px solid $verde-oscuro;
+      border-bottom: 3px solid $verde-oscuro;
+      width: 100%;
+    }
+    margin-bottom: 8%;
+    background-color: rgba(0,0,0,0.1);
+  }
+.swiper-wrapper{
+  transform: none !important;
+}
+  .card{
+    margin: 10px !important;
+  }
+  .swiper-pagination{
+    bottom: -15px !important;
+    .swiper-pagination-bullet{
+      background: $naranja;
+      width: 10px;
+      height: 10px;
+    }
+  }
 }

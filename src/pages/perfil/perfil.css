@@ -64,9 +64,6 @@ page-perfil #header-profile {
     margin-bottom: 3%;
     margin-right: 0.5%; }
     page-perfil #header-profile #seccion-foto-perfil #foto-perfil {
-      border-radius: 50%;
-      width: 80px;
-      height: 80px;
       background-color: white; }
     page-perfil #header-profile #seccion-foto-perfil .icon-camera:before {
       font-size: 250%;
@@ -75,6 +72,7 @@ page-perfil #header-profile {
       background-color: white;
       border-radius: 50%;
       width: 80px;
+      overflow: hidden;
       height: 80px; }
     page-perfil #header-profile #seccion-foto-perfil .edit-photo {
       color: #FF3D00;
@@ -174,5 +172,8 @@ page-perfil #add-publication {
     border-bottom: 1px solid #9df400; }
   .alert-top .alert-button, .select-alert .alert-button {
     color: #FF3D00; }
+
+#seccion-servicio {
+  margin-bottom: 200px; }
 
 /*# sourceMappingURL=perfil.css.map */

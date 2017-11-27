@@ -1,28 +1,30 @@
 <!-- Generated template for the CardPubli component -->
 <div>
-  <ion-card >
-    <ion-card-header>
-      <div ><img src="../../assets/imagenes/publi1.jpg"></div>
-      <ion-card-title><strong>{{entrenador}}</strong>
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <div class="contenido-card-publi">
-        <h1 class="titulo-publi">{{titulo}}</h1>
-      </div>
+  <ion-card (click)="irAVistaPublicacion($event)">
+    <ion-card-header >
+      <div ><img src="{{fotoP}}"></div>
 
+    </ion-card-header>
+    <ion-card-content >
+      <div class="contenido-card-publi">
+        <h1 id="nombre-entre"><strong>{{entrenador}}</strong></h1>
+        <h3 class="titulo-publi">{{titulo}}</h3>
+      </div>
 
       <div class="descripcion-publi" style="float: left">
-        <ion-badge class="text-especialidad" style="float: right;margin-right: 3%">{{especialidad}}</ion-badge>
 
-        <h3>{{descripcion}}</h3>
+
+        <h3 id="descripcion">{{descripcion}}</h3>
       </div>
       <div class="content-footer">
-        <!--<div class="icon-likes">
-          <img src="../../assets/icon/like.png"/>
-          <img src="../../assets/icon/dislike.png"/>
-        </div>-->
-        <ion-fab class="button-fab" edge>
+        <div class="icon-likes">
+          <ion-icon id="icon-like" (click)="setLike()" name="thumbs-up"><span style="color:black;font-size: 13pt;margin-left: 6px;">({{likes}})</span></ion-icon>
+        </div>
+        <div>
+          <span id="fecha">{{fecha}}</span>
+        </div>
+
+        <!--<ion-fab class="button-fab" edge>
           <button ion-fab mini><ion-icon name="share"></ion-icon></button>
           <ion-fab-list side="left" class="fablist">
             <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
@@ -30,7 +32,7 @@
             <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
             <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
           </ion-fab-list>
-        </ion-fab>
+        </ion-fab>-->
       </div>
     </ion-card-content>
   </ion-card>

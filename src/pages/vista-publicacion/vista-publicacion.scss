@@ -1,3 +1,6 @@
+$naranja:#FF3D00;
+$verde-oscuro:#649300;
+$verde-limon:#9df400;
 page-vista-publicacion {
   .toolbar-title{
    white-space: pre-line !important;
@@ -6,6 +9,114 @@ page-vista-publicacion {
   #icon-share{
     font-size: 2em;
     float:right;
+  }
+  .toolbar-background{
+    background-color: transparent;
+
+  }
+  .content{
+    padding: 0;
+    .scroll-content{
+      padding:0 !important;
+      margin-top:0 !important;
+
+    }
+
+  }
+  #contenido-publicacion{
+    margin-top: 3%;
+  }
+  .header:after{
+    display: none;
+  }
+  .back-button-text{
+    display: none;
+  }
+  .back-button-icon{
+    color:white;
+    background-color: $naranja;
+    font-size: 20pt;
+    font-weight:bold;
+    border-radius: 50%;
+
+  }
+  .titulo{
+    width: 100%;
+    background: $naranja;
+    color:white;
+    padding: 2px;
+    margin-bottom: 2px;
+    margin: 0;
+    padding-left: 4px;
+    .icon{
+      float:right;
+      margin-right: 10px;
+    }
+  }
+  .nombre-entrenador{
+    padding-left: 4px;
+    margin-bottom: 2px;
+    background-color: white;
+    color:$verde-oscuro
+
+  }
+  .swiper-pagination{
+    .swiper-pagination-bullet{
+      background: $naranja;
+      width: 10px;
+      height: 10px;
+    }
+  }
+  #slides{
+    .icon{
+      position: absolute;
+      right: 0;
+      /* top: 0; */
+      margin-right: 20px;
+      bottom: 20px;
+      color: white;
+      background-color: $naranja;
+      padding: 10px;
+      border-radius: 50%;
+    }
+  }
+  #seccion-descripcion{
+    background-color: white;
+    padding: 3px;
+    color:black;
+    font-size: 13pt;
+    text-indent: 3px;
+    .icon{
+      float: right;
+      margin-right: 10px;
+    }
+  }
+  ion-buttons{
+    text-align: center;
+    width: 100%;
+  }
+  .boton-vermas{
+    width: 100%;
+    margin-top: 5%;
+    background-color: $verde-oscuro;
+    border-radius: 10px;
+  }
+  .boton-compartir{
+  float: right;
+    background-color: transparent;
+    border: none;
+    color:$naranja;
+    box-shadow: none;
+    font-size: 15pt;
+  }
+  .icon-likes{
+    margin-top: 3%;
+    .icon{
+      font-size: 25pt;
+      float:left;
+      margin:0px 0 8px 20px;
+      color:$naranja;
+    }
   }
 
 }

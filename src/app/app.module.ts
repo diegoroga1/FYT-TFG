@@ -24,9 +24,10 @@ import {NuevaTarifa} from '../pages/nueva-tarifa/nueva-tarifa';
 import {FiltrarEntrenadorPage} from '../pages/filtrar-entrenador/filtrar-entrenador';
 import {NuevaValoracionPage} from "../pages/nueva-valoracion/nueva-valoracion";
 
+import { VideoPlayer } from '@ionic-native/video-player';
 
 import { Camera } from '@ionic-native/camera';
-
+import { MediaCapture } from '@ionic-native/media-capture';
 import { Facebook } from '@ionic-native/facebook'
 import { GooglePlus } from '@ionic-native/google-plus';
 
@@ -46,6 +47,8 @@ import {MapComponent} from '../components/map-component/map-component'
 import * as _ from 'lodash';
 import { OrdenarPipe } from '../pipes/ordenar/ordenar';
 import {DetallesMapaPage} from "../pages/detalles-mapa/detalles-mapa";
+import {File} from "@ionic-native/file";
+import {SocialSharing} from "@ionic-native/social-sharing";
 export const firebase={
   apiKey: "AIzaSyAmdijlzMaRzeXEmIcWTAImU8SgtCI1mTA",
   authDomain: "fytrainer-69aef.firebaseapp.com",
@@ -128,6 +131,10 @@ export const firebase={
     Camera,
     Facebook,
     GooglePlus,
+    MediaCapture,
+    File,
+    VideoPlayer,
+    SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

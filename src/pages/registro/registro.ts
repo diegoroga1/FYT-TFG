@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { IonicPage, NavController, NavParams,Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
@@ -7,6 +7,7 @@ import {Perfil} from '../perfil/perfil';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import firebase from 'firebase';
+import {FirebaseApp} from "angularfire2";
 
 /**
  * Generated class for the Registro page.
@@ -25,6 +26,8 @@ export class Registro {
   userKey:any;
   userProfile:any;
   userEmail:any;
+  storageRef:any;
+  logotipo:any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public formBuilder: FormBuilder,
@@ -32,15 +35,25 @@ export class Registro {
               public fb:AngularFireDatabase,
               private facebook: Facebook,
               private google:GooglePlus,
-              public events:Events
+              public events:Events,
+              @Inject(FirebaseApp) firebaseApp: firebase.app.App,
+
 
 
   ) {
     this.formRegister=this.createForm();
+    this.storageRef = firebaseApp.storage().ref();
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Registro');
+  }
+  ionViewDidEnter(){
+    this.storageRef.child('logotipo4.png').getDownloadURL()
+      .then(url => this.logotipo = url)
+      .catch(error=>console.log(error));
+
   }
   mostrarRegistroCorreo(){
   this.showRegister=!this.showRegister;

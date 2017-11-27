@@ -17,7 +17,7 @@
   <div  id="seccion-login">
     <h2 style="color:white;" >Inicia sesión en FYT</h2>
     <div id="logo">
-      <img src="../../assets/imagenes/logotipo4.png">
+      <img [src]=logotipo>
     </div>
     <form [formGroup]="formLogin"(ngSubmit)="submitLogin(form)">
       <ion-input type="email" name="email"  formControlName="email" required placeholder="Introduce tu correo"></ion-input>

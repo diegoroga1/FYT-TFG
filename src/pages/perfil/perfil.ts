@@ -15,6 +15,8 @@ import { AngularFireDatabase, FirebaseListObservable,FirebaseObjectObservable } 
 import { AngularFireAuth } from 'angularfire2/auth';
 import {FirebaseApp} from 'angularfire2';
 import * as firebase from 'firebase';
+import * as _ from 'lodash';
+
 import {
   GoogleMaps,
   GoogleMap,
@@ -42,7 +44,7 @@ declare var google;
 
 export class Perfil {
   user = false;
-
+  publicacionUsuario=[];
   usuarios:FirebaseListObservable<any>;
   perfilSegment: any;
   storageRef: any;
@@ -58,6 +60,10 @@ export class Perfil {
   experiencia:any;
   isTrainer:boolean=false;
   hasService:boolean=false;
+  publiFb:any;
+  fotoPerfil:any;
+  logoCara:any;
+  logoTrainer:any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public cogerDatos: CogerDatos,
@@ -71,9 +77,12 @@ export class Perfil {
 
   ) {
     this.perfilSegment = 'info';
+    this.publiFb=this.af.list('publicaciones/').map((res)=>res.reverse() as FirebaseListObservable<any[]>);
     this.storageRef = firebaseApp.storage().ref();
     this.userKey=localStorage.getItem('user_uid');
     this.auth.auth.onAuthStateChanged(data=>{
+      console.log(data);
+
       if(data!=null){
         this.crearPerfil();
       }
@@ -89,6 +98,18 @@ export class Perfil {
 
     }
   }
+  ionViewDidEnter(){
+    this.storageRef.child('/'+this.userKey+'/foto-perfil/perfil.jpg').getDownloadURL()
+      .then(url => this.fotoPerfil = url)
+      .catch(error=>console.log(error));
+    this.storageRef.child('trainer.png').getDownloadURL()
+      .then(url => this.logoTrainer = url)
+      .catch(error=>console.log(error));
+    this.storageRef.child('triste3.png').getDownloadURL()
+      .then(url => this.logoCara = url)
+      .catch(error=>console.log(error));
+    }
+
   crearPerfil(){
     this.auth.authState.subscribe(auth=>{
       this.af.list('usuarios/'+auth.uid).forEach(data=>{
@@ -106,10 +127,13 @@ export class Perfil {
                   if(item.$key==auth.uid){
                     console.log(item);
                     if(item.servicio){
+
                       this.hasService=true;
                     }else{
                       this.hasService=false;
                     }
+
+
                     this.fechaNacimiento=item.fechaNacimiento;
                     this.formacion=item.formacion ;
                     if(this.formacion){
@@ -224,7 +248,8 @@ export class Perfil {
   }
 
   addPhoto() {
-    this.storageRef.child('/'+this.userKey+'/fotoPerfil/fotoperfil.jpg').putString(this.base64img,'base64').then(snapshot=>{
+    this.storageRef.child('/'+this.userKey+'/foto-perfil/perfil.jpg').putString(this.base64img,'base64').then(snapshot=>{
+      this.fotoPerfil=this.base64img;
     }).catch(error=>{
     });
   }
@@ -258,7 +283,7 @@ export class Perfil {
   takePicture(){
     this.camera.getPicture({
       destinationType: this.camera.DestinationType.DATA_URL,
-      quality: 100,
+      quality: 50,
       targetWidth: 1000,
       targetHeight: 1000
     }).then((imageData)=>{
@@ -271,7 +296,7 @@ export class Perfil {
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.DATA_URL,
-      quality: 100,
+      quality: 50,
       targetWidth: 1000,
       targetHeight: 1000
     }).then((imageData)=>{

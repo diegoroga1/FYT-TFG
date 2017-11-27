@@ -36,6 +36,7 @@ page-crear-publicacion {
   .button-publi{
     width: 100%;
     background-color: $naranja;
+    margin: 15px 0 40px 0;
     color:white;
   }
   #añade-fotos,#añade-video{
@@ -46,18 +47,29 @@ page-crear-publicacion {
       width: 100px;
       height: 100px;
       border: 3px solid $verde-limon;
-      background-color: rgba(0,0,0,0.2);
+      background-color: white;
       display: inline-block;
       text-align: center;
       margin:1%;
       margin-bottom: 4%;
+      img{
+        width: 100px;
+        height: 100px;
+      }
 
     }
     .icon{
       font-size: 25pt;
-      color:white;
+      color:$naranja;
       position: relative;
       top: calc(50% - 16px);
+    }
+  }
+  .select{
+    max-width: 100%;
+    .item-cover{
+      position: relative;
+      width: 20px;
     }
   }
 

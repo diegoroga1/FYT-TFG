@@ -2,6 +2,7 @@ $naranja:#FF3D00;
 $verde-oscuro:#649300;
 $verde-limon:#9df400;
 page-vista-entrenador {
+
     .toolbar-background{
       background-color: transparent;
 
@@ -30,7 +31,7 @@ page-vista-entrenador {
     }
   }
   #seccion-blog{
-    background-color: rgba(157, 244, 0, 0.28);
+    margin-bottom: 25%;
   }
 
   #seccion-seguidores-val{
@@ -68,7 +69,6 @@ page-vista-entrenador {
   .scroll-content{
     padding:0 !important;
     margin-top:0 !important;
-    background-color: rgba(157, 244, 0,0.28);
 
   }
   .segment-button{
@@ -111,6 +111,7 @@ page-vista-entrenador {
   }
   .scroll-content{
     margin-top:0;
+    padding-bottom: 50%;
 
   }
   .line-separator{
@@ -222,17 +223,7 @@ page-vista-entrenador {
       }
     }
   }
-  #card-public {
-margin-bottom:10%;
-    .card{
-    margin:0;
-    width: 100%;
-      border-radius: 18px;
-      .card-title{
-        display: none;
-      }
-    }
-  }
+
   #seccion-seguidores-val{
     .badge{
       background-color: transparent;
@@ -336,63 +327,7 @@ margin-bottom:10%;
       padding: 0;
     }
   }
-  .publi-div{
-    padding: 3%;
-  }
-  #card-public{
-    .card{
-      background-color: rgba(157, 244, 0,0.8);
-      margin-bottom:8%;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-      .titulo-publi{
-        font-weight: bold;
-        background-color: white;
-        color: black;
-      }
-      .badge{
-        background: $naranja;
-        font-size:13pt;
-      }
-      .card-content{
-        margin-top:0;
-        .contenido-card-publi{
-          margin-bottom: 3%;
 
-        }
-        .descripcion-publi{
-          width: 100%;
-
-          h3{
-            font-size:12pt;
-            font-weight: 500;
-            text-indent: 2%;
-
-          }
-        }
-        .button-fab{
-          float:right;
-          position: inherit;
-
-          .fab{
-            background-color: $naranja;
-            float:right;
-            .icon{
-              color:white;
-            }
-          }
-          .fablist{
-            position: inherit;
-            .fab{
-              background-color: white;
-              .icon{
-                color:$verde-limon;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
   .icon[name="share"]{
     color:black;
   }
@@ -457,5 +392,9 @@ margin-bottom:10%;
     margin-right: 5px;
     font-size: 14pt;
     margin-top: 2%;
+  }
+  .siguiendo{
+    background-color: $naranja !important;
+    color:white !important;
   }
 }

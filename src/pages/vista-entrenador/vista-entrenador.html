@@ -10,7 +10,7 @@
 
   </ion-navbar>
 </ion-header>
-<ion-content >
+<ion-content id="content">
   <div class="slide-fotos">
     <ion-slides pager="true" effect="flip">
       <ion-slide>
@@ -70,8 +70,9 @@
                     nullable="false"
             ></rating>
             <p id="valoracion">({{totalValoration}})  </p>
-            <div id="seccion-seguidores-val">
-              <ion-badge>Seguir <span>(21)</span></ion-badge>
+            <div  id="seccion-seguidores-val">
+              <ion-badge (click)="seguirEntrenador()" *ngIf="!seguido">Seguir <span>({{seguidores}})</span></ion-badge>
+              <ion-badge (click)="seguirEntrenador()" class="siguiendo" *ngIf="seguido">Siguiendo <span>({{seguidores}})</span></ion-badge>
             </div>
           </div>
 
@@ -386,7 +387,7 @@
     </ion-list>
     <ion-list id="seccion-blog" *ngSwitchCase="'blog'">
       <div class="publi-div" *ngFor="let publi of publicacionesEntrenador">
-        <card-publi (click)="irAVistaPublicacion(publi,$event)" id="card-public" [descripcion]="publi.descripcion" [titulo]="publi.titulo" [especialidad]="publi.especialidad"></card-publi>
+        <card-publi (click)="irAVistaPublicacion(publi,$event)" id="card-public" [key]=publi.$key [userKey]=publi.keyUser [entrenador]=publi.entrenador  [descripcion]="publi.descripcion" [titulo]="publi.titulo" [especialidad]="publi.especialidad"></card-publi>
       </div>
     </ion-list>
   </div>

@@ -16,7 +16,7 @@
 
 </ion-header>
 <ion-content >
-  <ion-searchbar placeholder="Buscar en FYT" [(ngModel)]="busqueda" (ionInput)="buscarEntrenador()"></ion-searchbar>
+  <ion-searchbar placeholder="Buscar en FYT" [(ngModel)]="busqueda" (ionInput)="getSearch($event)"></ion-searchbar>
   <div id="filtrar-ordenar">
     <div id="ordenar">
       <ion-select placeholder="Ordenar" (ionChange)="ordenar()" [(ngModel)]="modoOrdenacion">Ordenar
@@ -34,6 +34,9 @@
 
     </div>
   </div>
+  <div id="filtros">
+    <ion-badge *ngFor="let filtro of listaFiltros">{{filtro}}</ion-badge>
+  </div>
   <!--<ul>
     <h3>Busqueda por nombre</h3>
     <li *ngFor="let e of nombre_entrenadores">
@@ -44,20 +47,25 @@
   </ul>-->
 
     <ion-list id="lista-entrenadores">
-      <div *ngIf="filtrado ">
+      <div *ngIf="filtrado &&!busqueda">
         <ion-col col-12 *ngFor="let entrenador of filtroEntrenadores">
 
         <card-trainer  *ngIf="entrenador.estado=='confirmado' &&entrenador.servicio&&entrenador.$key!=userKey"  (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [servicio]="entrenador.servicio" [especialidad]=entrenador.servicio.especialidad [localidad]=entrenador.localidad></card-trainer>
         </ion-col>
       </div>
-      <div *ngIf="ordenado&&!filtrado ">
+      <div *ngIf="ordenado&&!filtrado&&!busqueda ">
         <ion-col col-12 *ngFor="let entrenador of filtroEntrenadores">
-        <card-trainer  *ngIf="entrenador.estado=='confirmado' &&entrenador.servicio&&entrenador.$key!=userKey"  (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [servicio]="entrenador.servicio" [especialidad]=entrenador.servicio.especialidad [localidad]=entrenador.localidad></card-trainer>
+        <card-trainer  *ngIf="entrenador.estado=='confirmado' &&ent&&!busquedarenador.servicio&&entrenador.$key!=userKey"  (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [servicio]="entrenador.servicio" [especialidad]=entrenador.servicio.especialidad [localidad]=entrenador.localidad></card-trainer>
         </ion-col>
       </div>
 
-      <div *ngIf="!filtrado&&!ordenado">
+      <div *ngIf="!filtrado&&!ordenado&&!busqueda">
         <ion-col  col-12 *ngFor="let entrenador of datosEntrenador |async">
+            <card-trainer *ngIf="entrenador.estado=='confirmado' &&entrenador.servicio&&entrenador.$key!=userKey" (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [servicio]="entrenador.servicio" [especialidad]=entrenador.servicio.especialidad [localidad]=entrenador.localidad></card-trainer>
+        </ion-col>
+      </div>
+      <div *ngIf="busqueda">
+        <ion-col  col-12 *ngFor="let entrenador of busquedaArray ">
             <card-trainer *ngIf="entrenador.estado=='confirmado' &&entrenador.servicio&&entrenador.$key!=userKey" (click)="irAVistaEntrenador(entrenador,fotoPerfil)" [key]=entrenador.$key [fotoPerfil]=fotoPerfil [nombre]=entrenador.nombre [apellidos]=entrenador.apellidos [servicio]="entrenador.servicio" [especialidad]=entrenador.servicio.especialidad [localidad]=entrenador.localidad></card-trainer>
         </ion-col>
       </div>

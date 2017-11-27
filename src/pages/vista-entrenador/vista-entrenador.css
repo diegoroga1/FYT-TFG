@@ -19,7 +19,7 @@ page-vista-entrenador .info-entrenador {
     margin-bottom: 2pt;
     background-color: white; }
 page-vista-entrenador #seccion-blog {
-  background-color: rgba(157, 244, 0, 0.28); }
+  margin-bottom: 25%; }
 page-vista-entrenador #seccion-seguidores-val {
   float: right;
   right: 0;
@@ -45,8 +45,7 @@ page-vista-entrenador ul {
       font-size: 18px; }
 page-vista-entrenador .scroll-content {
   padding: 0 !important;
-  margin-top: 0 !important;
-  background-color: rgba(157, 244, 0, 0.28); }
+  margin-top: 0 !important; }
 page-vista-entrenador .segment-button {
   color: #FF3D00 !important;
   border-color: #FF3D00 !important;
@@ -76,7 +75,8 @@ page-vista-entrenador .back-button-icon {
 page-vista-entrenador .swiper-pagination-bullet-active {
   background: #FF3D00; }
 page-vista-entrenador .scroll-content {
-  margin-top: 0; }
+  margin-top: 0;
+  padding-bottom: 50%; }
 page-vista-entrenador .line-separator {
   border-top: 4px solid #9df400;
   border-bottom: 4px solid #9df400; }
@@ -149,14 +149,6 @@ page-vista-entrenador #seccion-especialidades {
       page-vista-entrenador #seccion-especialidades .list .badge img {
         margin-right: 5%;
         vertical-align: middle; }
-page-vista-entrenador #card-public {
-  margin-bottom: 10%; }
-  page-vista-entrenador #card-public .card {
-    margin: 0;
-    width: 100%;
-    border-radius: 18px; }
-    page-vista-entrenador #card-public .card .card-title {
-      display: none; }
 page-vista-entrenador #seccion-seguidores-val .badge {
   background-color: transparent;
   color: black;
@@ -229,43 +221,6 @@ page-vista-entrenador #button-mapa {
     background-color: #FF3D00;
     color: white;
     padding: 0; }
-page-vista-entrenador .publi-div {
-  padding: 3%; }
-page-vista-entrenador #card-public .card {
-  background-color: rgba(157, 244, 0, 0.8);
-  margin-bottom: 8%;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
-  page-vista-entrenador #card-public .card .titulo-publi {
-    font-weight: bold;
-    background-color: white;
-    color: black; }
-  page-vista-entrenador #card-public .card .badge {
-    background: #FF3D00;
-    font-size: 13pt; }
-  page-vista-entrenador #card-public .card .card-content {
-    margin-top: 0; }
-    page-vista-entrenador #card-public .card .card-content .contenido-card-publi {
-      margin-bottom: 3%; }
-    page-vista-entrenador #card-public .card .card-content .descripcion-publi {
-      width: 100%; }
-      page-vista-entrenador #card-public .card .card-content .descripcion-publi h3 {
-        font-size: 12pt;
-        font-weight: 500;
-        text-indent: 2%; }
-    page-vista-entrenador #card-public .card .card-content .button-fab {
-      float: right;
-      position: inherit; }
-      page-vista-entrenador #card-public .card .card-content .button-fab .fab {
-        background-color: #FF3D00;
-        float: right; }
-        page-vista-entrenador #card-public .card .card-content .button-fab .fab .icon {
-          color: white; }
-      page-vista-entrenador #card-public .card .card-content .button-fab .fablist {
-        position: inherit; }
-        page-vista-entrenador #card-public .card .card-content .button-fab .fablist .fab {
-          background-color: white; }
-          page-vista-entrenador #card-public .card .card-content .button-fab .fablist .fab .icon {
-            color: #9df400; }
 page-vista-entrenador .icon[name="share"] {
   color: black; }
 page-vista-entrenador .foto-perfil {
@@ -314,5 +269,8 @@ page-vista-entrenador .li-form {
   margin-right: 5px;
   font-size: 14pt;
   margin-top: 2%; }
+page-vista-entrenador .siguiendo {
+  background-color: #FF3D00 !important;
+  color: white !important; }
 
 /*# sourceMappingURL=vista-entrenador.css.map */

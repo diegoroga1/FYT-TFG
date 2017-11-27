@@ -89,9 +89,6 @@ page-perfil {
       margin-bottom: 3%;
       margin-right: 0.5%;
       #foto-perfil{
-        border-radius: 50%;
-        width: 80px;
-        height: 80px;
         background-color: white;
       }
       .icon-camera{
@@ -104,6 +101,7 @@ page-perfil {
         background-color: white;
         border-radius: 50%;
         width: 80px;
+        overflow: hidden;
         height: 80px;
       }
       .edit-photo{
@@ -251,5 +249,10 @@ page-perfil {
   .alert-button{
     color:$naranja;
   }
+
+
+}
+#seccion-servicio{
+  margin-bottom: 200px;
 
 }
