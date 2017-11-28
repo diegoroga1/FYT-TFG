@@ -17,8 +17,9 @@
   <div  id="seccion-login">
     <h2 style="color:white;" >Inicia sesión en FYT</h2>
     <div id="logo">
-      <img [src]=logotipo>
+      <img *ngIf=logotipo [src]=logotipo>
     </div>
+
     <form [formGroup]="formLogin"(ngSubmit)="submitLogin(form)">
       <ion-input type="email" name="email"  formControlName="email" required placeholder="Introduce tu correo"></ion-input>
       <ion-input style="margin-bottom: 6%;" type="password" name="password" formControlName="password" required placeholder="Contraseña"></ion-input>
@@ -28,11 +29,11 @@
       </ion-buttons>
       <div id="login-redes">
         <ion-buttons>
-          <button (click)="alertRol()" class="boton-facebook" ion-button>
+          <button (click)="alertRol('facebook')" class="boton-facebook" ion-button>
             <ion-icon name="logo-facebook"></ion-icon>
             <p>Inicia con Facebook</p>
           </button>
-          <button (click)="googleLogin()" class="boton-google" ion-button>
+          <button (click)="alertRol('google')" class="boton-google" ion-button>
             <ion-icon name="logo-google"></ion-icon>
             <p>Inicia con Google</p>
           </button>

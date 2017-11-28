@@ -86,7 +86,7 @@ export class Login {
       }
     );
   }
-  alertRol(){
+  alertRol(option){
     let prompt = this.alert.create({
       title: 'Tipo de usuario',
       message: "Selecciona un tipo de usuario con el que te registrarás",
@@ -115,9 +115,12 @@ export class Login {
         {
           text: 'Aceptar',
           handler: data => {
-            this.facebookLogin(data);
+            if(option=='facebook'){
+              this.facebookLogin(data);
 
-
+            }else if(option=='google'){
+              this.googleLogin(data)
+            }
           }
         }
       ]
@@ -140,6 +143,20 @@ export class Login {
             this.events.publish('useractual:changed', this.userKey);
             this.events.publish('rol:changed', this.userKey);
             this.userProfile=success;
+            this.af.object('usuarios/'+success.uid).forEach(data=>{
+              if(data.email==null){
+                if(this.rolSelect=='entrenador'){
+                  this.af.object('entrenadores/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador','estado':'confirmado'})
+                  this.af.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador'})
+
+                }else{
+                  this.af.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'usuario'})
+                }
+
+              }else{
+                console.log("Si existe usuario");
+              }
+            })
             this.navCtrl.setRoot(Perfil);
         }
         })
@@ -150,7 +167,8 @@ export class Login {
       console.log(error);
     })
   }
-  googleLogin(){
+  googleLogin(rol){
+    this.rolSelect=rol;
     this.google.login({
       'webClientId':'179397221458-cob5ulb97r6vma5e2r82opt0q1b1ab1j.apps.googleusercontent.com',
       'offline':true
@@ -168,6 +186,20 @@ export class Login {
          this.events.publish('rol:changed', this.userKey);
          console.log("Firebase success: "+ JSON.stringify(success));
          this.userProfile=success;
+         this.af.object('usuarios/'+success.uid).forEach(data=>{
+           if(data.email==null){
+             if(this.rolSelect=='entrenador'){
+               this.af.object('entrenadores/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador','estado':'confirmado'})
+               this.af.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador'})
+
+             }else{
+               this.af.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'usuario'})
+             }
+
+           }else{
+             console.log("Si existe usuario");
+           }
+         })
          this.navCtrl.setRoot(Perfil);
        }).catch(err=>alert("NOT GOOGLE SUCCESS"));
     })

@@ -235,18 +235,18 @@ export class CrearAnuncio {
   takePicture(id){
     this.camera.getPicture({
       destinationType: this.camera.DestinationType.DATA_URL,
-      quality: 100,
+      quality: 50,
       targetWidth: 1000,
       targetHeight: 1000
     }).then((imageData)=>{
       if(id=="1"){
-        this.foto1=imageData;
+        this.foto1='data:image/jpeg;base64,'+imageData;
       }
       else if(id=="2"){
-        this.foto2=imageData;
+        this.foto2='data:image/jpeg;base64,'+imageData;
       }
       else if(id=="3"){
-        this.foto3=imageData;
+        this.foto3='data:image/jpeg;base64,'+imageData;
       }
 
     }),(err)=>{
@@ -257,18 +257,18 @@ export class CrearAnuncio {
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.DATA_URL,
-      quality: 100,
+      quality: 50,
       targetWidth: 1000,
       targetHeight: 1000
     }).then((imageData)=>{
       if(id=="1"){
-        this.foto1=imageData;
+        this.foto1='data:image/jpeg;base64,'+imageData;
       }
       else if(id=="2"){
-        this.foto2=imageData;
+        this.foto2='data:image/jpeg;base64,'+imageData;
       }
       else if(id=="3"){
-        this.foto3=imageData;
+        this.foto3='data:image/jpeg;base64,'+imageData;
       }
     }),(err)=>{
       console.log(err);

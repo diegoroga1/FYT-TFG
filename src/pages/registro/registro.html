@@ -17,7 +17,7 @@
   <div id="seccion-registro">
     <h2 style="color:white;">Registrate en FYT</h2>
     <div id="logo">
-      <img [src]=logotipo>
+      <img *ngIf=logotipo [src]=logotipo>
     </div>
     <ion-buttons   id="registro-correo">
       <button ion-button (click)="mostrarRegistroCorreo()">Registrate con tu correo</button>
@@ -48,11 +48,11 @@
     </ion-buttons>
     <div *ngIf="!showRegister" id="registro-redes">
       <ion-buttons>
-        <button (click)="facebookLogin()" class="boton-facebook" ion-button>
+        <button (click)="alertRol('facebook')" class="boton-facebook" ion-button>
           <ion-icon name="logo-facebook"></ion-icon>
           <p>Registrate con Facebook</p>
         </button>
-        <button (click)="googleLogin()" class="boton-google" ion-button>
+        <button (click)="alertRol('google')" class="boton-google" ion-button>
           <ion-icon name="logo-google"></ion-icon>
           <p>Registrate con Google</p>
         </button>

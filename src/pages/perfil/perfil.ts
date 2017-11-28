@@ -79,11 +79,14 @@ export class Perfil {
     this.perfilSegment = 'info';
     this.publiFb=this.af.list('publicaciones/').map((res)=>res.reverse() as FirebaseListObservable<any[]>);
     this.storageRef = firebaseApp.storage().ref();
-    this.userKey=localStorage.getItem('user_uid');
+    console.log(JSON.stringify(this.userKey));
+
     this.auth.auth.onAuthStateChanged(data=>{
-      console.log(data);
+      console.log(JSON.stringify(data));
 
       if(data!=null){
+        this.userKey=data.uid;
+
         this.crearPerfil();
       }
     });
@@ -97,6 +100,9 @@ export class Perfil {
       this.user = false;
 
     }
+  }
+  userToTrainer(){
+    alert("Funcion no disponible");
   }
   ionViewDidEnter(){
     this.storageRef.child('/'+this.userKey+'/foto-perfil/perfil.jpg').getDownloadURL()
@@ -205,17 +211,33 @@ export class Perfil {
               console.log("hola");
             }
             if(data.nombre !=""){
-              this.af.object('/entrenadores/'+this.userKey+'/nombre').set(data.nombre);
+              if(this.isTrainer){
+                this.af.object('/entrenadores/'+this.userKey+'/nombre').set(data.nombre);
+              }else{
+                this.af.object('/usuarios/'+this.userKey+'/nombre').set(data.nombre);
+
+              }
             }
             if(data.apellidos !=""){
-              this.af.object('/entrenadores/'+this.userKey+'/apellidos').set(data.apellidos);
+
+              if(this.isTrainer){
+                this.af.object('/entrenadores/'+this.userKey+'/apellidos').set(data.apellidos);
+              }else{
+                this.af.object('/usuarios/'+this.userKey+'/apellidos').set(data.apellidos);
+
+              }
 
             }
             if(data.localidad!="" || this.localidad!=""){
-              this.af.object('/entrenadores/'+this.userKey+'/localidad')
-                .set(this.localidad!=undefined ? this.localidad : data.localidad);
-            }
+              if(this.isTrainer){
+                this.af.object('/entrenadores/'+this.userKey+'/localidad')
+                  .set(this.localidad!=undefined ? this.localidad : data.localidad);
+              }else{
+                this.af.object('/usuarios/'+this.userKey+'/localidad')
+                  .set(this.localidad!=undefined ? this.localidad : data.localidad);
+              }
 
+            }
           }
         }
       ]
@@ -248,9 +270,13 @@ export class Perfil {
   }
 
   addPhoto() {
-    this.storageRef.child('/'+this.userKey+'/foto-perfil/perfil.jpg').putString(this.base64img,'base64').then(snapshot=>{
-      this.fotoPerfil=this.base64img;
+    console.log(JSON.stringify(this.base64img));
+
+    this.storageRef.child(this.userKey+'/foto-perfil/perfil.jpg').putString(this.base64img,'base64').then(snapshot=>{
+      this.fotoPerfil='data:image/jpeg;base64,'+this.base64img;
     }).catch(error=>{
+      console.log(JSON.stringify(error));
+
     });
   }
   public actionPhoto() {
@@ -288,8 +314,9 @@ export class Perfil {
       targetHeight: 1000
     }).then((imageData)=>{
       this.base64img=imageData;
+      this.addPhoto()
     }),(err)=>{
-      console.log(err);
+      console.log(JSON.stringify(err));
     }
   }
   choosePicture(){
@@ -301,8 +328,9 @@ export class Perfil {
       targetHeight: 1000
     }).then((imageData)=>{
       this.base64img=imageData;
+      this.addPhoto()
     }),(err)=>{
-      console.log(err);
+      console.log(JSON.stringify(err));
     }
   }
   addDescription() {
@@ -575,5 +603,33 @@ export class Perfil {
   addNationality(nacionalidad){
     this.af.object('/entrenadores/'+this.userKey+'/nacionalidad').set(nacionalidad);
 
+  }
+  alertLogout(){
+    let prompt = this.alertCtrl.create({
+      title: 'Cerrar sesión',
+      message: "¿Desea cerrar la sesión?",
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Sí',
+          handler: data => {
+            this.logout();
+
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+  logout(){
+    this.auth.auth.signOut().then(success=>
+    console.log(success))
+    ;
+    localStorage.removeItem('user_uid');
   }
 }

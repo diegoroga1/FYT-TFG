@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import { IonicPage, NavController, NavParams,Events } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, Events, AlertController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -28,6 +28,7 @@ export class Registro {
   userEmail:any;
   storageRef:any;
   logotipo:any;
+  rolSelect:any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public formBuilder: FormBuilder,
@@ -36,6 +37,7 @@ export class Registro {
               private facebook: Facebook,
               private google:GooglePlus,
               public events:Events,
+              public alert:AlertController,
               @Inject(FirebaseApp) firebaseApp: firebase.app.App,
 
 
@@ -81,7 +83,7 @@ export class Registro {
               nombre: this.formRegister.value.nombre,
               apellidos: this.formRegister.value.apellidos,
               email: this.formRegister.value.email,
-              estado:"pendiente"
+              estado:"confirmado"
             })
           }
           this.userEmail= this.formRegister.value.email
@@ -97,7 +99,49 @@ export class Registro {
     }
 
   }
+  alertRol(option){
+    let prompt = this.alert.create({
+      title: 'Tipo de usuario',
+      message: "Selecciona un tipo de usuario con el que te registrarás",
+      inputs: [
+        {
+          name: 'entrenador',
+          label:'Entrenador',
+          type:'radio',
+          value:'entrenador'
+        },
+        {
+          name: 'usuario',
+          label:'Usuario',
+          type:'radio',
+          value:'usuario'
+        }
+      ],
+      cssClass: 'alertStyle',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: data => {
+            if(option=='facebook'){
+              this.facebookLogin(data);
 
+            }else if(option=='google'){
+              this.googleLogin(data)
+            }
+
+
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
   confirmPassword(){
     if(this.formRegister.value.passwordRetry.password==this.formRegister.value.passwordRetry.passwordConfirm){
         return true;
@@ -115,7 +159,8 @@ export class Registro {
         rol:['',[Validators.required]]
       });
   }
-  facebookLogin(){
+  facebookLogin(rol){
+    this.rolSelect=rol;
     this.facebook.login(['email']).then((response)=>{
       console.log("Respuesta Login facebook "+JSON.stringify(response))
       const facebookCredential=firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
@@ -132,7 +177,14 @@ export class Registro {
             this.userProfile=success;
             this.fb.object('usuarios/'+success.uid).forEach(data=>{
               if(data.email==null){
-                this.fb.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'usuario'})
+                if(this.rolSelect=='entrenador'){
+                  this.fb.object('entrenadores/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador','estado':'confirmado'})
+                  this.fb.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador'})
+
+                }else{
+                  this.fb.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'usuario'})
+                }
+
               }else{
                 console.log("Si existe usuario");
               }
@@ -149,7 +201,8 @@ export class Registro {
       console.log(error);
     })
   }
-  googleLogin(){
+  googleLogin(rol){
+    this.rolSelect=rol;
     this.google.login({
       'webClientId':'179397221458-cob5ulb97r6vma5e2r82opt0q1b1ab1j.apps.googleusercontent.com',
       'offline':true
@@ -167,9 +220,16 @@ export class Registro {
           this.userProfile=success;
           this.fb.object('usuarios/'+success.uid).forEach(data=>{
             if(data.email==null){
-              this.fb.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'usuario'})
+              if(this.rolSelect=='entrenador'){
+                this.fb.object('entrenadores/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador','estado':'confirmado'})
+                this.fb.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador'})
+
+              }else{
+                this.fb.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'usuario'})
+              }
+
             }else{
-              console.log("Si existe usuarioasdasdas");
+              console.log("Si existe usuario");
             }
           })
           this.navCtrl.setRoot(Perfil);

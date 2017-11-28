@@ -13,12 +13,14 @@ page-chat #seccion-registro-login {
   width: 100%;
   background-color: white;
   border-radius: 20px;
-  margin-top: 80%; }
+  margin-top: 50%; }
   page-chat #seccion-registro-login p {
     display: inline-block;
     font-size: 16pt;
     margin: 7px;
-    color: #9df400; }
+    color: #9df400;
+    font-weight: bold;
+    letter-spacing: 1px; }
 page-chat .center {
   text-align: center; }
 page-chat .toolbar-background {

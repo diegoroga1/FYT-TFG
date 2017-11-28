@@ -37,6 +37,12 @@ export class Chat {
     }
   }
   ionViewDidEnter(){
+    if(localStorage.getItem('user_uid')){
+      this.user=true;
+    }else{
+      this.user=false;
+
+    }
     this.storageRef.child('chatting.png').getDownloadURL()
       .then(url => this.logoChat = url)
       .catch(error=>console.log(error));

@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Mi perfil FYT     <ion-icon end (click)="editProfile()" style="float: right;font-size: 18pt;" name="create"></ion-icon>
+    <ion-title>Mi perfil FYT   <ion-icon *ngIf="userKey" start (click)="alertLogout()" style="float: left;font-size: 18pt;" name="options"></ion-icon>  <ion-icon *ngIf="userKey" end (click)="editProfile()" style="float: right;font-size: 18pt;" name="create"></ion-icon>
     </ion-title>
 
   </ion-navbar>
@@ -17,10 +17,10 @@
   <div *ngIf="!user" class="center" id="seccion-no-login">
     <div>
 
-      <img style="width: 90px;height: 90px;" [src]=logoCara >
+      <img style="width: 90px;height: 90px;" *ngIf=logoCara [src]=logoCara >
       <h2 >Aún no has iniciado sesión</h2>
       <span>Inicia sesión o registrate en la app para crear tu perfil.</span>
-      <img id="marca-agua"  [src]=logoTrainer>
+      <img id="marca-agua" *ngIf=logoTrainer [src]=logoTrainer>
       <div id="seccion-registro-login">
         <p (click)="irALogin()">Iniciar sesíon</p>
         <p>|</p>
@@ -38,7 +38,7 @@
 
       </div>
       <p *ngIf="user.$key==userKey&&fotoPerfil" (click)="actionPhoto()" class="edit-photo">Editar foto</p>
-      <p *ngIf="user.$key==userKey&&!fotoPerfil" (click)="addPhoto()" class="edit-photo">Subir foto</p>
+      <p *ngIf="user.$key==userKey&&!fotoPerfil" (click)="actionPhoto()" class="edit-photo">Subir foto</p>
     </div>
     <div *ngFor="let user of usuarios|async" >
       <div   *ngIf="user.$key==userKey " id="datos-perfil-header">
@@ -57,7 +57,7 @@
     <ion-segment-button value="info">
       Sobre mí
     </ion-segment-button>
-    <ion-segment-button value="servicio">
+    <ion-segment-button *ngIf="isTrainer" value="servicio">
       Publicaciones
     </ion-segment-button>
   </ion-segment>
@@ -72,25 +72,25 @@
   <div [ngSwitch]="perfilSegment">
     <div   id="seccion-info" *ngSwitchCase="'info'">
       <div  *ngFor="let user of usuarios|async"  id="body-profile">
-        <ion-label *ngIf="user.$key==userKey " >Descripción</ion-label>
-        <p  *ngIf="user.$key==userKey && !user.descripcion" (click)="addDescription()" class="white">Añade una descripción<ion-icon class="right-icon" name="add"></ion-icon></p>
-        <p  *ngIf="user.$key==userKey && user.descripcion"(click)="addDescription()" class="white">{{user.descripcion}}<ion-icon class="right-icon" name="create"></ion-icon></p>
-        <ion-label *ngIf="user.$key==userKey">Formación</ion-label>
-        <div *ngIf="user.$key==userKey && user.formacion">
+        <ion-label *ngIf="user.$key==userKey && isTrainer " >Descripción</ion-label>
+        <p  *ngIf="user.$key==userKey && !user.descripcion && isTrainer" (click)="addDescription()" class="white">Añade una descripción<ion-icon class="right-icon" name="add"></ion-icon></p>
+        <p  *ngIf="user.$key==userKey && user.descripcion && isTrainer"(click)="addDescription()" class="white">{{user.descripcion}}<ion-icon class="right-icon" name="create"></ion-icon></p>
+        <ion-label *ngIf="user.$key==userKey && isTrainer">Formación</ion-label>
+        <div *ngIf="user.$key==userKey && user.formacion && isTrainer">
           <div *ngFor="let f of user.formacion;let i =index">
             <p  *ngIf="user.$key==userKey && user.formacion[i]" (click)="addEducation(i)" class="white">{{user.formacion[i]}}<ion-icon class="right-icon" name="create"></ion-icon></p>
           </div>
         </div>
-          <p  *ngIf="user.$key==userKey" (click)="addEducation(tamanoFormacion)" class="white">Añade formación<ion-icon class="right-icon" name="add"></ion-icon></p>
+          <p  *ngIf="user.$key==userKey && isTrainer" (click)="addEducation(tamanoFormacion)" class="white">Añade formación<ion-icon class="right-icon" name="add"></ion-icon></p>
 
-        <ion-label  *ngIf="user.$key==userKey" stacked>Experiencia</ion-label>
-        <div *ngIf="user.$key==userKey && user.experiencia">
+        <ion-label  *ngIf="user.$key==userKey && isTrainer" stacked>Experiencia</ion-label>
+        <div *ngIf="user.$key==userKey && user.experiencia && isTrainer">
           <div *ngFor="let e of user.experiencia;let i=index">
-            <p  *ngIf="user.$key==userKey && user.experiencia[i]" (click)="addExperiencia(i)" class="white">{{user.experiencia[i]}}<ion-icon class="right-icon" name="create"></ion-icon></p>
+            <p  *ngIf="user.$key==userKey && user.experiencia[i] && isTrainer" (click)="addExperiencia(i)" class="white">{{user.experiencia[i]}}<ion-icon class="right-icon" name="create"></ion-icon></p>
           </div>
         </div>
-        <p  *ngIf="user.$key==userKey " (click)="addExperiencia(tamanoExperiencia)" class="white">Añade experiencia<ion-icon class="right-icon" name="add"></ion-icon></p>
-       <div *ngIf="user.$key==userKey">
+        <p  *ngIf="user.$key==userKey && isTrainer " (click)="addExperiencia(tamanoExperiencia)" class="white">Añade experiencia<ion-icon class="right-icon" name="add"></ion-icon></p>
+       <div *ngIf="user.$key==userKey ">
          <ion-label >Fecha de nacimiento</ion-label>
          <ion-datetime   class="white placeholder-letter" displayFormat="DD/MM/YYYY" placeholder="Añade tu fecha de nacimiento" [(ngModel)]="fechaNacimiento" (ionChange)="addFechaNacimiento(fechaNacimiento)" value=""></ion-datetime>
        </div>
