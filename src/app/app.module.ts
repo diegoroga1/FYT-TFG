@@ -1,4 +1,4 @@
-import { NgModule, ErrorHandler,ViewChild } from '@angular/core';
+import { NgModule, ErrorHandler,ViewChild,enableProdMode} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { NgProgressModule } from 'ng2-progressbar';
@@ -59,6 +59,7 @@ export const firebase={
 }
 
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -94,6 +95,7 @@ export const firebase={
     Ionic2RatingModule,
     NgProgressModule
   ],
+
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,

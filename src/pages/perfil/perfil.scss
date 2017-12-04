@@ -90,6 +90,8 @@ page-perfil {
       margin-right: 0.5%;
       #foto-perfil{
         background-color: white;
+        max-width: none;
+        height: 100%;
       }
       .icon-camera{
         &:before{

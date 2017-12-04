@@ -54,6 +54,8 @@ export class Entrenadores {
     this.userKey=localStorage.getItem('user_uid');
   }
   ionViewDidEnter(){
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+
     if(localStorage.getItem('filtro')){
       this.filtros=JSON.parse(localStorage.getItem('filtro'));
       this.filtrado=true;

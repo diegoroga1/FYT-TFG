@@ -156,7 +156,7 @@ export class NuevaValoracionPage {
           this.af.object('valorados/'+this.keyUser+'/'+this.keyAuth+'/objetivos').set(this.rateobj);
         }
 
-    }else if(t=='obj'){
+    }else if(t=='trato'){
         if(this.tratoValorada){
           let value=0;
           let total=0;

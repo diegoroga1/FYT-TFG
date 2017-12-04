@@ -51,16 +51,20 @@
     </div>
 
 
+
   </div>
 
   <ion-segment *ngIf="user" [(ngModel)]="perfilSegment"  >
     <ion-segment-button value="info">
       Sobre mí
     </ion-segment-button>
-    <ion-segment-button *ngIf="isTrainer" value="servicio">
+    <ion-segment-button  value="servicio">
       Publicaciones
+
     </ion-segment-button>
   </ion-segment>
+
+
   <ion-buttons style="    margin: 1% 0 2% 0;">
     <button *ngIf="user&&!isTrainer" id="boton-ser-entrenador" (click)="userToTrainer()" ion-button icon-only>
 
@@ -125,12 +129,11 @@
 
     <!--SECCION BLOG-->
     <ion-list id="seccion-servicio" *ngSwitchCase="'servicio'">
-      <ion-buttons >
+      <ion-buttons  >
         <button (click)="creaPublicacion()" id="add-publication" ion-button>
           Añade una publicación
         </button>
       </ion-buttons>
-      {{user.nombre}}
       <div *ngFor="let publi of publiFb|async">
         <card-publi *ngIf="publi.keyUser==userKey "  [titulo]=publi.titulo [fecha]=publi.fechaPublicacion [key]=publi.$key [userKey]=userKey [entrenador]=user.nombre [descripcion]=publi.descripcion ></card-publi>
 

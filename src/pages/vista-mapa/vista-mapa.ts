@@ -2,7 +2,7 @@ import { Component,ViewChild,ElementRef } from '@angular/core';
 import { IonicPage, NavController,ViewController,NavParams } from 'ionic-angular';
 import {MapComponent} from '../../components/map-component/map-component'
 import {CrearAnuncio} from '../crear-anuncio/crear-anuncio';
-import { Geolocation } from '@ionic-native/geolocation';
+import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation';
 import { AngularFireDatabase, FirebaseListObservable,FirebaseObjectObservable } from 'angularfire2/database';
 
 import {
@@ -31,6 +31,8 @@ declare var google;
 })
 export class VistaMapa {
   @ViewChild('mapa') mapElement: ElementRef;
+  options : GeolocationOptions;
+  currentPos : Geoposition;
   map: GoogleMap;
   myPosition:any;
   inputPlace:any;
@@ -51,7 +53,6 @@ export class VistaMapa {
     this.inputPlace=document.getElementById('auto-input');
     this.auto = new google.maps.places.Autocomplete(this.inputPlace);
     this.auto.addListener('place_changed', (data=> {
-      console.log(data);
       this.localidad=this.auto.getPlace()
     }))
     this.getCurrentPosition();
@@ -59,61 +60,52 @@ export class VistaMapa {
   }
   ionViewDidEnter(){
     this.getCurrentPosition();
-    console.log("entro");
   }
 
   ionViewWillEnter(){
     this.userKey=this.navParams.data;
-    console.log(this.userKey);
     this.af.object('entrenadores/'+this.userKey+'/servicio/lugares').forEach(lugares=>{
+      if(lugares.$value!=null){
+        this.lugaresEntrenador.push(lugares);
+        lugares.forEach(item=>{
+          this.coordenadas.push(item.coords);
 
-      this.lugaresEntrenador.push(lugares);
-      console.log(this.lugaresEntrenador);
-      lugares.forEach(item=>{
-        this.coordenadas.push(item.coords);
-        console.log(this.coordenadas);
+        })
+      }
 
-      })
     });
     this.getCurrentPosition();
     if(localStorage.getItem('lugares')){
       this.lugares=JSON.parse(localStorage["lugares"])
     }
 
-    console.log(this.lugares);
-
-
   }
   setMarkers(){
     this.coordenadas.forEach(coord=>{
-
-      console.log(coord.lat,coord.lng);
       let latLng = new google.maps.LatLng(coord.lat, coord.lng);
-      console.log(latLng)
       let marker=new google.maps.Marker({
         map:this.map,
         animation:google.maps.Animation.BOUNCE,
         position:latLng,
         icon: '../../assets/icon/mancuerna.png',
       })
-      console.log(marker);
       marker.setMap(this.map);
     })
 
 
   }
   getCurrentPosition(){
-
-    console.log("Entro de position")
-    this.geolocation.watchPosition()
-      .subscribe(position => {
+    this.options = {
+      enableHighAccuracy : true
+    };
+    this.geolocation.getCurrentPosition(this.options)
+      .then((position:Geoposition) => {
         this.myPosition = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         }
-        console.log(this.myPosition)
         this.loadMap();
-      })
+      }).catch(err=>console.log(JSON.stringify(err)));
 
   }
   loadMap(){
@@ -131,7 +123,6 @@ export class VistaMapa {
 
   }
   addMiUbicacion(){
-    console.log(this.geolocation.getCurrentPosition());
     this.markers = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
@@ -141,11 +132,9 @@ export class VistaMapa {
   }
   addMarker(){
       this.createMarker(this.localidad.geometry.location);
-      console.log(this.localidad)
       this.localidad.address_components.forEach(data=>{
         data.types.forEach(tipo=>{
           if(tipo=="locality"){
-            console.log(data.short_name);
             this.lugares.push({'nombre':this.localidad.name +' - '+data.short_name,'coords':this.localidad.geometry.location})
           }
         })
@@ -154,7 +143,6 @@ export class VistaMapa {
   }
 
   createMarker(pos){
-    console.log(pos);
     let marker=new google.maps.Marker({
       map:this.map,
       animation:google.maps.Animation.BOUNCE,
@@ -174,8 +162,6 @@ export class VistaMapa {
     this.navCtrl.pop();
   }
   clearInput(){
-    console.log(this.inputPlace);
-    console.log(this.inputPlace.value);
     this.inputPlace.value="";
   }
 

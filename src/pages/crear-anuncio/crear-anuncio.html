@@ -20,43 +20,35 @@
       <div id="añade-fotos">
 
         <div (click)="addPhoto('1')" class="bloque-add">
-          <ion-icon *ngIf="!foto1" name="camera"></ion-icon>
-          <img *ngIf="foto1" [src]="foto1">
+          <ion-icon *ngIf="!foto1&&!foto1Preview" name="camera"></ion-icon>
+          <img *ngIf="foto1Preview" [src]="foto1Preview">
         </div>
         <div (click)="addPhoto('2')" class="bloque-add">
-          <ion-icon *ngIf="!foto2" name="camera"></ion-icon>
-          <img *ngIf="foto2" [src]="foto2">
+          <ion-icon *ngIf="!foto2&&!foto2Preview" name="camera"></ion-icon>
+          <img *ngIf="foto2Preview" [src]="foto2Preview">
         </div>
         <div (click)="addPhoto('3')" class="bloque-add">
-          <ion-icon *ngIf="!foto3" name="camera"></ion-icon>
-          <img *ngIf="foto3" [src]="foto3">
+          <ion-icon *ngIf="!foto3&&!foto3Preview" name="camera"></ion-icon>
+          <img *ngIf="foto3Preview" [src]="foto3Preview">
 
         </div>
       </div>
     </div>
-    <div class="div-fields">
-      <ion-label class="titulo-style" stacked>Título</ion-label>
-      <ion-input class="white titulo-input" formControlName="titulo" type="text" placeholder="Añade un título"></ion-input>
-      <ion-item *ngIf="formulario.get('titulo').errors && formulario.get('titulo').dirty">
-        <p color="danger" ion-text *ngIf="formulario.get('titulo').hasError('required')">¡No dejes tu anuncio sin título!</p>
-        <p color="danger" ion-text *ngIf="formulario.get('titulo').hasError('minlength')">Título muy corto</p>
-        <p color="danger" ion-text *ngIf="formulario.get('titulo').hasError('maxlength')">Título demasiado largo</p>
-      </ion-item>
-    </div>
+
 
     <div class="div-fields">
       <ion-label class="titulo-style" stacked>Tarifas y servicios</ion-label>
       <p (click)="addTarifa()"  class="white">Añade tus tarifas<ion-icon class="right-icon" name="add"></ion-icon></p>
       <ion-list *ngFor="let tarifa of tarifasArray">
-        <ion-card class="card-tarifa" *ngFor="let t of tarifa">
-          <ion-card-header><ion-card-title>{{t.nombre}}</ion-card-title></ion-card-header>
+        <ion-card class="card-tarifa">
+          <ion-card-header><ion-card-title>{{tarifa.nombre}}</ion-card-title></ion-card-header>
           <ion-card-content>
             <ion-list>
-              <li *ngIf="t.desc0">{{t.desc0}}</li>
-              <li *ngIf="t.desc1">{{t.desc1}}</li>
-              <li *ngIf="t.desc2">{{t.desc2}}</li>
+              <li *ngIf="tarifa.desc0">{{tarifa.desc0}}</li>
+              <li *ngIf="tarifa.desc1">{{tarifa.desc1}}</li>
+              <li *ngIf="tarifa.desc2">{{tarifa.desc2}}</li>
           </ion-list>
-            <ion-badge>Precio: {{t.precio}} €</ion-badge>
+            <ion-badge>Precio: {{tarifa.precio}} €</ion-badge>
           </ion-card-content>
         </ion-card>
       </ion-list>

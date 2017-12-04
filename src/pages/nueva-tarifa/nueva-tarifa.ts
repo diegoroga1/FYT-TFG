@@ -28,10 +28,18 @@ export class NuevaTarifa {
   }
   addMoreDescription(){
     this.inputs.push({value:' '});
+
+  }
+  ionViewDidEnter(){
+    if(localStorage.getItem('tarifas')){
+      this.datosTarifa=JSON.parse(localStorage.getItem('tarifas'));
+      console.log(this.datosTarifa);
+    }
   }
   submitLogin(form){
     console.log(this.descripcion);
     console.log(form.value);
+
     this.datosTarifa.push(form.value);
     console.log(this.datosTarifa);
     localStorage.setItem('tarifas',JSON.stringify(this.datosTarifa)) ;

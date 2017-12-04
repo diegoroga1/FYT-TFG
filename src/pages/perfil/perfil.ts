@@ -58,7 +58,7 @@ export class Perfil {
   formacion:any;
   tamanoExperiencia:any;
   experiencia:any;
-  isTrainer:boolean=false;
+  isTrainer=false;
   hasService:boolean=false;
   publiFb:any;
   fotoPerfil:any;
@@ -79,10 +79,8 @@ export class Perfil {
     this.perfilSegment = 'info';
     this.publiFb=this.af.list('publicaciones/').map((res)=>res.reverse() as FirebaseListObservable<any[]>);
     this.storageRef = firebaseApp.storage().ref();
-    console.log(JSON.stringify(this.userKey));
 
     this.auth.auth.onAuthStateChanged(data=>{
-      console.log(JSON.stringify(data));
 
       if(data!=null){
         this.userKey=data.uid;
@@ -94,12 +92,20 @@ export class Perfil {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Perfil');
-    if (localStorage.getItem('user_uid')) {
-      this.user = true;
-    } else {
-      this.user = false;
-
-    }
+    this.af.list('usuarios/'+localStorage.getItem('user_uid')).forEach(data=> {
+      data.forEach(item => {
+        if (item.$key == 'rol') {
+          if (item.$value == 'entrenador') {
+            this.user = true;
+            this.isTrainer = true;
+          }
+          else{
+            this.user = true;
+            this.isTrainer=false;
+          }
+        }
+      })
+    });
   }
   userToTrainer(){
     alert("Funcion no disponible");
@@ -119,19 +125,15 @@ export class Perfil {
   crearPerfil(){
     this.auth.authState.subscribe(auth=>{
       this.af.list('usuarios/'+auth.uid).forEach(data=>{
-        console.log(data);
         data.forEach(item=>{
-          console.log(item);
           if(item.$key=='rol'){
             if(item.$value=='entrenador'){
               this.usuarios=this.af.list('entrenadores/');
               this.isTrainer=true;
               this.usuarios.forEach(data=>{
-                console.log(this.usuarios)
-                console.log(data);
+
                 data.forEach(item=>{
                   if(item.$key==auth.uid){
-                    console.log(item);
                     if(item.servicio){
 
                       this.hasService=true;
@@ -163,7 +165,6 @@ export class Perfil {
               this.usuarios.forEach(data=>{
                 data.forEach(item=>{
                   if(item.$key==auth.uid){
-                    console.log(item);
                     this.fechaNacimiento=item.fechaNacimiento;
                   }
                 })
@@ -205,11 +206,7 @@ export class Perfil {
         {
           text: 'Aceptar',
           handler: data => {
-            console.log(this.localidad)
-            console.log(this.localidad);
-            if(data.nombre==""){
-              console.log("hola");
-            }
+
             if(data.nombre !=""){
               if(this.isTrainer){
                 this.af.object('/entrenadores/'+this.userKey+'/nombre').set(data.nombre);
@@ -246,7 +243,6 @@ export class Perfil {
       this.inputPlace=document.getElementById('input-place');
       this.autocomplete = new google.maps.places.Autocomplete(this.inputPlace);
       this.autocomplete.addListener('place_changed', (data=> {
-        console.log(data);
         this.localidad=this.autocomplete.getPlace().name + ', '+this.autocomplete.getPlace().address_components[1].short_name;
       }))
 
@@ -270,8 +266,6 @@ export class Perfil {
   }
 
   addPhoto() {
-    console.log(JSON.stringify(this.base64img));
-
     this.storageRef.child(this.userKey+'/foto-perfil/perfil.jpg').putString(this.base64img,'base64').then(snapshot=>{
       this.fotoPerfil='data:image/jpeg;base64,'+this.base64img;
     }).catch(error=>{
@@ -441,8 +435,6 @@ export class Perfil {
         {
           text: 'Aceptar',
           handler: data => {
-
-            console.log(data.formacion);
             this.af.object('/entrenadores/'+this.userKey+'/formacion/'+i).set(data.formacion);
 
           }
@@ -615,6 +607,7 @@ export class Perfil {
             console.log('Cancel clicked');
           }
         },
+
         {
           text: 'Sí',
           handler: data => {
@@ -626,10 +619,9 @@ export class Perfil {
     });
     prompt.present();
   }
-  logout(){
-    this.auth.auth.signOut().then(success=>
-    console.log(success))
-    ;
-    localStorage.removeItem('user_uid');
+  logout() {
+    this.auth.auth.signOut().then(success =>{})
+    localStorage.clear();
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 }

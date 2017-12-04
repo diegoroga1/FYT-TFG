@@ -22,6 +22,10 @@ import {Perfil} from '../perfil/perfil';
 export class CrearAnuncio {
   formulario: FormGroup;
   foto1:any;
+  foto1Preview:any;
+  foto2Preview:any;
+  foto3Preview:any;
+
   foto2:any;
   foto3:any;
   storageRef:any;
@@ -51,7 +55,6 @@ export class CrearAnuncio {
 
   ) {
     this.formulario=this.fb.group({
-      'titulo':['',[Validators.required,Validators.minLength(5), Validators.maxLength(25)]],
       'tarifas':[''],
       'especialidad':[''],
       'horarios':this.fb.group({
@@ -132,6 +135,7 @@ export class CrearAnuncio {
     console.log(this.lugares);
     this.getDateToday();
 
+
     if(localStorage.getItem('lugares')) {
       var arrayLugares=JSON.parse(localStorage["lugares"]);
       for(var i=0;i<arrayLugares.length;i++){
@@ -143,7 +147,7 @@ export class CrearAnuncio {
     }
     localStorage.removeItem('lugares');
     if(localStorage.getItem('tarifas')){
-      this.tarifasArray.push(JSON.parse(localStorage["tarifas"]))
+      this.tarifasArray=JSON.parse(localStorage["tarifas"])
       console.log(this.tarifasArray);
     }
 
@@ -154,25 +158,31 @@ export class CrearAnuncio {
   crearAnuncio(){
     //ALERT PARA AÑADIR TARIFA CREADO, GUARDADO EN ARRAY, FALTA SUBIR A LA RAMA//
     if(this.foto1){
-      this.storageRef.child(+this.userKey+'/foto-servicio/foto1.jpg').putString(this.foto1,'base64').then(snapshot=>{
+      console.log(JSON.stringify(this.userKey));
+
+      this.storageRef.child(this.userKey+'/foto-servicio/foto1.jpg').putString(this.foto1,'base64').then(snapshot=>{
       }).catch(error=>{
+        console.log(JSON.stringify("ERROR "+error))
+
       });
     }
     if(this.foto2){
       this.storageRef.child(this.userKey+'/foto-servicio/foto2.jpg').putString(this.foto2,'base64').then(snapshot=>{
       }).catch(error=>{
+        console.log(JSON.stringify("ERROR "+error))
 
       });
     }
 
     if(this.foto3){
-      this.storageRef.child('/'+this.userKey+'/fotoAnuncio/foto3.jpg').putString(this.foto3,'base64').then(snapshot=>{
+      this.storageRef.child(this.userKey+'/foto-servicio/foto3.jpg').putString(this.foto3,'base64').then(snapshot=>{
       }).catch(error=>{
+        console.log(JSON.stringify("ERROR "+error))
       });
     }
-    this.af.object('entrenadores/'+this.userKey+'/servicio/fechaCreacion').forEach(data=>{
+  /*  this.af.object('entrenadores/'+this.userKey+'/servicio/fechaCreacion').forEach(data=>{
       console.log(data);
-    })
+    })*/
     this.af.object('entrenadores/'+this.userKey+'/servicio')
       .update({
         'tarifas':this.tarifasArray,
@@ -180,8 +190,10 @@ export class CrearAnuncio {
         'lugares':this.lugares,
         'horarios':this.formulario.value.horarios,
         'fechaCreacion':this.today
-      });
+      }).then(success=>console.log(JSON.stringify("HECHO "+success))
+    ).catch(error=>console.log(JSON.stringify("ERROR "+error)));
     console.log(this.formulario.value.especialidad);
+    localStorage.removeItem('tarifas');
     this.navCtrl.setRoot(Perfil)
 
 
@@ -240,13 +252,19 @@ export class CrearAnuncio {
       targetHeight: 1000
     }).then((imageData)=>{
       if(id=="1"){
-        this.foto1='data:image/jpeg;base64,'+imageData;
+        this.foto1=imageData;
+        this.foto1Preview='data:image/jpeg;base64,'+imageData;
+
       }
       else if(id=="2"){
-        this.foto2='data:image/jpeg;base64,'+imageData;
+        this.foto2=imageData;
+        this.foto2Preview='data:image/jpeg;base64,'+imageData;
+
       }
       else if(id=="3"){
-        this.foto3='data:image/jpeg;base64,'+imageData;
+        this.foto3=imageData;
+        this.foto3Preview='data:image/jpeg;base64,'+imageData;
+
       }
 
     }),(err)=>{
@@ -262,16 +280,21 @@ export class CrearAnuncio {
       targetHeight: 1000
     }).then((imageData)=>{
       if(id=="1"){
-        this.foto1='data:image/jpeg;base64,'+imageData;
+        this.foto1=imageData;
+        this.foto1Preview='data:image/jpeg;base64,'+imageData;
       }
       else if(id=="2"){
-        this.foto2='data:image/jpeg;base64,'+imageData;
+        this.foto2=imageData;
+        this.foto2Preview='data:image/jpeg;base64,'+imageData;
+
       }
       else if(id=="3"){
-        this.foto3='data:image/jpeg;base64,'+imageData;
+        this.foto3=imageData;
+        this.foto3Preview='data:image/jpeg;base64,'+imageData;
+
       }
     }),(err)=>{
-      console.log(err);
+      console.log(JSON.stringify(err));
     }
   }
   mostrarFranjas(dia){
@@ -299,9 +322,19 @@ export class CrearAnuncio {
   }
   getData(){
     var esp=[];
-    if(this.storageRef.child('/'+this.userKey+'/fotoAnuncio/foto1.jpg')){
-      this.storageRef.child('/'+this.userKey+'/fotoAnuncio/foto1.jpg').getDownloadURL().then(url=>{
-        this.foto1=url;
+    if(this.storageRef.child('/'+this.userKey+'/foto-servicio/foto1.jpg')){
+      this.storageRef.child('/'+this.userKey+'/foto-servicio/foto1.jpg').getDownloadURL().then(url=>{
+        this.foto1Preview=url;
+      }).catch(err=>console.log(err));
+    }
+    if(this.storageRef.child('/'+this.userKey+'/foto-servicio/foto2.jpg')){
+      this.storageRef.child('/'+this.userKey+'/foto-servicio/foto2.jpg').getDownloadURL().then(url=>{
+        this.foto2Preview=url;
+      }).catch(err=>console.log(err));
+    }
+    if(this.storageRef.child('/'+this.userKey+'/foto-servicio/foto3.jpg')){
+      this.storageRef.child('/'+this.userKey+'/foto-servicio/foto3.jpg').getDownloadURL().then(url=>{
+        this.foto3Preview=url;
       }).catch(err=>console.log(err));
     }
    this.af.list('entrenadores/'+this.userKey+'/servicio').forEach(data=>{
@@ -319,7 +352,8 @@ export class CrearAnuncio {
          item.forEach(tarifa=>{
            console.log(tarifa);
          })
-         this.tarifasArray.push(item);
+         this.tarifasArray=item;
+         console.log(this.tarifasArray)
        }
        if(item.$key=="lugares"){
          console.log(item);

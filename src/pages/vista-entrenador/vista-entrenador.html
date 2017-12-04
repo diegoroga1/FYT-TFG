@@ -37,11 +37,9 @@
     <ion-list id="seccion-info" *ngSwitchCase="'info'">
 
       <div class="circle foto-perfil">
-        <div >
-          <img  *ngIf="fotoPerfil" src="{{fotoPerfil}}"/>
-          <img  *ngIf="!fotoPerfil" src="../../assets/imagenes/foto3.jpg"/>
+        <img  *ngIf="fotoPerfil" src="{{fotoPerfil}}"/>
+        <img  *ngIf="!fotoPerfil" src="../../assets/imagenes/foto3.jpg"/>
 
-        </div>
       </div>
 
       <div *ngIf="datosEntrenador" class="info-entrenador">
@@ -78,7 +76,7 @@
 
             <div id="seccion-especialidades" >
               <ion-list >
-                <ion-badge *ngFor="let esp of datosEntrenador.servicio.especialidad"><img src="../../assets/icon/abdominal.png"/>{{esp}}</ion-badge>
+                <ion-badge *ngFor="let esp of datosEntrenador.servicio.especialidad">{{esp}}</ion-badge>
               </ion-list>
             </div>
           </div>

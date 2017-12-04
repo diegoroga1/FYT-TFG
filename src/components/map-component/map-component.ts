@@ -1,5 +1,5 @@
 import { Component,ViewChild,ElementRef,Input,Inject} from '@angular/core';
-import { Geolocation } from '@ionic-native/geolocation';
+import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation';
 import {
   GoogleMaps,
   GoogleMap,
@@ -21,6 +21,8 @@ export class MapComponent {
   @ViewChild('map') mapElement: ElementRef;
   @Input('lugares') lugares:any;
 input:any;
+  options : GeolocationOptions;
+  currentPos : Geoposition;
   text: string;
   map: GoogleMap;
   myPosition: any = {};
@@ -32,46 +34,51 @@ input:any;
   autocomplete:any;
   coordenadas=[];
   constructor(public geolocation: Geolocation,
-                 private googleMaps: GoogleMaps) {
+                 public googleMaps: GoogleMaps) {
     console.log('Hello MapComponent Component');
-    console.log(this.mapElement)
     this.text = 'Hello World';
 
     this.getCurrentPosition();
   }
   ngOnInit(){
-    console.log(this.lugares);
-    this.lugares.forEach(item=>{
-      console.log(item);
-      this.coordenadas.push(item.coords);
+    if(this.lugares){
+      this.lugares.forEach(item=>{
+        this.coordenadas.push(item.coords);
 
-    })
-
-  }
-  ionViewLoaded(){
-  }
-  ionViewDidLoad(){
+      })
+    }
     this.getCurrentPosition();
-
   }
-  ionViewDidEnter(){
-    console.log("hola");
+
+
+  ngAfterContentInit(){
+    if(this.lugares){
+      this.lugares.forEach(item=>{
+        this.coordenadas.push(item.coords);
+
+      })
+    }
     this.getCurrentPosition();
-
   }
+
   getCurrentPosition(){
-    this.geolocation.getCurrentPosition()
-      .then(position => {
+    this.options = {
+      enableHighAccuracy : true
+    };
+
+    this.geolocation.getCurrentPosition(this.options)
+      .then((position:Geoposition) => {
+      this.currentPos=position;
         this.myPosition = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         }
-        console.log(this.myPosition)
         this.loadMap();
       })
       .catch(error=>{
         console.log(error);
       })
+
   }
 
   loadMap(){
@@ -84,7 +91,6 @@ input:any;
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     this.input=document.getElementById('input');
-    console.log(this.input);
 
     this.autocomplete = new google.maps.places.Autocomplete(this.input);
     this.autocomplete.bindTo('bounds', this.map);
@@ -93,7 +99,6 @@ input:any;
   }
 
   addMiUbicacion(){
-    console.log(this.geolocation.getCurrentPosition());
     this.markers = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
@@ -102,9 +107,7 @@ input:any;
     let content = "<h4>Information!</h4>";
   }
   setMarkers(){
-    console.log(this.coordenadas)
     this.coordenadas.forEach(coord=>{
-      console.log(coord);
       this.markers = new google.maps.Marker({
         map: this.map,
         animation: google.maps.Animation.DROP,

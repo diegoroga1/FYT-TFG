@@ -339,7 +339,8 @@ page-vista-entrenador {
     margin-right: 8%;
     overflow: hidden;
     img{
-      max-width: 150%;
+      max-width: none;
+      height: 100%;
     }
   }
   #map{
@@ -392,6 +393,9 @@ page-vista-entrenador {
     margin-right: 5px;
     font-size: 14pt;
     margin-top: 2%;
+  }
+  #progress-objetivo{
+    margin-bottom: 30%;
   }
   .siguiendo{
     background-color: $naranja !important;

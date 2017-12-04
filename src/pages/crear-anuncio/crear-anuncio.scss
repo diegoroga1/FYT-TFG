@@ -113,6 +113,8 @@ page-crear-anuncio {
   #añade-fotos{
     width: 100%;
     text-align: center;
+    display: inline-flex;
+    margin-left: 5%;
     .bloque-add{
       width: 100px;
       height: 100px;
@@ -122,7 +124,12 @@ page-crear-anuncio {
       text-align: center;
       margin:1%;
       margin-bottom: 4%;
+      overflow: hidden;
 
+    }
+    img{
+      max-width: none !important;
+      height: 100%;
     }
     .icon{
       font-size: 25pt;

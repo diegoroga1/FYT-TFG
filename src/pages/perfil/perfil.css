@@ -64,7 +64,9 @@ page-perfil #header-profile {
     margin-bottom: 3%;
     margin-right: 0.5%; }
     page-perfil #header-profile #seccion-foto-perfil #foto-perfil {
-      background-color: white; }
+      background-color: white;
+      max-width: none;
+      height: 100%; }
     page-perfil #header-profile #seccion-foto-perfil .icon-camera:before {
       font-size: 250%;
       margin-top: 20%; }
