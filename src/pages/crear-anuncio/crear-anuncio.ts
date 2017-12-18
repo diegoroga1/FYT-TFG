@@ -133,6 +133,7 @@ export class CrearAnuncio {
     console.log(this.navParams.get('tarifa'));
     console.log("Otra vez");
     console.log(this.lugares);
+
     this.getDateToday();
 
 

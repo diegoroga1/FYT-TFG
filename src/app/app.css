@@ -4,6 +4,12 @@
 .platform-ios .content {
   background-color: #def5b3; }
 
+.show {
+  display: block; }
+
+.hide {
+  display: none; }
+
 .tabbar .tab-button {
   color: black; }
   .tabbar .tab-button .icon {
@@ -22,5 +28,9 @@
   .tabs-md .tab-button[aria-selected=true] .icon {
     font-size: 32px !important;
     color: #FF3D00; }
+  .tabs-md .tab-button[aria-selected=true] body.keyboard-is-open ion-tabbar {
+    display: none; }
+  .tabs-md .tab-button[aria-selected=true] body.keyboard-is-open scroll-content {
+    margin-bottom: 0 !important; }
 
 /*# sourceMappingURL=app.css.map */

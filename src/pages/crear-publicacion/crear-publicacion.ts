@@ -22,8 +22,11 @@ declare var window:any;
 })
 export class CrearPublicacion {
   foto1;
+  foto1Preview;
   foto2;
+  foto2Preview;
   foto3;
+  foto3Preview;
   video1;
   video2;
   storageRef;
@@ -121,13 +124,16 @@ export class CrearPublicacion {
       targetHeight: 1000
     }).then((imageData)=>{
       if(id=="1"){
-        this.foto1='data:image/jpeg;base64,'+imageData;
+        this.foto1=imageData;
+        this.foto1Preview='data:image/jpeg;base64,'+imageData;
       }
       else if(id=="2"){
-        this.foto2='data:image/jpeg;base64,'+imageData;
+        this.foto2=imageData;
+        this.foto2Preview='data:image/jpeg;base64,'+imageData;
       }
       else if(id=="3"){
-        this.foto3='data:image/jpeg;base64,'+imageData;
+        this.foto3=imageData;
+        this.foto3Preview='data:image/jpeg;base64,'+imageData;
       }
 
     }),(err)=>{
@@ -143,13 +149,16 @@ export class CrearPublicacion {
       targetHeight: 1000
     }).then((imageData)=>{
       if(id=="1"){
-        this.foto1='data:image/jpeg;base64,'+imageData;
+        this.foto1=imageData;
+        this.foto1Preview='data:image/jpeg;base64,'+imageData;
       }
       else if(id=="2"){
-        this.foto2='data:image/jpeg;base64,'+imageData;
+        this.foto2=imageData;
+        this.foto2Preview='data:image/jpeg;base64,'+imageData;
       }
       else if(id=="3"){
-        this.foto3='data:image/jpeg;base64,'+imageData;
+        this.foto3=imageData;
+        this.foto3Preview='data:image/jpeg;base64,'+imageData;
       }
     }),(err)=>{
       console.log(err);
@@ -272,6 +281,24 @@ export class CrearPublicacion {
     }
     catch(e) {
       console.error(e);
+    }
+  }
+  getData() {
+    var esp = [];
+    if (this.storageRef.child('/' + this.userKey + '/foto-publi/foto1.jpg')) {
+      this.storageRef.child('/' + this.userKey + '/foto-publi/foto1.jpg').getDownloadURL().then(url => {
+        this.foto1Preview = url;
+      }).catch(err => console.log(err));
+    }
+    if (this.storageRef.child('/' + this.userKey + '/foto-publi/foto2.jpg')) {
+      this.storageRef.child('/' + this.userKey + '/foto-publi/foto2.jpg').getDownloadURL().then(url => {
+        this.foto2Preview = url;
+      }).catch(err => console.log(err));
+    }
+    if (this.storageRef.child('/' + this.userKey + '/foto-publi/foto3.jpg')) {
+      this.storageRef.child('/' + this.userKey + '/foto-publi/foto3.jpg').getDownloadURL().then(url => {
+        this.foto3Preview = url;
+      }).catch(err => console.log(err));
     }
   }
 

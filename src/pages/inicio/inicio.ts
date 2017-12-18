@@ -6,6 +6,7 @@ import {CogerDatos} from '../../providers/coger-datos';
 import {CardPubli} from '../../components/card-publi/card-publi'
 import {VistaPublicacion} from '../../pages/vista-publicacion/vista-publicacion'
 import * as _ from 'lodash';
+
 /**
  * Generated class for the Inicio page.
  *

@@ -14,7 +14,7 @@
 
 
 
-<ion-content id="content">
+<ion-content *ngIf="loading" id="content">
   <div *ngIf="datosPublicacion" id="seccion-media">
     <ion-slides id="slides" pager="true" >
       <ion-slide *ngIf="foto1">

@@ -4,6 +4,7 @@ import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
+  GoogleMapOptions,
   LatLng,
   CameraPosition,
   MarkerOptions,
@@ -12,15 +13,16 @@ import {
   GeocoderResult,
 } from '@ionic-native/google-maps';
 import { Toast } from '@ionic-native/toast';
+import {Platform} from "ionic-angular";
 declare var google;
 @Component({
   selector: 'map-component',
   templateUrl: 'map-component.html'
 })
 export class MapComponent {
-  @ViewChild('map') mapElement: ElementRef;
   @Input('lugares') lugares:any;
 input:any;
+mapElement:HTMLElement;
   options : GeolocationOptions;
   currentPos : Geoposition;
   text: string;
@@ -34,71 +36,112 @@ input:any;
   autocomplete:any;
   coordenadas=[];
   constructor(public geolocation: Geolocation,
-                 public googleMaps: GoogleMaps) {
+                 public googleMaps: GoogleMaps,
+              public platform:Platform) {
     console.log('Hello MapComponent Component');
     this.text = 'Hello World';
-
-    this.getCurrentPosition();
+    platform.ready().then(() => {
+      this.loadMap();
+    });
+   // this.getCurrentPosition();
   }
   ngOnInit(){
+
+
     if(this.lugares){
       this.lugares.forEach(item=>{
         this.coordenadas.push(item.coords);
 
       })
     }
-    this.getCurrentPosition();
+   // this.getCurrentPosition();
   }
-
+  ionViewCanLeave(){
+    console.log("Hola");
+  }
 
   ngAfterContentInit(){
+
     if(this.lugares){
       this.lugares.forEach(item=>{
         this.coordenadas.push(item.coords);
 
       })
     }
-    this.getCurrentPosition();
+
+    //this.getCurrentPosition();
+  }
+  getPosition(): void{
+    this.map.getMyLocation()
+      .then(response => {
+        console.log(JSON.stringify(response));
+        this.myPosition =response.latLng;
+        this.map.moveCamera({
+          target: response.latLng
+        });
+        this.map.addMarker({
+          title: 'My Position',
+          icon: 'blue',
+          animation: 'DROP',
+          position: response.latLng
+        });
+      })
+      .catch(error =>{
+        console.log(JSON.stringify("ERROR1 "+ error));
+      });
   }
 
-  getCurrentPosition(){
-    this.options = {
-      enableHighAccuracy : true
-    };
-
-    this.geolocation.getCurrentPosition(this.options)
-      .then((position:Geoposition) => {
-      this.currentPos=position;
-        this.myPosition = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
-        }
-        this.loadMap();
-      })
-      .catch(error=>{
-        console.log(error);
-      })
-
-  }
 
   loadMap(){
-    let latLng = new google.maps.LatLng(this.myPosition.latitude, this.myPosition.longitude);
-    let mapOptions = {
-      center: latLng,
-      zoom: 10,
-      mapTypeId: google.maps.MapTypeId.Satellite,
-      fullscreenControl: true,
-    }
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    this.input=document.getElementById('input');
 
-    this.autocomplete = new google.maps.places.Autocomplete(this.input);
-    this.autocomplete.bindTo('bounds', this.map);
-    this.addMiUbicacion()
-    this.setMarkers()
+    this.mapElement=document.getElementById('map');
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+        target: {
+          lat: 43.0741904, // default location
+          lng: -89.3809802 // default location
+        },
+        zoom: 18,
+        tilt: 30
+      }
+    };
+    this.map = GoogleMaps.create(this.mapElement, mapOptions);
+    this.map.one(GoogleMapsEvent.MAP_READY)
+      .then(() => {
+        // Now you can use all methods safely.
+        //this.getPosition();
+
+        console.log("MAP READY")
+        this.map.addMarker({
+          title: 'Ionic',
+          icon: 'blue',
+          animation: 'DROP',
+          position: {
+            lat: 43.0741904,
+            lng: -89.3809802
+          }
+
+        })
+          .then(marker => {
+            marker.on(GoogleMapsEvent.MARKER_CLICK)
+              .subscribe(() => {
+                alert('clicked');
+              });
+          });
+      })
+      .catch(error =>{
+        console.log("ERROR2 "+JSON.stringify(error) );
+      });
+    //this.input=document.getElementById('input');
+
+    //this.autocomplete = new google.maps.places.Autocomplete(this.input);
+    //this.autocomplete.bindTo('bounds', this.map);
+   // this.addMiUbicacion()
+    //this.setMarkers()
   }
 
   addMiUbicacion(){
+
     this.markers = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,

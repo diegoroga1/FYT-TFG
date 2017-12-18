@@ -1,10 +1,11 @@
+ion-app._gmaps_cdv_ .nav-decor {
+  background-color: transparent !important; }
+
 map-component html, map-component body {
   height: 100%;
   margin: 0;
   padding: 0; }
 map-component #map {
-  width: 100%;
-  height: 100%;
-  overflow: inherit; }
+  height: 100%; }
 
 /*# sourceMappingURL=map-component.css.map */

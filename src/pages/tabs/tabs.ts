@@ -4,6 +4,7 @@ import {Entrenadores} from '../entrenadores/entrenadores'
 import {Inicio} from '../inicio/inicio'
 import {Perfil} from '../perfil/perfil'
 import {Chat} from '../chat/chat'
+import {Keyboard} from "@ionic-native/keyboard";
 
 /**
  * Generated class for the Tabs page.
@@ -21,11 +22,13 @@ export class Tabs {
   tab2Root: any = Entrenadores;
   tab3Root: any = Perfil;
   tab4Root: any = Chat;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform:Platform) {
+
+  constructor(public navCtrl: NavController,  public keyboard:Keyboard,public navParams: NavParams, public platform:Platform) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Tabs');
   }
+
 
 }

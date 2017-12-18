@@ -22,16 +22,16 @@
     <ion-label>Añade fotos a tu publicación</ion-label>
     <div id="añade-fotos">
       <div (click)="addPhoto('1')" class="bloque-add">
-        <ion-icon *ngIf="!foto1" name="camera"></ion-icon>
-        <img *ngIf="foto1" [src]="'data:image/jpeg;base64,'+foto1">
+        <ion-icon *ngIf="!foto1&&!foto1Preview" name="camera"></ion-icon>
+        <img *ngIf="foto1Preview" [src]="foto1Preview">
       </div>
       <div (click)="addPhoto('2')" class="bloque-add">
-        <ion-icon *ngIf="!foto2" name="camera"></ion-icon>
-        <img *ngIf="foto2" [src]="'data:image/jpeg;base64,'+foto2">
+        <ion-icon *ngIf="!foto2&&!foto2Preview" name="camera"></ion-icon>
+        <img *ngIf="foto2Preview" [src]="foto2Preview">
       </div>
       <div (click)="addPhoto('3')" class="bloque-add">
-        <ion-icon *ngIf="!foto3" name="camera"></ion-icon>
-        <img *ngIf="foto3" [src]="'data:image/jpeg;base64,'+foto3">
+        <ion-icon *ngIf="!foto3&&!foto3Preview" name="camera"></ion-icon>
+        <img *ngIf="foto3Preview" [src]="foto3Preview">
       </div>
     </div>
     <ion-label>Añade videos a tu publicación</ion-label>
@@ -56,7 +56,7 @@
     </div>
 
     <ion-buttons>
-      <button class="button-publi" type="submit" ion-button [disabled]="!form.value.descripcion ||!this.foto1||!this.video1|| !form.value.titulo || !form.value.especialidad" >Crear</button>
+      <button class="button-publi" type="submit" ion-button [disabled]="!form.value.descripcion ||!this.foto1|| !form.value.titulo || !form.value.especialidad" >Crear</button>
     </ion-buttons>
   </form>
 

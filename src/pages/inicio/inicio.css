@@ -56,11 +56,13 @@ page-inicio .swiper-wrapper {
   transform: none !important; }
 page-inicio .card {
   margin: 10px !important; }
-page-inicio .swiper-pagination {
-  bottom: -15px !important; }
-  page-inicio .swiper-pagination .swiper-pagination-bullet {
-    background: #FF3D00;
-    width: 10px;
-    height: 10px; }
+page-inicio .swiper-pagination .swiper-pagination-bullet {
+  background: #FF3D00;
+  width: 10px;
+  height: 10px; }
+page-inicio .swiper-container-cube .swiper-cube-shadow {
+  background-color: rgba(0, 0, 0, 0.07); }
+page-inicio .swiper-slide {
+  margin-bottom: 3%; }
 
 /*# sourceMappingURL=inicio.css.map */

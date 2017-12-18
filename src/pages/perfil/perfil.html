@@ -6,14 +6,43 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Mi perfil FYT   <ion-icon *ngIf="userKey" start (click)="alertLogout()" style="float: left;font-size: 18pt;" name="options"></ion-icon>  <ion-icon *ngIf="userKey" end (click)="editProfile()" style="float: right;font-size: 18pt;" name="create"></ion-icon>
-    </ion-title>
+  <ion-toolbar>
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon *ngIf="userKey" start style="float: left;font-size: 18pt;" name="options"></ion-icon>
 
-  </ion-navbar>
+      </button>
+    </ion-buttons>
+      <ion-title>Mi perfil FYT
+        <ion-icon *ngIf="userKey" end (click)="editProfile()" style="float: right;font-size: 18pt;" name="create"></ion-icon>
+
+      </ion-title>
+
+
+  </ion-toolbar>
+
 </ion-header>
 
+
+
 <ion-content >
+  <ion-menu [content]="mycontent">
+    <ion-content>
+      <ion-list>
+    <ion-item>
+      <ion-label (click)="changePassword()">
+        Cambiar contraseña
+      </ion-label>
+    </ion-item>
+        <ion-item>
+      <ion-label (click)="logout()">
+        Cerrar sesión
+      </ion-label>
+    </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-nav #mycontent [root]="rootPage"></ion-nav>
   <div *ngIf="!user" class="center" id="seccion-no-login">
     <div>
 

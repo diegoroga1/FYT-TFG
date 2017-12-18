@@ -1,7 +1,7 @@
 import { Component ,Inject} from '@angular/core';
 import {DataTrainer} from '../../providers/data-trainer';
 import {CogerDatos} from '../../providers/coger-datos';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import { Http,Response } from '@angular/http'
 import { Tabs } from '../tabs/tabs';
 import {FirebaseListObservable,AngularFireDatabase} from "angularfire2/database";
@@ -33,28 +33,51 @@ export class Entrenadores {
   fotoPerfil:any;
   busquedaArray=[];
   listaFiltros=[];
+  load=false;
   constructor(public navCtrl: NavController,
               public http:Http,
               public cogerDatos:CogerDatos,
               public navParams: NavParams,
               @Inject(FirebaseApp) public firebaseApp: firebase.app.App,
-              public af:AngularFireDatabase
+              public af:AngularFireDatabase,
+              public loadingCtrl:LoadingController
   ) {
-    this.title_page="Entrenadores";
-    this.datosUsuario=this.cogerDatos.getDataUser();
-    this.datosEntrenador=this.cogerDatos.getDataTrainer();
-    console.log(this.datosEntrenador)
-    this.datosEntrenador.forEach(data=>{
-      console.log(data.$key);
-      this.firebaseApp.storage().ref().child( data.$key +'/foto-perfil/perfil.jpg').getDownloadURL()
-        .then(url => this.fotoPerfil = url)
-        .catch(error=>console.log(data.nombre+ " NO hay foto de perfil"));
-    })
-    localStorage.removeItem('filtro');
-    this.userKey=localStorage.getItem('user_uid');
+    let loader = this.loadingCtrl.create({});
+    loader.present()
+    setTimeout(() => {
+      loader.dismiss();
+      this.load=true;
+    }, 2000);
+
+      this.title_page="Entrenadores";
+      this.datosUsuario=this.cogerDatos.getDataUser();
+      this.datosEntrenador=this.cogerDatos.getDataTrainer();
+      console.log(this.datosEntrenador)
+      /*this.datosEntrenador.forEach(data=>{
+        console.log(data.$key);
+       this.firebaseApp.storage().ref().child( data.$key +'/foto-perfil/perfil.jpg').getDownloadURL()
+          .then(url => {
+
+            loader.dismiss()
+
+            this.fotoPerfil = url
+
+          })
+          .catch(error=>console.log(data.nombre+ " NO hay foto de perfil"));
+      })*/
+      localStorage.removeItem('filtro');
+      this.userKey=localStorage.getItem('user_uid');
+
+
+
   }
+
+
   ionViewDidEnter(){
-    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    if(!localStorage.getItem('user_uid')){
+      console.log()
+      this.userKey="";
+    }
 
     if(localStorage.getItem('filtro')){
       this.filtros=JSON.parse(localStorage.getItem('filtro'));
@@ -78,13 +101,13 @@ export class Entrenadores {
           if(filtro.precios.precio1){
             _.map(filtro,p=>{
               console.log(p);
-             min="Min:"+p.precio1+'€';
+              min="Min:"+p.precio1+'€';
               this.listaFiltros.push(min);
             })
           }
           if(filtro.precios.precio2){
             _.map(filtro,p=>{
-             max="Max:"+p.precio2+'€';
+              max="Max:"+p.precio2+'€';
               this.listaFiltros.push(max);
             })
           }
@@ -111,6 +134,7 @@ export class Entrenadores {
       this.ordenar()
     }
 
+
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad Entrenadores');
@@ -121,6 +145,7 @@ export class Entrenadores {
   }
   goFilterTrainer(){
     this.navCtrl.push(FiltrarEntrenadorPage)
+
   }
   filtrar(){
     var arrayAux=[];
@@ -192,7 +217,7 @@ export class Entrenadores {
                   }
                 }
               }
-            if (filtro.genero) {
+              if (filtro.genero) {
                 if(!_.includes(noFiltrar,entrenador)){
                   if(entrenador.sexo==filtro.genero){
                     if(!_.includes(this.filtroEntrenadores,entrenador)){
@@ -202,45 +227,45 @@ export class Entrenadores {
                     _.remove(this.filtroEntrenadores,entrenador);
                     noFiltrar.push(entrenador);
                   }
-               }
+                }
               }
-            if(filtro.precios){
-              if(!_.includes(noFiltrar,entrenador)){
-                _.find(entrenador.servicio.tarifas,(tarifa)=>{
-                  if(tarifa.precio>parseInt(filtro.precios.precio1)&&tarifa.precio<parseInt(filtro.precios.precio2)){
+              if(filtro.precios){
+                if(!_.includes(noFiltrar,entrenador)){
+                  _.find(entrenador.servicio.tarifas,(tarifa)=>{
+                    if(tarifa.precio>parseInt(filtro.precios.precio1)&&tarifa.precio<parseInt(filtro.precios.precio2)){
+                      if(!_.includes(this.filtroEntrenadores,entrenador)){
+                        this.filtroEntrenadores.push(entrenador)
+                      }
+                    }
+                  })
+                  if (!_.includes(this.filtroEntrenadores, entrenador)) {
+                    if(!_.includes(noFiltrar,entrenador)){
+                      noFiltrar.push(entrenador);
+                    }
+                  }
+                }
+
+              }
+              if(filtro.localidad){
+                console.log(filtro.localidad)
+                if(!_.includes(noFiltrar,entrenador)){
+                  if(_.includes(entrenador.localidad,filtro.localidad)){
                     if(!_.includes(this.filtroEntrenadores,entrenador)){
                       this.filtroEntrenadores.push(entrenador)
                     }
-                  }
-                })
-                if (!_.includes(this.filtroEntrenadores, entrenador)) {
-                  if(!_.includes(noFiltrar,entrenador)){
+                  }else{
+                    _.remove(this.filtroEntrenadores,entrenador);
                     noFiltrar.push(entrenador);
                   }
                 }
               }
-
-            }
-            if(filtro.localidad){
-              console.log(filtro.localidad)
-              if(!_.includes(noFiltrar,entrenador)){
-                if(_.includes(entrenador.localidad,filtro.localidad)){
-                  if(!_.includes(this.filtroEntrenadores,entrenador)){
-                    this.filtroEntrenadores.push(entrenador)
-                  }
-                }else{
-                  _.remove(this.filtroEntrenadores,entrenador);
-                  noFiltrar.push(entrenador);
-                }
-              }
-            }
               console.log(this.filtroEntrenadores)
               console.log(noFiltrar);
             })
-      }
+          }
         })
 
-  }
+      }
       else{
         this.filtrado=false;
       }
@@ -283,26 +308,26 @@ export class Entrenadores {
         });
 
       })
-        if(this.modoOrdenacion=='valorados'){
-          this.filtroEntrenadores=_.orderBy(this.filtroEntrenadores,['servicio.valoracionTotal'],['desc']);
-          console.log(this.filtroEntrenadores);
-        }else if(this.modoOrdenacion=='recientes'){
-          this.filtroEntrenadores=_.orderBy(this.filtroEntrenadores,['servicio.fechaCreacion'],['desc']);
-          console.log(this.filtroEntrenadores);
+      if(this.modoOrdenacion=='valorados'){
+        this.filtroEntrenadores=_.orderBy(this.filtroEntrenadores,['servicio.valoracionTotal'],['desc']);
+        console.log(this.filtroEntrenadores);
+      }else if(this.modoOrdenacion=='recientes'){
+        this.filtroEntrenadores=_.orderBy(this.filtroEntrenadores,['servicio.fechaCreacion'],['desc']);
+        console.log(this.filtroEntrenadores);
 
-        }else if(this.modoOrdenacion=='baratos'){
-          this.filtroEntrenadores.forEach(data=>{
-            if(data.servicio){
-              data.servicio.tarifas.forEach((tarifa,index)=>{
-                this.filtroEntrenadores=_.orderBy(this.filtroEntrenadores,['servicio.tarifas['+index+'].precio'],['asc']);
+      }else if(this.modoOrdenacion=='baratos'){
+        this.filtroEntrenadores.forEach(data=>{
+          if(data.servicio){
+            data.servicio.tarifas.forEach((tarifa,index)=>{
+              this.filtroEntrenadores=_.orderBy(this.filtroEntrenadores,['servicio.tarifas['+index+'].precio'],['asc']);
 
-              })
-            }
+            })
+          }
 
-          })
+        })
 
-        }
-          console.log(this.filtroEntrenadores);
+      }
+      console.log(this.filtroEntrenadores);
 
 
     }

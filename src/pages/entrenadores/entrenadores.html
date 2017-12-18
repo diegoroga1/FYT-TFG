@@ -46,7 +46,7 @@
     </li>
   </ul>-->
 
-    <ion-list id="lista-entrenadores">
+    <ion-list *ngIf="load" id="lista-entrenadores">
       <div *ngIf="filtrado &&!busqueda">
         <ion-col col-12 *ngFor="let entrenador of filtroEntrenadores">
 

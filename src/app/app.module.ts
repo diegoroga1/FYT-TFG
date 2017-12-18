@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler,ViewChild,enableProdMode} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { NgProgressModule } from 'ng2-progressbar';
+import  {Keyboard} from '@ionic-native/keyboard'
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -137,6 +138,7 @@ export const firebase={
     File,
     VideoPlayer,
     SocialSharing,
+    Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

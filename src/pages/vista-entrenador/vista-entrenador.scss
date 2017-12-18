@@ -7,11 +7,15 @@ page-vista-entrenador {
       background-color: transparent;
 
     }
+  .content{
+    background-color: rgba(157, 244, 0, 0.17) !important;
+  }
   .toolbar-title{
      color:white;
      letter-spacing: 5px;
     font-weight: bold;
     font-size: 16pt;
+
 
    }
   .circle{
@@ -277,7 +281,7 @@ page-vista-entrenador {
         max-width: 45%;
         margin-bottom:2%;
         .card-header{
-          padding:0;
+          padding:2px;
           background: $naranja;
 
           text-align: center;
@@ -339,9 +343,10 @@ page-vista-entrenador {
     margin-right: 8%;
     overflow: hidden;
     img{
-      max-width: none;
-      height: 100%;
+      //max-width: none;
+      //height: 100%;
     }
+
   }
   #map{
     width: 100%;

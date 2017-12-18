@@ -1,5 +1,7 @@
 import { Component,ViewChild,enableProdMode  } from '@angular/core';
-import { Platform,ToastController,AlertController,NavController} from 'ionic-angular';
+import {Platform, ToastController, AlertController, NavController} from 'ionic-angular';
+import  {Keyboard} from '@ionic-native/keyboard'
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Entrenadores } from '../pages/entrenadores/entrenadores';
@@ -16,8 +18,7 @@ export class MyApp {
   @ViewChild('content') navCtrl: NavController;
 
   rootPage:any = Tabs;
-
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform,statusBar: StatusBar, splashScreen: SplashScreen) {
 
     platform.ready().then(() => {
 

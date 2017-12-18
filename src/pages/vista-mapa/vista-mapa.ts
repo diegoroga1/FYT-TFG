@@ -1,14 +1,15 @@
 import { Component,ViewChild,ElementRef } from '@angular/core';
-import { IonicPage, NavController,ViewController,NavParams } from 'ionic-angular';
+import {IonicPage, NavController, ViewController, NavParams, Platform} from 'ionic-angular';
 import {MapComponent} from '../../components/map-component/map-component'
 import {CrearAnuncio} from '../crear-anuncio/crear-anuncio';
-import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation';
+import { Geolocation} from '@ionic-native/geolocation';
 import { AngularFireDatabase, FirebaseListObservable,FirebaseObjectObservable } from 'angularfire2/database';
 
 import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
+  GoogleMapOptions,
   LatLng,
   CameraPosition,
   MarkerOptions,
@@ -30,9 +31,7 @@ declare var google;
   templateUrl: 'vista-mapa.html',
 })
 export class VistaMapa {
-  @ViewChild('mapa') mapElement: ElementRef;
-  options : GeolocationOptions;
-  currentPos : Geoposition;
+  mapElement:HTMLElement;
   map: GoogleMap;
   myPosition:any;
   inputPlace:any;
@@ -44,8 +43,10 @@ export class VistaMapa {
   coordenadas=[];
   userKey;
   constructor(public navCtrl: NavController,public af:AngularFireDatabase,public viewCtrl:ViewController, public navParams: NavParams,public geolocation: Geolocation,
-  private googleMaps: GoogleMaps) {
-    this.getCurrentPosition()
+  private googleMaps: GoogleMaps,public platform:Platform) {
+    platform.ready().then(() => {
+      this.loadMap();
+    });
   }
 
   ionViewDidLoad() {
@@ -55,14 +56,10 @@ export class VistaMapa {
     this.auto.addListener('place_changed', (data=> {
       this.localidad=this.auto.getPlace()
     }))
-    this.getCurrentPosition();
+   // this.getCurrentPosition();
 
   }
   ionViewDidEnter(){
-    this.getCurrentPosition();
-  }
-
-  ionViewWillEnter(){
     this.userKey=this.navParams.data;
     this.af.object('entrenadores/'+this.userKey+'/servicio/lugares').forEach(lugares=>{
       if(lugares.$value!=null){
@@ -74,12 +71,11 @@ export class VistaMapa {
       }
 
     });
-    this.getCurrentPosition();
+  //  this.getCurrentPosition();
     if(localStorage.getItem('lugares')){
       this.lugares=JSON.parse(localStorage["lugares"])
-    }
+    }  }
 
-  }
   setMarkers(){
     this.coordenadas.forEach(coord=>{
       let latLng = new google.maps.LatLng(coord.lat, coord.lng);
@@ -92,24 +88,60 @@ export class VistaMapa {
       marker.setMap(this.map);
     })
 
-
   }
   getCurrentPosition(){
-    this.options = {
-      enableHighAccuracy : true
-    };
-    this.geolocation.getCurrentPosition(this.options)
-      .then((position:Geoposition) => {
+
+    this.geolocation.getCurrentPosition()
+      .then((position) => {
         this.myPosition = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         }
         this.loadMap();
-      }).catch(err=>console.log(JSON.stringify(err)));
+      }).catch(err=>console.log("ERROR"+JSON.stringify(err)));
+
 
   }
   loadMap(){
-    let latLng = new google.maps.LatLng(this.myPosition.latitude, this.myPosition.longitude);
+    this.mapElement=document.getElementById('mapa');
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+        target: {
+          lat: 43.0741904, // default location
+          lng: -89.3809802 // default location
+        },
+        zoom: 18,
+        tilt: 30
+      }
+    };
+    this.map = GoogleMaps.create(this.mapElement, mapOptions);
+    this.map.one(GoogleMapsEvent.MAP_READY)
+      .then(() => {
+        // Now you can use all methods safely.
+        //this.getPosition();
+
+        console.log("MAP READY")
+        this.map.addMarker({
+          title: 'Ionic',
+          icon: 'blue',
+          animation: 'DROP',
+          position: {
+            lat: 43.0741904,
+            lng: -89.3809802
+          }
+
+        })
+          .then(marker => {
+            marker.on(GoogleMapsEvent.MARKER_CLICK)
+              .subscribe(() => {
+                alert('clicked');
+              });
+          });
+      })
+      .catch(error =>{
+        console.log("ERROR2 "+JSON.stringify(error) );
+      });
+    /*let latLng = new google.maps.LatLng(this.myPosition.latitude, this.myPosition.longitude);
     let mapOptions = {
       center: latLng,
       zoom: 15,
@@ -118,8 +150,8 @@ export class VistaMapa {
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-    this.addMiUbicacion()
-    this.setMarkers();
+    this.addMiUbicacion();
+    this.setMarkers();*/
 
   }
   addMiUbicacion(){

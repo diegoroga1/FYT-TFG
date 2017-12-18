@@ -76,15 +76,21 @@ page-inicio {
 .swiper-wrapper{
   transform: none !important;
 }
-  .card{
+  .card {
     margin: 10px !important;
   }
   .swiper-pagination{
-    bottom: -15px !important;
     .swiper-pagination-bullet{
       background: $naranja;
       width: 10px;
       height: 10px;
     }
+
+  }
+  .swiper-container-cube .swiper-cube-shadow{
+    background-color: rgba(0,0,0,0.07);
+  }
+  .swiper-slide{
+    margin-bottom: 3%;
   }
 }

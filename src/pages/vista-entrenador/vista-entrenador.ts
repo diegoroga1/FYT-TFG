@@ -85,6 +85,7 @@ export class VistaEntrenador {
     console.log(this.datosEntrenador.publicaciones);
 
   }
+
   ionViewDidEnter(){
     this.getDataTrainer()
 
@@ -92,12 +93,11 @@ export class VistaEntrenador {
     if(!this.foto1&&!this.foto2&&!this.foto3){
       console.log(this.foto1);
       console.log("no hay fotos");
-      document.getElementById('content').style.top="10%";
     }
 
   }
   getDataTrainer() {
-
+    this.publicacionesEntrenador=[];
     console.log(this.navParams.data);
       if(this.navParams.data.entrenador){
         this.datosEntrenador=this.navParams.data.entrenador;
@@ -117,7 +117,8 @@ export class VistaEntrenador {
 
       this.firebaseApp.storage().ref().child( this.datosEntrenador.$key + '/foto-servicio/foto1.jpg').getDownloadURL()
         .then(url => this.foto1 = url)
-        .catch(error=>console.log("NO hay foto de perfil"));
+        .catch(error=>console.log("NO hay foto de perfil")
+        );
 
       this.firebaseApp.storage().ref().child(this.datosEntrenador.$key+ '/foto-servicio/foto2.jpg').getDownloadURL()
         .then(url => this.foto2 = url)

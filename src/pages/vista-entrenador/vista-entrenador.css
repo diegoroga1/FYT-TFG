@@ -1,5 +1,7 @@
 page-vista-entrenador .toolbar-background {
   background-color: transparent; }
+page-vista-entrenador .content {
+  background-color: rgba(157, 244, 0, 0.17) !important; }
 page-vista-entrenador .toolbar-title {
   color: white;
   letter-spacing: 5px;
@@ -185,7 +187,7 @@ page-vista-entrenador #seccion-precios .card {
   max-width: 45%;
   margin-bottom: 2%; }
   page-vista-entrenador #seccion-precios .card .card-header {
-    padding: 0;
+    padding: 2px;
     background: #FF3D00;
     text-align: center; }
     page-vista-entrenador #seccion-precios .card .card-header .card-title {
@@ -230,9 +232,6 @@ page-vista-entrenador .foto-perfil {
   right: 0;
   margin-right: 8%;
   overflow: hidden; }
-  page-vista-entrenador .foto-perfil img {
-    max-width: none;
-    height: 100%; }
 page-vista-entrenador #map {
   width: 100%;
   height: 250px; }

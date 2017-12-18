@@ -1,5 +1,5 @@
 import { Component,Inject } from '@angular/core';
-import {IonicPage, NavController, AlertController, NavParams, ActionSheetController} from 'ionic-angular';
+import {IonicPage, NavController,LoadingController, AlertController, NavParams, ActionSheetController} from 'ionic-angular';
 import {FirebaseApp} from 'angularfire2';
 import * as firebase from 'firebase';
 import {FirebaseListObservable,AngularFireDatabase} from "angularfire2/database";
@@ -34,6 +34,7 @@ export class VistaPublicacion {
   entrenador:any;
   likes=0;
   currentUser:any;
+  loading=false;
   constructor(public af:AngularFireDatabase,public navCtrl: NavController,@Inject(FirebaseApp) public firebaseApp: firebase.app.App,
               public navParams: NavParams,
               private socialSharing: SocialSharing,
@@ -41,7 +42,8 @@ export class VistaPublicacion {
               public actionSheetCtrl:ActionSheetController,
               private camera: Camera,
               public mediaCapture:MediaCapture,
-              private videoPlayer:VideoPlayer) {
+              private videoPlayer:VideoPlayer,
+              public loader:LoadingController) {
     this.storageRef = firebaseApp.storage().ref();
 
   }
@@ -51,9 +53,18 @@ export class VistaPublicacion {
     this.getPubli()
   }
   ionViewDidEnter(){
+    let loader = this.loader.create({});
+    loader.present()
+    setTimeout(() => {
+      if(this.loading){
+        loader.dismiss();
+        document.getElementById('content').style.top="10%";
+
+
+      }
+    });
     if(!this.foto1&&!this.foto2&&!this.foto3&&!this.video1&&!this.video2){
       console.log("no hay fotos");
-      document.getElementById('content').style.top="10%";
     }
     this.currentUser=localStorage.getItem('user_uid');
 
@@ -74,7 +85,11 @@ export class VistaPublicacion {
   }
   getFilesPubli(keyUser,keyPubli){
     this.storageRef.child('/'+keyUser+'/'+keyPubli+'/foto-publi/foto1.jpg').getDownloadURL()
-      .then(url => this.foto1 = url)
+      .then(url => {
+        this.foto1 = url
+        this.loading=true;
+        }
+      )
       .catch(error=>console.log(error));
    this.storageRef.child('/'+keyUser+'/'+keyPubli+'/foto-publi/foto2.jpg').getDownloadURL()
       .then(url => this.foto2 = url)

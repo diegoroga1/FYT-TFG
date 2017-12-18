@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {IonicPage, NavController, NavParams, Events, AlertController} from 'ionic-angular';
+import {IonicPage, NavController,ToastController, NavParams, Events, AlertController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -39,6 +39,7 @@ export class Registro {
               public events:Events,
               public alert:AlertController,
               @Inject(FirebaseApp) firebaseApp: firebase.app.App,
+              public toast:ToastController
 
 
 
@@ -92,6 +93,18 @@ export class Registro {
           sessionStorage.setItem("user_uid",this.userKey);
           this.events.publish('useractual:changed', this.userKey);
           this.events.publish('rol:changed', this.userKey);
+          let toast = this.toast.create({
+            message: 'Cuenta creada correctamente.',
+            duration: 3000,
+            position: 'bottom'
+          });
+          toast.present();
+          let toast2 = this.toast.create({
+            message: 'Sesión iniciada. Bienvenido a FYT.',
+            duration: 3000,
+            position: 'bottom'
+          });
+          toast2.present();
           this.navCtrl.setRoot(Perfil);
         }).catch(error=>{
           console.log(error);
@@ -177,6 +190,12 @@ export class Registro {
             this.userProfile=success;
             this.fb.object('usuarios/'+success.uid).forEach(data=>{
               if(data.email==null){
+                let toast = this.toast.create({
+                  message: 'Cuenta creada correctamente.',
+                  duration: 3000,
+                  position: 'bottom'
+                });
+                toast.present();
                 if(this.rolSelect=='entrenador'){
                   this.fb.object('entrenadores/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador','estado':'confirmado'})
                   this.fb.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador'})
@@ -189,6 +208,12 @@ export class Registro {
                 console.log("Si existe usuario");
               }
             })
+            let toast = this.toast.create({
+              message: 'Sesión iniciada. Bienvenido a FYT.',
+              duration: 3000,
+              position: 'bottom'
+            });
+            toast.present();
             this.navCtrl.setRoot(Perfil);
           }
 
@@ -220,6 +245,12 @@ export class Registro {
           this.userProfile=success;
           this.fb.object('usuarios/'+success.uid).forEach(data=>{
             if(data.email==null){
+              let toast = this.toast.create({
+                message: 'Cuenta creada correctamente.',
+                duration: 3000,
+                position: 'bottom'
+              });
+              toast.present();
               if(this.rolSelect=='entrenador'){
                 this.fb.object('entrenadores/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador','estado':'confirmado'})
                 this.fb.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador'})
@@ -232,6 +263,12 @@ export class Registro {
               console.log("Si existe usuario");
             }
           })
+          let toast = this.toast.create({
+            message: 'Sesión iniciada. Bienvenido a FYT.',
+            duration: 3000,
+            position: 'bottom'
+          });
+          toast.present();
           this.navCtrl.setRoot(Perfil);
         }).catch(err=>console.log("NOT GOOGLE SUCCESS"));
     })

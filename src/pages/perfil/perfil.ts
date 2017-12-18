@@ -1,5 +1,5 @@
 import { Component, Inject} from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController,ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController,ActionSheetController,ToastController } from 'ionic-angular';
 import { Tabs } from '../tabs/tabs';
 import {Http,Response} from '@angular/http';
 import { HttpModule }      from '@angular/http';
@@ -48,7 +48,7 @@ export class Perfil {
   usuarios:FirebaseListObservable<any>;
   perfilSegment: any;
   storageRef: any;
-  userKey:any;
+  userKey:any="";
   fechaNacimiento:any;
   inputPlace:any;
   autocomplete:any;
@@ -73,7 +73,8 @@ export class Perfil {
               public auth:AngularFireAuth,
               public http:Http,
               private camera: Camera,
-              public actionSheetCtrl:ActionSheetController
+              public actionSheetCtrl:ActionSheetController,
+              public toast:ToastController
 
   ) {
     this.perfilSegment = 'info';
@@ -85,7 +86,6 @@ export class Perfil {
       if(data!=null){
         this.userKey=data.uid;
 
-        this.crearPerfil();
       }
     });
   }
@@ -106,6 +106,10 @@ export class Perfil {
         }
       })
     });
+    if(this.userKey!=""){
+      this.crearPerfil();
+
+    }
   }
   userToTrainer(){
     alert("Funcion no disponible");
@@ -620,8 +624,122 @@ export class Perfil {
     prompt.present();
   }
   logout() {
-    this.auth.auth.signOut().then(success =>{})
+    this.auth.auth.signOut().then(success =>{
+      let toast = this.toast.create({
+        message: 'Sesión cerrada correctamente',
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+
+    })
     localStorage.clear();
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
+  changePassword(){
+    let alertCtrl = this.alertCtrl.create({
+      title: 'Cambia tu contraseña',
+      message: "¿Desea cambiar la contraseña?",
+      inputs:[
+
+        {
+          name:'currentPassword',
+          placeholder:"Introduce la contraseña actual",
+          type:'password'
+        },
+        {
+          name:"password1",
+          placeholder:"Introduce una contraseña nueva",
+          type:'password'
+        },
+        {
+          name:"password2",
+          placeholder:"Vuelve a introducir la contraseña",
+          type:'password'
+        }
+
+
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text:'Confirmar',
+          handler:data=>{
+            if(data.password1==data.password2){
+              let code="oobCode";
+              console.log(this.auth.authState);
+              console.log(this.auth.auth.currentUser.email);
+              const credentials = firebase.auth.EmailAuthProvider.credential(this.auth.auth.currentUser.email,data.currentPassword );
+              this.auth.auth.currentUser.reauthenticateWithCredential(credentials).then(success=>{
+                this.auth.auth.currentUser.updatePassword(data.password1).then(success=>{
+                  let toast = this.toast.create({
+                    message: 'Contraseña cambiada correctamente',
+                    duration: 3000,
+                    position: 'bottom'
+                  });
+                  toast.present();
+                  this.navCtrl.setRoot(this.navCtrl.getActive().component);
+
+
+                }).catch(error=>{
+                  let toast = this.toast.create({
+                    message: 'Error al cambiar la contraseña',
+                    duration: 3000,
+                    position: 'bottom'
+                  });
+                  toast.present();
+
+                });
+              }).catch(error=>{
+                let toast = this.toast.create({
+                  message: 'Contraseña actual incorrecta',
+                  duration: 3000,
+                  position: 'bottom'
+                });
+                toast.present();
+
+              });
+
+            }else{
+              let toast = this.toast.create({
+                message: 'Las contraseñas no coinciden',
+                duration: 3000,
+                position: 'bottom'
+              });
+              toast.present();            }
+          }
+        }
+      ]});
+    alertCtrl.present();
+  }
+  optionsUser(){
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Configuración de cuenta ',
+      buttons: [
+        {
+          text: 'Cambiar contraseña',
+          handler: () => {
+            //;
+            this.changePassword()
+          }
+        },
+        {
+          text: 'Cerrar sesión',
+          handler: () => {
+            this.alertLogout();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    });
+    actionSheet.present();
   }
 }

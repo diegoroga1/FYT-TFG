@@ -1,12 +1,11 @@
 import {Component, Inject} from '@angular/core';
-import { IonicPage,AlertController, NavController, NavParams,Events,LoadingController  } from 'ionic-angular';
+import { IonicPage,AlertController, NavController, ToastController,NavParams,Events,LoadingController  } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Perfil } from '../perfil/perfil';
-import { Facebook } from '@ionic-native/facebook';
+import { Facebook,FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
-
 import firebase from 'firebase';
 import {FirebaseApp} from "angularfire2";
 /**
@@ -41,6 +40,7 @@ export class Login {
               public loadingCtrl: LoadingController,
               public alert:AlertController,
               @Inject(FirebaseApp) firebaseApp: firebase.app.App,
+              public toast:ToastController
 
   ) {
     this.formLogin=this.createForm();
@@ -59,7 +59,6 @@ export class Login {
    this.storageRef.child('logotipo4.png').getDownloadURL()
       .then(url => this.logotipo = url)
       .catch(error=>console.log(error));
-
   }
   submitLogin(form){
     this.email=this.formLogin.value.email;
@@ -72,6 +71,12 @@ export class Login {
       this.events.publish('rol:changed', success.uid);
       this.userKey=success.uid;
       this.userEmail=success.email;
+      let toast = this.toast.create({
+        message: 'Sesión iniciada. Bienvenido a FYT.',
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
       this.navCtrl.setRoot(Perfil);
     }).catch(
       (error)=>{
@@ -127,16 +132,19 @@ export class Login {
     });
     prompt.present();
   }
+
   facebookLogin(rol){
     this.rolSelect=rol;
-    this.facebook.login(['email']).then((response)=>{
+    this.facebook.login(['email', 'public_profile']).then((response:FacebookLoginResponse)=>{
       console.log("Respuesta Login facebook "+JSON.stringify(response))
-      const facebookCredential=firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
+     const facebookCredential=firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
+
       firebase.auth().signInWithCredential(facebookCredential)
         .then((success)=>{
           console.log("Firebase success: "+ JSON.stringify(success));
           if(response.status=='connected'){
             this.userEmail=success.email;
+
             this.userKey=success.uid;
             localStorage.setItem("user_uid",this.userKey);
             sessionStorage.setItem("user_uid",this.userKey);
@@ -145,6 +153,12 @@ export class Login {
             this.userProfile=success;
             this.af.object('usuarios/'+success.uid).forEach(data=>{
               if(data.email==null){
+                let toast = this.toast.create({
+                  message: 'Cuenta creada correctamente',
+                  duration: 3000,
+                  position: 'bottom'
+                });
+                toast.present();
                 if(this.rolSelect=='entrenador'){
                   this.af.object('entrenadores/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador','estado':'confirmado'})
                   this.af.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador'})
@@ -157,6 +171,12 @@ export class Login {
                 console.log("Si existe usuario");
               }
             })
+            let toast = this.toast.create({
+              message: 'Sesión iniciada. Bienvenido a FYT.',
+              duration: 3000,
+              position: 'bottom'
+            });
+            toast.present();
             this.navCtrl.setRoot(Perfil);
         }
         })
@@ -164,7 +184,7 @@ export class Login {
           console.log("Firebase failure: " + JSON.stringify(error));
         })
     }).catch((error)=>{
-      console.log(error);
+      console.log("Error"+ error);
     })
   }
   googleLogin(rol){
@@ -188,6 +208,12 @@ export class Login {
          this.userProfile=success;
          this.af.object('usuarios/'+success.uid).forEach(data=>{
            if(data.email==null){
+             let toast = this.toast.create({
+               message: 'Cuenta creada correctamente.',
+               duration: 3000,
+               position: 'bottom'
+             });
+             toast.present();
              if(this.rolSelect=='entrenador'){
                this.af.object('entrenadores/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador','estado':'confirmado'})
                this.af.object('usuarios/'+success.uid).set({'email':success.email,'nombre':success.displayName,'rol':'entrenador'})
@@ -200,6 +226,12 @@ export class Login {
              console.log("Si existe usuario");
            }
          })
+         let toast = this.toast.create({
+           message: 'Sesión iniciada. Bienvenido a FYT.',
+           duration: 3000,
+           position: 'bottom'
+         });
+         toast.present();
          this.navCtrl.setRoot(Perfil);
        }).catch(err=>alert("NOT GOOGLE SUCCESS"));
     })
