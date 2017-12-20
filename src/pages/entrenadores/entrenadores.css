@@ -70,4 +70,14 @@ page-entrenadores #filtros {
     font-size: 12pt;
     display: inline-block; }
 
+.loading-wrapper {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  transform: scale(2) !important; }
+
+.spinner-bubbles circle {
+  fill: #FF3D00 !important;
+  background-color: #FF3D00; }
+
 /*# sourceMappingURL=entrenadores.css.map */

@@ -65,4 +65,52 @@ page-inicio .swiper-container-cube .swiper-cube-shadow {
 page-inicio .swiper-slide {
   margin-bottom: 3%; }
 
+#custom-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100000;
+  width: 100%;
+  background-color: #FF3D00; }
+
+.flb {
+  background-color: #F4F5D2;
+  height: 100%;
+  width: 100%;
+  animation: pulse 2s linear forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.Aligner-item {
+  max-width: 50%; }
+
+.Aligner-item--top {
+  align-self: flex-start; }
+
+.Aligner-item--bottom {
+  align-self: flex-end; }
+
+#custom-overlay img {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  height: auto;
+  animation: animation 7100ms linear infinite both;
+  animation-delay: 4000s; }
+
+@keyframes pulse {
+  0% {
+    opacity: 0; }
+  25% {
+    opacity: 0.25; }
+  50% {
+    opacity: 0.5; }
+  75% {
+    opacity: 0.75; }
+  100% {
+    opacity: 1; } }
+
 /*# sourceMappingURL=inicio.css.map */

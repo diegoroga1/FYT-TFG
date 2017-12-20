@@ -66,5 +66,15 @@ $verde-limon:#9df400;
   body.keyboard-is-open scroll-content {
     margin-bottom: 0 !important;
   }
+  .loading-wrapper{
+    background-color: transparent;
+    box-shadow: none;
 
+  }
+  .spinner{
+    width: 50px;
+    color:$naranja;
+    background-color: $naranja;
+
+  }
 }

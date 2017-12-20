@@ -19,6 +19,7 @@ import {VistaPublicacion} from '../pages/vista-publicacion/vista-publicacion'
 import {CrearPublicacion} from '../pages/crear-publicacion/crear-publicacion'
 import {CrearAnuncio} from '../pages/crear-anuncio/crear-anuncio'
 import {VistaMapa} from '../pages/vista-mapa/vista-mapa'
+import {ResetPasswordPage} from '../pages/reset-password/reset-password'
 import {Login} from '../pages/login/login';
 import {Registro} from '../pages/registro/registro';
 import {NuevaTarifa} from '../pages/nueva-tarifa/nueva-tarifa';
@@ -26,6 +27,7 @@ import {FiltrarEntrenadorPage} from '../pages/filtrar-entrenador/filtrar-entrena
 import {NuevaValoracionPage} from "../pages/nueva-valoracion/nueva-valoracion";
 
 import { VideoPlayer } from '@ionic-native/video-player';
+import { VideoEditor } from '@ionic-native/video-editor';
 
 import { Camera } from '@ionic-native/camera';
 import { MediaCapture } from '@ionic-native/media-capture';
@@ -84,7 +86,8 @@ export const firebase={
     FiltrarEntrenadorPage,
     OrdenarPipe,
     NuevaValoracionPage,
-    DetallesMapaPage
+    DetallesMapaPage,
+    ResetPasswordPage
   ],
   imports: [
     BrowserModule,
@@ -119,7 +122,8 @@ export const firebase={
     NuevaTarifa,
     FiltrarEntrenadorPage,
     NuevaValoracionPage,
-    DetallesMapaPage
+    DetallesMapaPage,
+    ResetPasswordPage
   ],
   providers: [
     StatusBar,
@@ -139,6 +143,7 @@ export const firebase={
     VideoPlayer,
     SocialSharing,
     Keyboard,
+    VideoEditor,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

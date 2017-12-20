@@ -129,7 +129,6 @@ export class VistaEntrenador {
         .catch(error=>console.log("NO hay foto de perfil"));
 
 
-
     if(this.datosEntrenador.especialidades){
       this.datosEntrenador.especialidades.forEach(data=>{
         this.especialidadesEntrenador.push(data);

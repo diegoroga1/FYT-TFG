@@ -7,6 +7,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import {FirebaseApp} from 'angularfire2';
 import * as firebase from 'firebase';
 import { VideoPlayer,VideoOptions } from '@ionic-native/video-player';
+import { VideoEditor } from '@ionic-native/video-editor';
 
 declare var window:any;
 /**
@@ -28,7 +29,9 @@ export class CrearPublicacion {
   foto3;
   foto3Preview;
   video1;
+  video1Preview;
   video2;
+  video2Preview;
   storageRef;
   userKey;
   publicacionObject;
@@ -54,7 +57,8 @@ export class CrearPublicacion {
               public navParams: NavParams,
               public camera:Camera,
               public mediaCapture:MediaCapture,
-              private videoPlayer:VideoPlayer) {
+              private videoPlayer:VideoPlayer,
+              private videoEditor: VideoEditor) {
 
     this.storageRef = firebaseApp.storage().ref();
     this.userKey=localStorage.getItem('user_uid');
@@ -127,6 +131,7 @@ export class CrearPublicacion {
         this.foto1=imageData;
         this.foto1Preview='data:image/jpeg;base64,'+imageData;
       }
+
       else if(id=="2"){
         this.foto2=imageData;
         this.foto2Preview='data:image/jpeg;base64,'+imageData;
@@ -188,16 +193,22 @@ export class CrearPublicacion {
         });
       }
       if(this.foto3){
+
         this.storageRef.child(this.userKey+'/'+success.key+'/foto-publi/foto3.jpg').putString(this.foto3,'base64').then(snapshot=>{
         }).catch(error=>{
         });
       }
       if(this.video1){
-        this.storageRef.child(this.userKey+'/'+success.key+ '/video-publi/video1.mp4').put(this.video1);
+        this.storageRef.child(this.userKey+'/'+success.key+ '/video-publi/video1.mp4').put(this.video1)
+          .then(success=>{console.log("Video subido")})
+          .catch(error=>console.log("Error1"+JSON.stringify(error)));
 
       }
       if(this.video2){
-        this.storageRef.child(this.userKey+'/'+success.key+'/video-publi/video2.mp4').put(this.video2);
+
+        this.storageRef.child(this.userKey+'/'+success.key+'/video-publi/video2.mp4').put(this.video2)
+          .then(success=>{console.log("Video subido")})
+      .catch(error=>console.log("Error2"+JSON.stringify(error)));
 
       }
       this.af.object('entrenadores/'+this.userKey+'/servicio/publicaciones/'+success.key).set(success.key);
@@ -240,14 +251,15 @@ export class CrearPublicacion {
     this.mediaCapture.captureVideo(options).then((data:MediaFile[])=>{
       for(var i=0;i<data.length;i++){
         let temp=data[i];
-        console.log(JSON.stringify(data));
-        console.log(JSON.stringify(data[i]));
+        console.log('Data1'+JSON.stringify(data));
+        console.log('Data2'+JSON.stringify(data[i]));
         this.storeVideo.push({"src":temp.fullPath})
       }
     })
   }
 
   selectvideo(id) {
+
     this.camera.getPicture(this.optionsCamera).then((data) => {
       window.resolveLocalFileSystemURL("file://"+data,FE=>{
         FE.file(file=>{
@@ -256,33 +268,29 @@ export class CrearPublicacion {
             let AF=res.target.result;
             console.log(JSON.stringify(AF));
             let blob=new Blob([new Uint8Array(AF)],{type:'video/mp4'})
-            console.log(JSON.stringify(blob));
-            console.log(JSON.stringify(data));
-            this.upload(data,id);
+            this.videoUrl=blob;
+            this.upload(this.videoUrl,id);
           });
           FR.readAsArrayBuffer(file);
         })
       });
     })
-  }
-  upload(blob,id) {
-    console.log(JSON.stringify(blob));
-    if(id==1){
-      this.video1=blob;
-    }else if(id==2){
-      this.video2=blob;
-    }
 
   }
-  async playVideo(url){
-    try{
-      this.videoUrl="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4";
-      this.videoPlayer.play(this.videoUrl,this.videoOption)
-    }
-    catch(e) {
-      console.error(e);
+
+  upload(video,id) {
+    console.log('Blob '+JSON.stringify(video));
+   // this.storageRef.child('videos/video.mp4').put(blob);
+    if(id==1){
+      this.video1=video;
+      this.video1Preview=true;
+    }else if(id==2){
+      this.video2=video;
+      this.video2Preview=true;
+
     }
   }
+
   getData() {
     var esp = [];
     if (this.storageRef.child('/' + this.userKey + '/foto-publi/foto1.jpg')) {

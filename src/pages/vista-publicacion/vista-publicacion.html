@@ -27,11 +27,14 @@
         <img [src]=foto3><ion-icon (click)="editarFoto('foto3')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon>
       </ion-slide>
       <ion-slide *ngIf="video1">
-        <video [src]=foto1 controls ></video><ion-icon (click)="editarVideo('video1')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon>
+        <img (click)="playVideo(1)" [src]=video1Preview><ion-icon (click)="editarVideo('video1')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon>
+
       </ion-slide>
       <ion-slide *ngIf="video2">
         <video [src]=video2 controls ></video><ion-icon (click)="editarVideo('video2')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon>
       </ion-slide>
+
+
     </ion-slides>
   </div>
   <div id="contenido-publicacion">

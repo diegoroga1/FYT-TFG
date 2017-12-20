@@ -39,13 +39,13 @@
     <div id="añade-video">
 
       <div (click)="addVideo(1)" class="bloque-add">
-        <ion-icon *ngIf="!video1" name="videocam"></ion-icon>
-        <img *ngIf="video1" [src]="video1">
+        <ion-icon *ngIf="!video1Preview" name="videocam"></ion-icon>
+        <ion-icon *ngIf="video1Preview" name="checkmark"></ion-icon>
 
       </div>
       <div (click)="addVideo(2)" class="bloque-add">
-        <ion-icon *ngIf="!video2" name="videocam"></ion-icon>
-        <img *ngIf="video2" [src]="video2">
+        <ion-icon *ngIf="!video2Preview" name="videocam"></ion-icon>
+        <ion-icon *ngIf="video2Preview" name="checkmark"></ion-icon>
       </div>
       <ion-label>¿Cuál es la especialidad principal?</ion-label>
 

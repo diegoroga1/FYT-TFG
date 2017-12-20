@@ -1,8 +1,6 @@
 import { Component, Inject} from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController,ActionSheetController,ToastController } from 'ionic-angular';
-import { Tabs } from '../tabs/tabs';
-import {Http,Response} from '@angular/http';
-import { HttpModule }      from '@angular/http';
+import {Http} from '@angular/http';
 import 'rxjs/Rx';
 import { Camera } from '@ionic-native/camera';
 
@@ -11,23 +9,12 @@ import {CrearAnuncio} from '../crear-anuncio/crear-anuncio'
 import {Login} from '../login/login'
 import {Registro} from '../registro/registro'
 import {CogerDatos} from '../../providers/coger-datos';
-import { AngularFireDatabase, FirebaseListObservable,FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {FirebaseApp} from 'angularfire2';
 import * as firebase from 'firebase';
-import * as _ from 'lodash';
 
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  LatLng,
-  CameraPosition,
-  MarkerOptions,
-  Geocoder,
-  GeocoderRequest,
-  GeocoderResult,
-} from '@ionic-native/google-maps';
+
 /**
  * Generated class for the Perfil page.
  *
@@ -77,6 +64,9 @@ export class Perfil {
               public toast:ToastController
 
   ) {
+
+
+
     this.perfilSegment = 'info';
     this.publiFb=this.af.list('publicaciones/').map((res)=>res.reverse() as FirebaseListObservable<any[]>);
     this.storageRef = firebaseApp.storage().ref();
@@ -670,8 +660,10 @@ export class Perfil {
         {
           text:'Confirmar',
           handler:data=>{
+
+
             if(data.password1==data.password2){
-              let code="oobCode";
+              //let code="oobCode";
               console.log(this.auth.authState);
               console.log(this.auth.auth.currentUser.email);
               const credentials = firebase.auth.EmailAuthProvider.credential(this.auth.auth.currentUser.email,data.currentPassword );

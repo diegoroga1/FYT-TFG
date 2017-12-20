@@ -8,6 +8,7 @@ import {VistaEntrenador} from "../vista-entrenador/vista-entrenador";
 import {Camera} from "@ionic-native/camera";
 import {MediaCapture,MediaFile} from "@ionic-native/media-capture";
 import {VideoPlayer} from "@ionic-native/video-player";
+import { VideoEditor } from '@ionic-native/video-editor';
 
 /**
  * Generated class for the VistaPublicacion page.
@@ -30,7 +31,9 @@ export class VistaPublicacion {
   foto2:any;
   foto3:any;
   video1:any;
+  video1Preview:any;
   video2:any;
+  video2Preview:any;
   entrenador:any;
   likes=0;
   currentUser:any;
@@ -43,7 +46,8 @@ export class VistaPublicacion {
               private camera: Camera,
               public mediaCapture:MediaCapture,
               private videoPlayer:VideoPlayer,
-              public loader:LoadingController) {
+              public loader:LoadingController,
+              private videoEditor: VideoEditor) {
     this.storageRef = firebaseApp.storage().ref();
 
   }
@@ -51,18 +55,20 @@ export class VistaPublicacion {
   ionViewDidLoad() {
     console.log('ionViewDidLoad VistaPublicacion');
     this.getPubli()
+    this.loading=true;
   }
   ionViewDidEnter(){
-    let loader = this.loader.create({});
+    /*let loader = this.loader.create({
+      spinner:'bubbles',
+      showBackdrop:false,
+      cssClass:'loading'
+
+    });
+
     loader.present()
     setTimeout(() => {
-      if(this.loading){
-        loader.dismiss();
-        document.getElementById('content').style.top="10%";
-
-
-      }
-    });
+      loader.dismiss();
+    }, 2000);*/
     if(!this.foto1&&!this.foto2&&!this.foto3&&!this.video1&&!this.video2){
       console.log("no hay fotos");
     }
@@ -81,14 +87,32 @@ export class VistaPublicacion {
     this.af.object('/publicaciones/'+this.datosPublicacion.key).forEach(data=>{
       this.likes=data.likes;
     })
+  //  this.getVideo();
+
 
   }
+  getVideo(){
+    let videoOption={
+      volume:0.7
+    }
+    if( this.storageRef.child('videos/video.mp4')){
+
+      this.video1=this.storageRef.child('videos/video.mp4').getDownloadURL().then(url=>{
+        this.videoPlayer.play(url,videoOption)
+
+      });
+
+      console.log(this.video1);
+    }
+  }
   getFilesPubli(keyUser,keyPubli){
+
     this.storageRef.child('/'+keyUser+'/'+keyPubli+'/foto-publi/foto1.jpg').getDownloadURL()
       .then(url => {
         this.foto1 = url
         this.loading=true;
         }
+
       )
       .catch(error=>console.log(error));
    this.storageRef.child('/'+keyUser+'/'+keyPubli+'/foto-publi/foto2.jpg').getDownloadURL()
@@ -97,11 +121,20 @@ export class VistaPublicacion {
    this.storageRef.child('/'+keyUser+'/'+keyPubli+'/foto-publi/foto3.jpg').getDownloadURL()
       .then(url => this.foto3 = url)
       .catch(error=>console.log(error));
-   this.storageRef.child('/'+keyUser+'/'+keyPubli+'/video-publi/video1.jpg').getDownloadURL()
-      .then(url => this.video1 = url)
+   this.storageRef.child('/'+keyUser+'/'+keyPubli+'/video-publi/video1.mp4').getDownloadURL()
+      .then(url =>{
+        this.video1 = url
+        this.videoEditor.createThumbnail(url).then(image=>{
+          this.video1Preview=image;
+        });
+        console.log(this.video1);
+      })
       .catch(error=>console.log(error));
-   this.storageRef.child('/'+keyUser+'/'+keyPubli+'/video-publi/video2.jpg').getDownloadURL()
-      .then(url => this.video2 = url)
+   this.storageRef.child('/'+keyUser+'/'+keyPubli+'/video-publi/video2.mp4').getDownloadURL()
+      .then(url => {
+        this.video2 = url
+        console.log(this.video2);
+      })
       .catch(error=>console.log(error));
 
   }
@@ -342,5 +375,11 @@ export class VistaPublicacion {
       });
     })
   }
+  playVideo(id){
+    if(id==1){
+      this.videoPlayer.play(this.video1);
+    }
+  }
+
 
 }

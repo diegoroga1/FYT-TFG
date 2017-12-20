@@ -8,6 +8,7 @@ import { Facebook,FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import firebase from 'firebase';
 import {FirebaseApp} from "angularfire2";
+import {ResetPasswordPage} from "../reset-password/reset-password";
 /**
  * Generated class for the Login page.
  *
@@ -76,6 +77,8 @@ export class Login {
         duration: 3000,
         position: 'bottom'
       });
+
+
       toast.present();
       this.navCtrl.setRoot(Perfil);
     }).catch(
@@ -241,6 +244,57 @@ export class Login {
       email:['',[Validators.required]],
       password:['',[Validators.required]]
     });
+  }
+  resetPassword(email){
+    this.afAuth.auth.sendPasswordResetEmail(email).then(success=>{
+      let toast=this.toast.create({
+        message:"Se ha enviado una nueva contraseña a "+email,
+        duration: 3000,
+        position: 'bottom'
+
+      })
+      toast.present()
+    }).catch(error=>{
+      if(error.message=="There is no user record corresponding to this identifier. The user may have been deleted."){
+        let toast=this.toast.create({
+          message:"El correo "+email+" no ha sido registrado en el sistema",
+          duration: 3000,
+          position: 'bottom'
+
+        })
+        toast.present()
+      }
+      console.log(error);
+    });
+  }
+  alertResetPassword(){
+    let prompt = this.alert.create({
+      title: 'Resetear contraseña',
+      message: "Introduce tu correo a donde se enviará una contraseña nueva",
+      inputs: [
+        {
+          name: 'email',
+          label:'Correo electrónico',
+        },
+      ],
+      cssClass: 'alertStyle',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: data => {
+
+            this.resetPassword(data.email);
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
 

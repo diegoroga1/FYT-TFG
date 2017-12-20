@@ -26,7 +26,12 @@ export class Inicio {
   entrenador:any;
   busquedaArray=[];
   busqueda;
+  splash = true;
+  tabBarElement: any;
+
   constructor(public cogerDatos:CogerDatos,public navCtrl: NavController, public navParams: NavParams,public af:AngularFireDatabase) {
+    this.tabBarElement = document.querySelector('.tabbar');
+
     this.af.list('/especialidades').subscribe(data=>{
       console.log(data);
       this.especialidades=data;
@@ -51,6 +56,11 @@ export class Inicio {
   });
   }
   ionViewDidLoad() {
+    this.tabBarElement.style.display = 'none';
+    setTimeout(() => {
+      this.splash = false;
+      this.tabBarElement.style.display = 'flex';
+    }, 4000);
     console.log('ionViewDidLoad Inicio');
     console.log(this.publicaciones);
   }

@@ -9,7 +9,6 @@ import { HomePage } from '../pages/home/home';
 import { Tabs } from '../pages/tabs/tabs';
 import { Chat } from '../pages/chat/chat';
 import { Perfil } from '../pages/perfil/perfil';
-import { Registro } from '../pages/registro/registro';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +18,6 @@ export class MyApp {
 
   rootPage:any = Tabs;
   constructor(platform: Platform,statusBar: StatusBar, splashScreen: SplashScreen) {
-
     platform.ready().then(() => {
 
       // Okay, so the platform is ready and our plugins are available.

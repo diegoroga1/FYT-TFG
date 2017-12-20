@@ -42,7 +42,13 @@ export class Entrenadores {
               public af:AngularFireDatabase,
               public loadingCtrl:LoadingController
   ) {
-    let loader = this.loadingCtrl.create({});
+    let loader = this.loadingCtrl.create({
+      spinner:'bubbles',
+      showBackdrop:false,
+      cssClass:'loading'
+
+    });
+
     loader.present()
     setTimeout(() => {
       loader.dismiss();

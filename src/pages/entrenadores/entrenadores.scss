@@ -16,6 +16,7 @@ page-entrenadores {
   .toolbar-background{
     background-color: $naranja;
   }
+
   .searchbar{
     padding: 0;
     z-index: 999999;
@@ -108,5 +109,17 @@ page-entrenadores {
 
     }
   }
+
+}
+.loading-wrapper{
+  background-color: transparent !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  transform: scale(2) !important;
+
+}
+.spinner-bubbles circle{
+  fill:$naranja !important;
+  background-color: $naranja;
 
 }

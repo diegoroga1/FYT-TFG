@@ -4,6 +4,15 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+  <div class="flb">
+    <div class="Aligner-item Aligner-item--top"></div>
+    <img class="logo-splash" src="assets/imagenes/logotipo.jpg">
+
+    <div class="Aligner-item Aligner-item--bottom"></div>
+  </div>
+</div>
+
 <ion-header>
 
   <ion-navbar>
@@ -25,9 +34,10 @@
           </ion-slide>
         </ion-slides >
         </div>
-
-
       </div>
+
+
+
   </ion-grid>
   <ion-grid *ngIf="busqueda">
     <div id="lista-publicaciones-busqueda" *ngFor="let publicacion of busquedaArray">

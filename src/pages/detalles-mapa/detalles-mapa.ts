@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild,ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation';
 import {
@@ -29,7 +29,7 @@ declare var google;
 })
 export class DetallesMapaPage {
   datosLugares:any;
-  mapElement:HTMLElement;
+  @ViewChild('map2') mapElement:ElementRef;
   map: GoogleMap;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public geolocation: Geolocation,
@@ -37,13 +37,12 @@ export class DetallesMapaPage {
   public platform:Platform) {
     this.datosLugares=this.navParams.data;
     console.log(this.datosLugares);
-    platform.ready().then(() => {
-      this.loadMap();
-    });
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetallesMapaPage');
+    this.loadMap();
 
     console.log(GoogleMap)
   }
@@ -52,8 +51,8 @@ export class DetallesMapaPage {
 
   }
   loadMap() {
-    this.mapElement = document.getElementById('map2');
-    let mapOptions: GoogleMapOptions = {
+    let element=this.mapElement.nativeElement;
+    /*let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
           lat: 43.0741904, // default location
@@ -63,8 +62,8 @@ export class DetallesMapaPage {
         tilt: 30
       }
     };
-
-    this.map = GoogleMaps.create(this.mapElement, mapOptions);
+*/
+    this.map = GoogleMaps.create(element);
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
         // Now you can use all methods safely.

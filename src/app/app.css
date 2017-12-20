@@ -32,5 +32,12 @@
     display: none; }
   .tabs-md .tab-button[aria-selected=true] body.keyboard-is-open scroll-content {
     margin-bottom: 0 !important; }
+  .tabs-md .tab-button[aria-selected=true] .loading-wrapper {
+    background-color: transparent;
+    box-shadow: none; }
+  .tabs-md .tab-button[aria-selected=true] .spinner {
+    width: 50px;
+    color: #FF3D00;
+    background-color: #FF3D00; }
 
 /*# sourceMappingURL=app.css.map */

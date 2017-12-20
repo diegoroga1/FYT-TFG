@@ -23,7 +23,7 @@
     <form [formGroup]="formLogin"(ngSubmit)="submitLogin(form)">
       <ion-input type="email" name="email"  formControlName="email" required placeholder="Introduce tu correo"></ion-input>
       <ion-input style="margin-bottom: 6%;" type="password" name="password" formControlName="password" required placeholder="Contraseña"></ion-input>
-      <span style="margin-top: 7%;font-size: 13pt;color:white;"> ¿Has olvidado tu contraseña?</span>
+      <span (click)="alertResetPassword()" style="margin-top: 7%;font-size: 13pt;color:white;"> ¿Has olvidado tu contraseña?</span>
       <ion-buttons id="boton-login">
         <button [disabled]="!formLogin.valid" ion-button type="submit">Iniciar</button>
       </ion-buttons>

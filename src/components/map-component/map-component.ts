@@ -20,9 +20,9 @@ declare var google;
   templateUrl: 'map-component.html'
 })
 export class MapComponent {
+  @ViewChild('map') mapElement:ElementRef;
   @Input('lugares') lugares:any;
 input:any;
-mapElement:HTMLElement;
   options : GeolocationOptions;
   currentPos : Geoposition;
   text: string;
@@ -40,9 +40,7 @@ mapElement:HTMLElement;
               public platform:Platform) {
     console.log('Hello MapComponent Component');
     this.text = 'Hello World';
-    platform.ready().then(() => {
-      this.loadMap();
-    });
+
    // this.getCurrentPosition();
   }
   ngOnInit(){
@@ -59,7 +57,9 @@ mapElement:HTMLElement;
   ionViewCanLeave(){
     console.log("Hola");
   }
-
+  ngAfterViewInit(){
+    this.loadMap()
+  }
   ngAfterContentInit(){
 
     if(this.lugares){
@@ -75,16 +75,20 @@ mapElement:HTMLElement;
     this.map.getMyLocation()
       .then(response => {
         console.log(JSON.stringify(response));
-        this.myPosition =response.latLng;
         this.map.moveCamera({
           target: response.latLng
         });
+
         this.map.addMarker({
           title: 'My Position',
           icon: 'blue',
           animation: 'DROP',
           position: response.latLng
         });
+        this.myPosition={
+          lat:response.latLng.lat,
+          long:response.latLng.lng
+        }
       })
       .catch(error =>{
         console.log(JSON.stringify("ERROR1 "+ error));
@@ -93,32 +97,22 @@ mapElement:HTMLElement;
 
 
   loadMap(){
+  let element=this.mapElement.nativeElement;
 
-    this.mapElement=document.getElementById('map');
-    let mapOptions: GoogleMapOptions = {
-      camera: {
-        target: {
-          lat: 43.0741904, // default location
-          lng: -89.3809802 // default location
-        },
-        zoom: 18,
-        tilt: 30
-      }
-    };
-    this.map = GoogleMaps.create(this.mapElement, mapOptions);
+    this.map = GoogleMaps.create(element);
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
         // Now you can use all methods safely.
-        //this.getPosition();
-
+       // this.getPosition();
         console.log("MAP READY")
         this.map.addMarker({
           title: 'Ionic',
           icon: 'blue',
           animation: 'DROP',
+          center:this.myPosition,
           position: {
-            lat: 43.0741904,
-            lng: -89.3809802
+            lat: -122.0840,
+            lng: 37.4220
           }
 
         })
@@ -137,7 +131,7 @@ mapElement:HTMLElement;
     //this.autocomplete = new google.maps.places.Autocomplete(this.input);
     //this.autocomplete.bindTo('bounds', this.map);
    // this.addMiUbicacion()
-    //this.setMarkers()
+    //this.setMarkers()*/
   }
 
   addMiUbicacion(){
