@@ -17,8 +17,9 @@ export class MyApp {
   @ViewChild('content') navCtrl: NavController;
 
   rootPage:any = Tabs;
-  constructor(platform: Platform,statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform,statusBar: StatusBar, public splashScreen: SplashScreen) {
     platform.ready().then(() => {
+      this.hideSplashScreen();
 
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -26,5 +27,13 @@ export class MyApp {
       splashScreen.hide();
     });
   }
+  hideSplashScreen(){
+    if (this.splashScreen) {
+      setTimeout(() => {
+        this.splashScreen.hide();
+      }, 100);
+    }
+  }
+
 }
 

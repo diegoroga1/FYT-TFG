@@ -27,7 +27,6 @@ import {FiltrarEntrenadorPage} from '../pages/filtrar-entrenador/filtrar-entrena
 import {NuevaValoracionPage} from "../pages/nueva-valoracion/nueva-valoracion";
 
 import { VideoPlayer } from '@ionic-native/video-player';
-import { VideoEditor } from '@ionic-native/video-editor';
 
 import { Camera } from '@ionic-native/camera';
 import { MediaCapture } from '@ionic-native/media-capture';
@@ -143,7 +142,6 @@ export const firebase={
     VideoPlayer,
     SocialSharing,
     Keyboard,
-    VideoEditor,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

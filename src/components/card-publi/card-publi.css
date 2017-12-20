@@ -1,21 +1,21 @@
 /*
 Error: Undefined variable: "$naranja".
-        on line 25 of card-publi.scss
+        on line 26 of card-publi.scss
 
-20:   }
-21:   .titulo-publi{
-22:     text-align: left;
-23:     text-indent: 3%;
-24:     width: 100%;
-25:     background-color: $naranja;
-26:     font-size: 14pt !important;
-27:     padding: 3px;
-28:     color:white;
-29:   }
-30: 
+21:   }
+22:   .titulo-publi{
+23:     text-align: left;
+24:     text-indent: 3%;
+25:     width: 100%;
+26:     background-color: $naranja;
+27:     font-size: 14pt !important;
+28:     padding: 3px;
+29:     color:white;
+30:   }
+31: 
 
 Backtrace:
-card-publi.scss:25
+card-publi.scss:26
 C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/script/tree/variable.rb:49:in `_perform'
 C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/script/tree/node.rb:50:in `perform'
 C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/sass-3.5.1/lib/sass/tree/visitors/perform.rb:402:in `visit_prop'
@@ -78,4 +78,4 @@ C:/Ruby24-x64/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$naranja\".\A         on line 25 of card-publi.scss\A \A 20:   }\A 21:   .titulo-publi{\A 22:     text-align: left;\A 23:     text-indent: 3%;\A 24:     width: 100%;\A 25:     background-color: $naranja;\A 26:     font-size: 14pt !important;\A 27:     padding: 3px;\A 28:     color:white;\A 29:   }\A 30: "; }
+  content: "Error: Undefined variable: \"$naranja\".\A         on line 26 of card-publi.scss\A \A 21:   }\A 22:   .titulo-publi{\A 23:     text-align: left;\A 24:     text-indent: 3%;\A 25:     width: 100%;\A 26:     background-color: $naranja;\A 27:     font-size: 14pt !important;\A 28:     padding: 3px;\A 29:     color:white;\A 30:   }\A 31: "; }

@@ -8,8 +8,6 @@ import {VistaEntrenador} from "../vista-entrenador/vista-entrenador";
 import {Camera} from "@ionic-native/camera";
 import {MediaCapture,MediaFile} from "@ionic-native/media-capture";
 import {VideoPlayer} from "@ionic-native/video-player";
-import { VideoEditor } from '@ionic-native/video-editor';
-
 /**
  * Generated class for the VistaPublicacion page.
  *
@@ -33,6 +31,7 @@ export class VistaPublicacion {
   video1:any;
   video1Preview:any;
   video2:any;
+
   video2Preview:any;
   entrenador:any;
   likes=0;
@@ -46,8 +45,7 @@ export class VistaPublicacion {
               private camera: Camera,
               public mediaCapture:MediaCapture,
               private videoPlayer:VideoPlayer,
-              public loader:LoadingController,
-              private videoEditor: VideoEditor) {
+              public loader:LoadingController) {
     this.storageRef = firebaseApp.storage().ref();
 
   }
@@ -124,15 +122,15 @@ export class VistaPublicacion {
    this.storageRef.child('/'+keyUser+'/'+keyPubli+'/video-publi/video1.mp4').getDownloadURL()
       .then(url =>{
         this.video1 = url
-        this.videoEditor.createThumbnail(url).then(image=>{
-          this.video1Preview=image;
-        });
+        this.video1Preview='../../assets/imagenes/video1.gif';
         console.log(this.video1);
       })
       .catch(error=>console.log(error));
    this.storageRef.child('/'+keyUser+'/'+keyPubli+'/video-publi/video2.mp4').getDownloadURL()
       .then(url => {
         this.video2 = url
+        this.video2Preview='../../assets/imagenes/video1.gif';
+
         console.log(this.video2);
       })
       .catch(error=>console.log(error));
@@ -378,6 +376,8 @@ export class VistaPublicacion {
   playVideo(id){
     if(id==1){
       this.videoPlayer.play(this.video1);
+    } if(id==2){
+      this.videoPlayer.play(this.video2);
     }
   }
 

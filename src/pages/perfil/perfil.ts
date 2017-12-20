@@ -82,6 +82,12 @@ export class Perfil {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Perfil');
+
+  }
+  userToTrainer(){
+    alert("Funcion no disponible");
+  }
+  ionViewDidEnter(){
     this.af.list('usuarios/'+localStorage.getItem('user_uid')).forEach(data=> {
       data.forEach(item => {
         if (item.$key == 'rol') {
@@ -99,15 +105,11 @@ export class Perfil {
     if(this.userKey!=""){
       this.crearPerfil();
 
-    }
-  }
-  userToTrainer(){
-    alert("Funcion no disponible");
-  }
-  ionViewDidEnter(){
+
     this.storageRef.child('/'+this.userKey+'/foto-perfil/perfil.jpg').getDownloadURL()
       .then(url => this.fotoPerfil = url)
       .catch(error=>console.log(error));
+    }
     this.storageRef.child('trainer.png').getDownloadURL()
       .then(url => this.logoTrainer = url)
       .catch(error=>console.log(error));
@@ -118,55 +120,58 @@ export class Perfil {
 
   crearPerfil(){
     this.auth.authState.subscribe(auth=>{
-      this.af.list('usuarios/'+auth.uid).forEach(data=>{
-        data.forEach(item=>{
-          if(item.$key=='rol'){
-            if(item.$value=='entrenador'){
-              this.usuarios=this.af.list('entrenadores/');
-              this.isTrainer=true;
-              this.usuarios.forEach(data=>{
+     if(auth!=null){
+       this.af.list('usuarios/'+auth.uid).forEach(data=>{
+         data.forEach(item=>{
+           if(item.$key=='rol'){
+             if(item.$value=='entrenador'){
+               this.usuarios=this.af.list('entrenadores/');
+               this.isTrainer=true;
+               this.usuarios.forEach(data=>{
 
-                data.forEach(item=>{
-                  if(item.$key==auth.uid){
-                    if(item.servicio){
+                 data.forEach(item=>{
+                   if(item.$key==auth.uid){
+                     if(item.servicio){
 
-                      this.hasService=true;
-                    }else{
-                      this.hasService=false;
-                    }
+                       this.hasService=true;
+                     }else{
+                       this.hasService=false;
+                     }
 
 
-                    this.fechaNacimiento=item.fechaNacimiento;
-                    this.formacion=item.formacion ;
-                    if(this.formacion){
-                      this.tamanoFormacion=this.formacion.length;
-                    }else{
-                      this.tamanoFormacion=0;
-                    }
-                    this.experiencia=item.experiencia;
-                    if(this.experiencia){
-                      this.tamanoExperiencia=this.experiencia.length;
-                    }
-                    else{
-                      this.tamanoExperiencia=0;
-                    }
-                  }
-                })
-              })
-            }else{
-              this.usuarios=this.af.list('usuarios/');
-              this.isTrainer=false;
-              this.usuarios.forEach(data=>{
-                data.forEach(item=>{
-                  if(item.$key==auth.uid){
-                    this.fechaNacimiento=item.fechaNacimiento;
-                  }
-                })
-              })
-            }
-          }
-        })
-      })
+                     this.fechaNacimiento=item.fechaNacimiento;
+                     this.formacion=item.formacion ;
+                     if(this.formacion){
+                       this.tamanoFormacion=this.formacion.length;
+                     }else{
+                       this.tamanoFormacion=0;
+                     }
+                     this.experiencia=item.experiencia;
+                     if(this.experiencia){
+                       this.tamanoExperiencia=this.experiencia.length;
+                     }
+                     else{
+                       this.tamanoExperiencia=0;
+                     }
+                   }
+                 })
+               })
+             }else{
+               this.usuarios=this.af.list('usuarios/');
+               this.isTrainer=false;
+               this.usuarios.forEach(data=>{
+                 data.forEach(item=>{
+                   if(item.$key==auth.uid){
+                     this.fechaNacimiento=item.fechaNacimiento;
+                   }
+                 })
+               })
+             }
+           }
+         })
+       })
+     }
+
 
     })
   }

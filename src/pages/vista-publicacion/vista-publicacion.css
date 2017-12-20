@@ -52,6 +52,8 @@ page-vista-publicacion #slides .icon {
   background-color: #FF3D00;
   padding: 10px;
   border-radius: 50%; }
+page-vista-publicacion .swiper-slide img {
+  height: 300px !important; }
 page-vista-publicacion #seccion-descripcion {
   background-color: white;
   padding: 3px;

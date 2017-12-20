@@ -31,7 +31,7 @@
 
       </ion-slide>
       <ion-slide *ngIf="video2">
-        <video [src]=video2 controls ></video><ion-icon (click)="editarVideo('video2')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon>
+        <img (click)="playVideo(2)" [src]=video2Preview><ion-icon (click)="editarVideo('video2')" *ngIf="datosPublicacion.userKey==currentUser" name="create"></ion-icon>
       </ion-slide>
 
 

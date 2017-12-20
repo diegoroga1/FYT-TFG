@@ -7,7 +7,6 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import {FirebaseApp} from 'angularfire2';
 import * as firebase from 'firebase';
 import { VideoPlayer,VideoOptions } from '@ionic-native/video-player';
-import { VideoEditor } from '@ionic-native/video-editor';
 
 declare var window:any;
 /**
@@ -57,8 +56,7 @@ export class CrearPublicacion {
               public navParams: NavParams,
               public camera:Camera,
               public mediaCapture:MediaCapture,
-              private videoPlayer:VideoPlayer,
-              private videoEditor: VideoEditor) {
+              private videoPlayer:VideoPlayer) {
 
     this.storageRef = firebaseApp.storage().ref();
     this.userKey=localStorage.getItem('user_uid');
