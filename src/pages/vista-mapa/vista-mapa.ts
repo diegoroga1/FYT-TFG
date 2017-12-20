@@ -56,117 +56,86 @@ export class VistaMapa {
     this.auto.addListener('place_changed', (data=> {
       this.localidad=this.auto.getPlace()
     }))
-   // this.getCurrentPosition();
 
   }
   ionViewDidEnter(){
     this.userKey=this.navParams.data;
+    console.log("USERKEY"+this.userKey);
     this.af.object('entrenadores/'+this.userKey+'/servicio/lugares').forEach(lugares=>{
+      console.log("LUGARES"+lugares);
       if(lugares.$value!=null){
         this.lugaresEntrenador.push(lugares);
+        console.log('Array lugares '+ this.lugaresEntrenador);
         lugares.forEach(item=>{
-          this.coordenadas.push(item.coords);
-
+          this.coordenadas.push(item);
+          console.log('item ' + item);
         })
       }
 
     });
-  //  this.getCurrentPosition();
     if(localStorage.getItem('lugares')){
       this.lugares=JSON.parse(localStorage["lugares"])
     }  }
 
   setMarkers(){
     this.coordenadas.forEach(coord=>{
-      let latLng = new google.maps.LatLng(coord.lat, coord.lng);
-      let marker=new google.maps.Marker({
-        map:this.map,
-        animation:google.maps.Animation.BOUNCE,
-        position:latLng,
-        icon: '../../assets/icon/mancuerna.png',
+      let latLng = new google.maps.LatLng(coord.coords.lat, coord.coords.lng);
+      this.map.addMarker({
+        animation:'BOUNCE',
+        position:{lat:coord.coords.lat,lng: coord.coords.lng},
+        title:coord.nombre,
+        icon: 'blue',
       })
-      marker.setMap(this.map);
     })
 
   }
-  getCurrentPosition(){
+  getPosition(): void{
+    this.map.getMyLocation()
+      .then(response => {
+        console.log(JSON.stringify(response));
+        this.map.moveCamera({
+          target: response.latLng
+        });
 
-    this.geolocation.getCurrentPosition()
-      .then((position) => {
-        this.myPosition = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
+        this.map.addMarker({
+          title: 'Mi posición',
+          icon: 'red',
+          animation: 'DROP',
+          position: response.latLng
+        });
+        this.myPosition={
+          lat:response.latLng.lat,
+          long:response.latLng.lng
         }
-        this.loadMap();
-      }).catch(err=>console.log("ERROR"+JSON.stringify(err)));
-
-
+      }).then(marker=>{
+      this.map.setCameraZoom(12)
+    })
+      .catch(error =>{
+        console.log(JSON.stringify("ERROR1 "+ error));
+      });
   }
   loadMap(){
     let element=this.mapElement.nativeElement;
-
-    //this.mapElement=document.getElementById('mapa');
-    let mapOptions: GoogleMapOptions = {
-      camera: {
-        target: {
-          lat: 43.0741904, // default location
-          lng: -89.3809802 // default location
-        },
-        zoom: 18,
-        tilt: 30
-      }
-    };
 
     this.map = GoogleMaps.create(element);
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
         // Now you can use all methods safely.
-        //this.getPosition();
-
+        this.getPosition();
         console.log("MAP READY")
-        this.map.addMarker({
-          title: 'Ionic',
-          icon: 'blue',
-          animation: 'DROP',
-          position: {
-            lat: 43.0741904,
-            lng: -89.3809802
-          }
+        this.setMarkers()
 
-        })
-          .then(marker => {
-            marker.on(GoogleMapsEvent.MARKER_CLICK)
-              .subscribe(() => {
-                alert('clicked');
-              });
-          });
       })
+
       .catch(error =>{
         console.log("ERROR2 "+JSON.stringify(error) );
       });
-    /*let latLng = new google.maps.LatLng(this.myPosition.latitude, this.myPosition.longitude);
-    let mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.Satellite,
-      fullscreenControl: true,
-    }
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-    this.addMiUbicacion();
-    this.setMarkers();*/
 
   }
-  addMiUbicacion(){
-    this.markers = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: new google.maps.LatLng(this.myPosition.latitude, this.myPosition.longitude),
-    });
-    let content = "<h4>Information!</h4>";
-  }
+
   addMarker(){
-      this.createMarker(this.localidad.geometry.location);
+    console.log(this.localidad);
+      this.createMarker(this.localidad.geometry.location,this.localidad.name);
       this.localidad.address_components.forEach(data=>{
         data.types.forEach(tipo=>{
           if(tipo=="locality"){
@@ -177,19 +146,13 @@ export class VistaMapa {
 
   }
 
-  createMarker(pos){
-    let marker=new google.maps.Marker({
-      map:this.map,
-      animation:google.maps.Animation.BOUNCE,
-      position:pos
+  createMarker(pos,name){
+    this.map.addMarker({
+      animation:'BOUNCE',
+      position:pos,
+      icon:'blue',
+      title:name
     })
-    let mapOptions={
-      center:pos,
-      zoom:15
-    }
-    this.map.setOptions(mapOptions)
-
-    marker.setMap(this.map);
 
   }
   guardarLugares(){

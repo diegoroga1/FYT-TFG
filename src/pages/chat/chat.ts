@@ -21,8 +21,15 @@ export class Chat {
   storageRef:any;
   logoCara:any;
   logoChat:any;
+  nombreChat:any;
+  activo=false;
   constructor(public navCtrl: NavController, public navParams: NavParams,@Inject(FirebaseApp) firebaseApp: firebase.app.App,
   ) {
+    this.nombreChat=this.navParams.get('nombre');
+    console.log(this.nombreChat);
+    if(this.nombreChat!=undefined){
+      this.activo=true;
+    }
     this.storageRef = firebaseApp.storage().ref();
 
   }

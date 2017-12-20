@@ -10,6 +10,7 @@ import {FirebaseApp} from 'angularfire2';
 import * as firebase from 'firebase';
 import {NuevaValoracionPage} from "../nueva-valoracion/nueva-valoracion";
 import {DetallesMapaPage} from "../detalles-mapa/detalles-mapa";
+import {Chat} from "../chat/chat";
 import * as _ from 'lodash';
 
 /**
@@ -345,6 +346,11 @@ export class VistaEntrenador {
 
 
 
+
+  }
+  irAlChat(nombre){
+    console.log(nombre);
+    this.navCtrl.setRoot(Chat,{'nombre':nombre});
   }
 
 }

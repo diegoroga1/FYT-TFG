@@ -19,21 +19,17 @@ export class MyApp {
   rootPage:any = Tabs;
   constructor(platform: Platform,statusBar: StatusBar, public splashScreen: SplashScreen) {
     platform.ready().then(() => {
-      this.hideSplashScreen();
+      setTimeout(() => {
+        splashScreen.hide();
+      }, 100);
 
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();
+
     });
   }
-  hideSplashScreen(){
-    if (this.splashScreen) {
-      setTimeout(() => {
-        this.splashScreen.hide();
-      }, 100);
-    }
-  }
+
 
 }
 

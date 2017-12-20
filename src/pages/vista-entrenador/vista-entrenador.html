@@ -91,6 +91,7 @@
               Ver lugares en el mapa
             </button>
           </ion-buttons>
+
           <!--<p>A domicilio: <strong>{{datosEntrenador.lugarEntrenamiento.domicilio}}</strong></p>
           <p>Lugares:<strong>{{datosEntrenador.lugarEntrenamiento.lugar}}</strong> </p>-->
         </div>
@@ -190,7 +191,7 @@
           <h2 style="text-align: center">Tarifas y servicios</h2>
           <ion-row id="precios">
 
-            <ion-card *ngFor="let tarifa of datosEntrenador.servicio.tarifas;let i=index;" col col-6>
+            <ion-card (click)="irAlChat(datosEntrenador.nombre)" *ngFor="let tarifa of datosEntrenador.servicio.tarifas;let i=index;" col col-6>
               <ion-card-header>
                 <ion-card-title>{{tarifa.nombre}}</ion-card-title>
               </ion-card-header>

@@ -7,7 +7,8 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Mis chats</ion-title>
+    <ion-title *ngIf="!activo">Mis chats</ion-title>
+    <ion-title *ngIf="activo">Chat con {{nombreChat}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -28,5 +29,33 @@
       </div>
     </div>
 
+  </div>
+  <div *ngIf="user&&!activo">
+    <p style="font-size: 22pt;
+    text-align: center;">No tienes chats</p>
+  </div>
+  <div *ngIf="user&&activo">
+
+
+  <ol class="chat">
+
+    <div class="day">Hoy</div>
+    <li class="self">
+      <div class="msg">
+        <p>Buenas, estoy interesado en su servicio. Me gustaría hablar con usted.</p>
+        <time>18:00</time>
+
+      </div>
+    </li>
+    <li class="other">
+      <div class="msg">
+        <p>Buenas tardes.</p>
+        <p>Muchas gracias por su interés. ¿Qué es lo que desea saber?</p>
+        <time>18:10</time>
+      </div>
+    </li>
+
+  </ol>
+  <input class="textarea" type="text" placeholder="Escribe tu mensaje"/>
   </div>
 </ion-content>

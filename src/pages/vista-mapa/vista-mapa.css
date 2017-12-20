@@ -12,7 +12,7 @@ page-vista-mapa .back-button-icon {
   border-radius: 50%; }
 page-vista-mapa #input-mapa {
   position: fixed;
-  top: 10%;
+  top: 5%;
   width: 100%;
   /* left: 0; */
   z-index: 999; }

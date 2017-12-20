@@ -45,10 +45,9 @@ input:any;
   }
   ngOnInit(){
 
-
     if(this.lugares){
       this.lugares.forEach(item=>{
-        this.coordenadas.push(item.coords);
+        this.coordenadas.push(item);
 
       })
     }
@@ -60,17 +59,7 @@ input:any;
   ngAfterViewInit(){
     this.loadMap()
   }
-  ngAfterContentInit(){
 
-    if(this.lugares){
-      this.lugares.forEach(item=>{
-        this.coordenadas.push(item.coords);
-
-      })
-    }
-
-    //this.getCurrentPosition();
-  }
   getPosition(): void{
     this.map.getMyLocation()
       .then(response => {
@@ -80,8 +69,8 @@ input:any;
         });
 
         this.map.addMarker({
-          title: 'My Position',
-          icon: 'blue',
+          title: 'Mi posición',
+          icon: 'red',
           animation: 'DROP',
           position: response.latLng
         });
@@ -89,13 +78,13 @@ input:any;
           lat:response.latLng.lat,
           long:response.latLng.lng
         }
-      })
+      }).then(marker=>{
+        this.map.setCameraZoom(12)
+    })
       .catch(error =>{
         console.log(JSON.stringify("ERROR1 "+ error));
       });
   }
-
-
   loadMap(){
   let element=this.mapElement.nativeElement;
 
@@ -103,59 +92,35 @@ input:any;
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
         // Now you can use all methods safely.
-       // this.getPosition();
+        this.getPosition();
         console.log("MAP READY")
-        this.map.addMarker({
-          title: 'Ionic',
-          icon: 'blue',
-          animation: 'DROP',
-          center:this.myPosition,
-          position: {
-            lat: -122.0840,
-            lng: 37.4220
-          }
+        this.setMarkers()
 
-        })
-          .then(marker => {
-            marker.on(GoogleMapsEvent.MARKER_CLICK)
-              .subscribe(() => {
-                alert('clicked');
-              });
-          });
       })
+
       .catch(error =>{
         console.log("ERROR2 "+JSON.stringify(error) );
       });
-    //this.input=document.getElementById('input');
 
-    //this.autocomplete = new google.maps.places.Autocomplete(this.input);
-    //this.autocomplete.bindTo('bounds', this.map);
-   // this.addMiUbicacion()
-    //this.setMarkers()*/
   }
 
-  addMiUbicacion(){
-
-    this.markers = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: new google.maps.LatLng(this.myPosition.latitude, this.myPosition.longitude),
-    });
-    let content = "<h4>Information!</h4>";
-  }
   setMarkers(){
+    console.log(this.coordenadas);
     this.coordenadas.forEach(coord=>{
-      this.markers = new google.maps.Marker({
-        map: this.map,
-        animation: google.maps.Animation.DROP,
-        icon:'../../assets/icon/mancuerna.png',
-        position: new google.maps.LatLng(coord.lat,coord.lng),
-      });
-      this.markers.setMap(this.map);
+      console.log(coord);
+      this.map.addMarker({
+        title: coord.nombre,
+        animation: 'DROP',
+        center:this.myPosition,
+        icon:'blue',
+        position: {lat:coord.coords.lat,lng:coord.coords.lng},
+
+      })
+
     })
 
   }
-
+/*
   getCoords() {
     // Creamos el objeto geodecoder
    this.geocoder = new google.maps.Geocoder();
@@ -177,12 +142,12 @@ input:any;
         }
       });
     }
-  }
+  }*//*
   addMarker(pos){
     new google.maps.Marker({
       map:this.map,
       animation:google.maps.Animation.DROP,
       position: pos,
     });
-  }
+  }*/
 }
