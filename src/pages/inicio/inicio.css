@@ -24,6 +24,7 @@ page-inicio .scroll-content {
   margin: 0; }
 page-inicio #lista-publicaciones {
   margin-top: 5px;
+  margin-bottom: 100px;
   margin-bottom: 8%;
   background-color: rgba(0, 0, 0, 0.1); }
   page-inicio #lista-publicaciones .toolbar-title {

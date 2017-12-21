@@ -9,13 +9,11 @@
     <div class="Aligner-item Aligner-item--top"></div>
     <img class="logo-splash" src="assets/imagenes/logotipo.png">
 
-
     <div class="Aligner-item Aligner-item--bottom"></div>
   </div>
 </div>
 
 <ion-header>
-
 
   <ion-navbar>
     <ion-title>Inicio</ion-title>
@@ -26,21 +24,55 @@
 <ion-content >
   <ion-searchbar placeholder="Buscar en FYT" [(ngModel)]="busqueda" (ionInput)="getSearch($event)"></ion-searchbar>
   <ion-grid *ngIf="!busqueda">
-    <div id="lista-publicaciones" *ngFor="let publicacion of publicaciones|async">
+    <div id="lista-publicaciones" >
+    <div >
+          <ion-title  *ngIf="pfisicas.length>0"  >Pruebas fisicas</ion-title>
+        <ion-slides   zoom="true" pager="true"   >
+          <ion-slide *ngFor="let p of pfisicas" >
+            <card-publi    [fecha]=p.fechaPublicacion [key]=p.$key [userKey]=p.keyUser [entrenador]=p.entrenador [titulo]=p.titulo [especialidad]=p.especialidad [descripcion]=p.descripcion></card-publi>
+          </ion-slide>
+        </ion-slides >
+      </div>
 
-    <div *ngFor="let especialidad of especialidadConPubli">
-          <ion-title  *ngIf="publicacion.especialidad==especialidad" >{{especialidad}}</ion-title>
-        <ion-slides  *ngIf="publicacion.especialidad==especialidad" zoom="true" pager="true" effect="cube"	  >
-          <ion-slide *ngIf="publicacion.especialidad==especialidad">
-            <card-publi    [fecha]=publicacion.fechaPublicacion [key]=publicacion.$key [userKey]=publicacion.keyUser [entrenador]=publicacion.entrenador [titulo]=publicacion.titulo [especialidad]=publicacion.especialidad [descripcion]=publicacion.descripcion></card-publi>
+    <div >
+          <ion-title  *ngIf="pilates.length>0"  >Pilates</ion-title>
+        <ion-slides   zoom="true" pager="true"	  >
+          <ion-slide *ngFor="let p of pilates" >
+            <card-publi    [fecha]=p.fechaPublicacion [key]=p.$key [userKey]=p.keyUser [entrenador]=p.entrenador [titulo]=p.titulo [especialidad]=p.especialidad [descripcion]=p.descripcion></card-publi>
+          </ion-slide>
+        </ion-slides >
+      </div>
+    <div >
+          <ion-title  *ngIf="epersonal.length>0"  >Entrenamiento personal</ion-title>
+        <ion-slides   zoom="true" pager="true"	  >
+          <ion-slide *ngFor="let p of epersonal" >
+            <card-publi    [fecha]=p.fechaPublicacion [key]=p.$key [userKey]=p.keyUser [entrenador]=p.entrenador [titulo]=p.titulo [especialidad]=p.especialidad [descripcion]=p.descripcion></card-publi>
+          </ion-slide>
+        </ion-slides >
+
+    </div>
+    <div >
+          <ion-title  *ngIf="gap.length>0"  >GAP</ion-title>
+        <ion-slides   zoom="true" pager="true"   >
+          <ion-slide *ngFor="let p of gap" >
+            <card-publi    [fecha]=p.fechaPublicacion [key]=p.$key [userKey]=p.keyUser [entrenador]=p.entrenador [titulo]=p.titulo [especialidad]=p.especialidad [descripcion]=p.descripcion></card-publi>
+          </ion-slide>
+        </ion-slides >
+    </div>
+    <div >
+          <ion-title *ngIf="yoga.length>0"  >Yoga</ion-title>
+        <ion-slides   zoom="true" pager="true"   >
+          <ion-slide *ngFor="let p of yoga" >
+            <card-publi    [fecha]=p.fechaPublicacion [key]=p.$key [userKey]=p.keyUser [entrenador]=p.entrenador [titulo]=p.titulo [especialidad]=p.especialidad [descripcion]=p.descripcion></card-publi>
           </ion-slide>
         </ion-slides >
         </div>
-      </div>
+    </div>
 
 
 
-  </ion-grid>
+</ion-grid>
+
   <ion-grid *ngIf="busqueda">
     <div id="lista-publicaciones-busqueda" *ngFor="let publicacion of busquedaArray">
 

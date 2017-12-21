@@ -28,6 +28,12 @@ export class Inicio {
   busqueda;
   splash = true;
   tabBarElement: any;
+  array=[];
+  pfisicas=[];
+  gap=[];
+  epersonal=[];
+  pilates=[];
+  yoga=[];
 
   constructor(public cogerDatos:CogerDatos,public navCtrl: NavController, public navParams: NavParams,public af:AngularFireDatabase) {
     this.tabBarElement = document.querySelector('.tabbar');
@@ -38,20 +44,24 @@ export class Inicio {
       console.log(this.especialidades);
       this.publicaciones=this.cogerDatos.getPublicacionesTrainer();
       this.publicaciones.forEach(data=>{
-
-        this.especialidades.forEach(item=>{
+        console.log(data);
           data.forEach(data2=>{
 
-            if(item.$key === data2.especialidad){
-              console.log("incluye");
-              if(this.especialidadConPubli.indexOf(item.$key)){
-                this.especialidadConPubli.push(item.$key);
-                console.log(this.especialidadConPubli)
-              }
+            if('Pruebas fisicas' === data2.especialidad){
+              console.log(data2);
+              this.pfisicas.push(data2);
 
+            }else if('Yoga'==data2.especialidad){
+              this.yoga.push(data2)
+            }else if('Pilates'==data2.especialidad){
+              this.pilates.push(data2)
+            }else if('Entrenamiento personal'==data2.especialidad){
+              this.epersonal.push(data2)
+            }else if('GAP'==data2.especialidad){
+              this.gap.push(data2)
             }
           })
-        })
+
       })
   });
   }
