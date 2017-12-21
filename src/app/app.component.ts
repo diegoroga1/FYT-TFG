@@ -17,12 +17,21 @@ export class MyApp {
   @ViewChild('content') navCtrl: NavController;
 
   rootPage:any = Tabs;
-  constructor(platform: Platform,statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(platform: Platform,statusBar: StatusBar, public splashScreen: SplashScreen,public keyboard:Keyboard) {
     platform.ready().then(() => {
       setTimeout(() => {
         splashScreen.hide();
       }, 100);
+      this.keyboard.onKeyboardShow().subscribe(()=>{
+        let tab=document.getElementsByClassName('tabbar')
+        tab[0].classList.remove('show-tabbar')
 
+      })
+      this.keyboard.onKeyboardHide().subscribe(()=>{
+        let tab=document.getElementsByClassName('tabbar')
+        tab[0].classList.add('show-tabbar')
+
+      })
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();

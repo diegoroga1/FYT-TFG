@@ -62,8 +62,9 @@ export class VistaMapa {
     this.userKey=this.navParams.data;
     console.log("USERKEY"+this.userKey);
     this.af.object('entrenadores/'+this.userKey+'/servicio/lugares').forEach(lugares=>{
-      console.log("LUGARES"+lugares);
-      if(lugares.$value!=null){
+      console.log(lugares);
+      if(lugares.length>0){
+
         this.lugaresEntrenador.push(lugares);
         console.log('Array lugares '+ this.lugaresEntrenador);
         lugares.forEach(item=>{
